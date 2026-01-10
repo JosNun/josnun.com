@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArrowLink from '../components/ArrowLink.astro';
+import StemDivider from '../components/StemDivider.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('writing', ({ data }) => !data.draft);
+const recentPosts = posts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
+---
+
+<BaseLayout title="Josiah Nunemaker">
+  <main class="max-w-5xl mx-auto px-8 py-20">
+
+    <section class="mb-32 fade-in">
+      <div class="mb-16">
+        <h1 class="text-8xl font-light tracking-tight leading-none mb-6 text-forest">
+          Josiah<br/>Nunemaker
+        </h1>
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-px stem-line"></div>
+          <p class="font-mono text-xs tracking-wider uppercase text-sage">
+            frontend / design
+          </p>
+        </div>
+      </div>
+      <p class="text-2xl font-light leading-relaxed max-w-2xl mb-12 text-sage">
+        Cultivating digital experiences that feel natural and purposeful.
+        I build interfaces where technology and humanity grow together.
+      </p>
+    </section>
+
+    <section class="grid md:grid-cols-2 gap-24 mb-32 fade-in fade-in-delay-1">
+      <div>
+        <h2 class="font-mono text-xs uppercase tracking-wider mb-6 text-moss">
+          Philosophy
+        </h2>
+        <StemDivider width="short" />
+        <div class="space-y-4 text-lg leading-relaxed mt-6 text-sage">
+          <p>
+            The best interfaces are like well-tended gardens—they appear effortless but are the result of careful cultivation and constant refinement.
+          </p>
+          <p>
+            I work at the intersection of technical precision and organic design, building with React, TypeScript, and modern web standards.
+          </p>
+        </div>
+      </div>
+      <div>
+        <h2 class="font-mono text-xs uppercase tracking-wider mb-6 text-moss">
+          Connect
+        </h2>
+        <StemDivider width="short" />
+        <div class="space-y-3 font-mono text-sm mt-6">
+          <ArrowLink href="https://github.com/josnun" text="github.com/josnun" />
+          <ArrowLink href="https://twitter.com/josiahnunemaker" text="@josiahnunemaker" />
+          <ArrowLink href="mailto:hi@josnun.com" text="hi@josnun.com" />
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-32 fade-in fade-in-delay-2">
+      <h2 class="font-mono text-xs uppercase tracking-wider mb-3 text-moss">
+        Current Focus
+      </h2>
+      <StemDivider width="medium" />
+      <div class="grid md:grid-cols-3 gap-8 mt-10">
+        <div class="border-l-2 border-leaf pl-6 py-4 border-grow">
+          <div class="font-mono text-xs mb-3 uppercase tracking-wider text-moss">01</div>
+          <h3 class="font-medium mb-2 text-forest">Design Systems</h3>
+          <p class="text-sm leading-relaxed text-sage">
+            Growing sustainable component ecosystems that scale
+          </p>
+        </div>
+        <div class="border-l-2 border-leaf pl-6 py-4 border-grow">
+          <div class="font-mono text-xs mb-3 uppercase tracking-wider text-moss">02</div>
+          <h3 class="font-medium mb-2 text-forest">Performance</h3>
+          <p class="text-sm leading-relaxed text-sage">
+            Pruning bloat, optimizing for speed and efficiency
+          </p>
+        </div>
+        <div class="border-l-2 border-leaf pl-6 py-4 border-grow">
+          <div class="font-mono text-xs mb-3 uppercase tracking-wider text-moss">03</div>
+          <h3 class="font-medium mb-2 text-forest">Accessibility</h3>
+          <p class="text-sm leading-relaxed text-sage">
+            Ensuring every interface is welcoming to all
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {recentPosts.length > 0 && (
+      <section class="fade-in fade-in-delay-3">
+        <div class="flex justify-between items-center mb-3">
+          <h2 class="font-mono text-xs uppercase tracking-wider text-moss">
+            Recent Writing
+          </h2>
+          <a href="/writing" class="font-mono text-xs hover:opacity-70 transition text-sage">
+            view all →
+          </a>
+        </div>
+        <StemDivider width="long" />
+        <div class="space-y-1 border-l-2 border-leaf mt-10">
+          {recentPosts.map((post) => (
+            <a href={`/writing/${post.slug}/`} class="group block p-8 hover:bg-white transition-colors">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <h3 class="text-2xl font-light mb-1 text-forest">{post.data.title}</h3>
+                  <p class="font-mono text-xs tracking-wider uppercase text-bark">
+                    {post.data.pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </p>
+                </div>
+                <span class="font-mono text-sm opacity-50 group-hover:opacity-100 transition text-sage">→</span>
+              </div>
+              <p class="leading-relaxed text-sage">
+                {post.data.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </main>
+</BaseLayout>

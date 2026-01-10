@@ -1,0 +1,48 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+---
+
+<nav class="sticky top-0 bg-cream z-50" id="main-nav">
+  <div class="max-w-5xl mx-auto px-8 py-5 nav-container">
+    <div class="flex justify-between items-center">
+      <a href="/" class="logo font-mono text-sm tracking-wider text-forest">
+        j<span class="fade">osiah</span>_n<span class="fade">unemaker</span>
+      </a>
+      <div class="flex gap-8 font-mono text-xs tracking-wider nav-links">
+        <a
+          href="/"
+          class="nav-link text-sage"
+          aria-current={currentPath === '/' ? 'page' : undefined}
+        >
+          ./a<span class="fade">bout</span>
+        </a>
+        <a
+          href="/writing"
+          class="nav-link text-sage"
+          aria-current={currentPath.startsWith('/writing') ? 'page' : undefined}
+        >
+          ./w<span class="fade">riting</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById('main-nav');
+
+  const handleScroll = () => {
+    if (window.scrollY > 20) {
+      nav?.classList.add('scrolled');
+    } else {
+      nav?.classList.remove('scrolled');
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+</script>

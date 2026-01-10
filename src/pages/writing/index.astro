@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('writing', ({ data }) => !data.draft);
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Writing - Josiah Nunemaker" description="Thoughts on design, development, and the web.">
+  <main class="max-w-5xl mx-auto px-8 py-20">
+
+    <PageHeader
+      title="Writing"
+      subtitle="Thoughts taking root on design, development, and the web"
+    />
+
+    <div class="space-y-1 border-l-2 border-leaf">
+      {sortedPosts.map((post, index) => (
+        <div class={`fade-in fade-in-delay-${Math.min(index + 1, 5)}`}>
+          <ArticleCard
+            title={post.data.title}
+            date={post.data.pubDate}
+            description={post.data.description}
+            slug={post.slug}
+          />
+        </div>
+      ))}
+    </div>
+
+    {sortedPosts.length === 0 && (
+      <p class="text-lg text-sage fade-in">
+        No posts yet. Check back soon.
+      </p>
+    )}
+
+  </main>
+</BaseLayout>

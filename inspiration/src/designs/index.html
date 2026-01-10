@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Josiah Nunemaker</title>
+  <link rel="stylesheet" href="../../dist/output.css">
+  <style>
+    :root {
+      --forest: #1a3a2e;
+      --sage: #4a6b5c;
+      --moss: #7a9b89;
+      --leaf: #a8c5b8;
+      --cream: #f4f1ea;
+      --bark: #8b7355;
+    }
+    body {
+      background: var(--cream);
+      color: var(--forest);
+    }
+    .leaf-accent {
+      position: relative;
+    }
+    .leaf-accent::before {
+      content: '◆';
+      position: absolute;
+      left: -24px;
+      color: var(--moss);
+      font-size: 12px;
+    }
+    .stem-line {
+      background: var(--moss);
+    }
+    .growth-bar {
+      background: linear-gradient(to right, var(--moss) 0%, transparent 100%);
+    }
+
+    /* Microinteractions */
+    * {
+      transition: all 0.2s ease;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--moss);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .arrow-link {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    .arrow-link:hover {
+      transform: translateX(4px);
+    }
+
+    .border-grow {
+      transition: border-color 0.3s ease, transform 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .border-grow:hover {
+      border-color: var(--moss);
+      transform: translateX(8px);
+      background: var(--cream);
+      z-index: 10;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    main section {
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    main section:nth-child(1) { animation-delay: 0s; }
+    main section:nth-child(2) { animation-delay: 0.1s; }
+    main section:nth-child(3) { animation-delay: 0.2s; }
+    main section:nth-child(4) { animation-delay: 0.3s; }
+
+    /* Scrolled nav state */
+    nav .nav-container {
+      transition: max-width 0.4s ease, padding 0.4s ease;
+    }
+
+    nav.scrolled .nav-container {
+      max-width: 100vw;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+
+    /* Character fade and collapse animation */
+    nav .logo,
+    nav .nav-link {
+      display: inline-flex;
+      align-items: baseline;
+      white-space: nowrap;
+    }
+
+    nav .fade {
+      display: inline-block;
+      vertical-align: baseline;
+      opacity: 1;
+      max-width: 500px;
+      overflow: hidden;
+      transition: opacity 0.4s ease, max-width 0.4s ease;
+    }
+
+    nav.scrolled .fade {
+      opacity: 0;
+      max-width: 0;
+    }
+
+    nav.scrolled .logo {
+      font-size: 0.75rem;
+    }
+
+    nav.scrolled .nav-links {
+      font-size: 0.65rem;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+  <nav class="sticky top-0 bg-cream z-50">
+    <div class="max-w-5xl mx-auto px-8 py-5 nav-container">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="logo font-mono text-sm tracking-wider" style="color: var(--forest)">
+          j<span class="fade">osiah</span>_n<span class="fade">unemaker</span>
+        </a>
+        <div class="flex gap-8 font-mono text-xs tracking-wider nav-links">
+          <a href="index.html" class="nav-link" style="color: var(--sage)">
+            ./a<span class="fade">bout</span>
+          </a>
+          <a href="writing.html" class="nav-link" style="color: var(--sage)">
+            ./w<span class="fade">riting</span>
+          </a>
+          <a href="projects.html" class="nav-link" style="color: var(--sage)">
+            ./p<span class="fade">rojects</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    let lastScrollTop = 0;
+    const nav = document.querySelector('nav');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+
+      lastScrollTop = scrollTop;
+    });
+  </script>
+
+  <main class="max-w-5xl mx-auto px-8 py-20">
+
+    <section class="mb-32">
+      <div class="mb-16">
+        <h1 class="text-8xl font-light tracking-tight leading-none mb-6" style="color: var(--forest)">
+          Josiah<br/>Nunemaker
+        </h1>
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-px stem-line"></div>
+          <p class="font-mono text-xs tracking-wider uppercase" style="color: var(--sage)">
+            frontend / design
+          </p>
+        </div>
+      </div>
+      <p class="text-2xl font-light leading-relaxed max-w-2xl mb-12" style="color: var(--sage)">
+        Cultivating digital experiences that feel natural and purposeful.
+        I build interfaces where technology and humanity grow together.
+      </p>
+    </section>
+
+    <section class="grid md:grid-cols-2 gap-24 mb-32">
+      <div>
+        <h2 class="font-mono text-xs uppercase tracking-wider mb-6" style="color: var(--moss)">
+          Philosophy
+        </h2>
+        <div class="h-px w-8 mb-6 stem-line"></div>
+        <div class="space-y-4 text-lg leading-relaxed" style="color: var(--sage)">
+          <p>
+            The best interfaces are like well-tended gardens—they appear effortless but are the result of careful cultivation and constant refinement.
+          </p>
+          <p>
+            I work at the intersection of technical precision and organic design, building with React, TypeScript, and modern web standards.
+          </p>
+        </div>
+      </div>
+      <div>
+        <h2 class="font-mono text-xs uppercase tracking-wider mb-6" style="color: var(--moss)">
+          Connect
+        </h2>
+        <div class="h-px w-8 mb-6 stem-line"></div>
+        <div class="space-y-3 font-mono text-sm">
+          <a href="#" class="arrow-link" style="color: var(--sage)">
+            → github.com/josnun
+          </a>
+          <a href="#" class="arrow-link" style="color: var(--sage)">
+            → @josiahnunemaker
+          </a>
+          <a href="#" class="arrow-link" style="color: var(--sage)">
+            → hi@josnun.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-32">
+      <h2 class="font-mono text-xs uppercase tracking-wider mb-3" style="color: var(--moss)">
+        Current Focus
+      </h2>
+      <div class="h-px w-16 mb-10 stem-line"></div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="border-l-2 pl-6 py-4 border-grow" style="border-color: var(--leaf);">
+          <div class="font-mono text-xs mb-3 uppercase tracking-wider" style="color: var(--moss)">01</div>
+          <h3 class="font-medium mb-2" style="color: var(--forest)">Design Systems</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--sage)">
+            Growing sustainable component ecosystems that scale
+          </p>
+        </div>
+        <div class="border-l-2 pl-6 py-4 border-grow" style="border-color: var(--leaf);">
+          <div class="font-mono text-xs mb-3 uppercase tracking-wider" style="color: var(--moss)">02</div>
+          <h3 class="font-medium mb-2" style="color: var(--forest)">Performance</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--sage)">
+            Pruning bloat, optimizing for speed and efficiency
+          </p>
+        </div>
+        <div class="border-l-2 pl-6 py-4 border-grow" style="border-color: var(--leaf);">
+          <div class="font-mono text-xs mb-3 uppercase tracking-wider" style="color: var(--moss)">03</div>
+          <h3 class="font-medium mb-2" style="color: var(--forest)">Accessibility</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--sage)">
+            Ensuring every interface is welcoming to all
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-mono text-xs uppercase tracking-wider" style="color: var(--moss)">
+          Selected Work
+        </h2>
+        <a href="projects.html" class="font-mono text-xs hover:opacity-70 transition" style="color: var(--sage)">
+          view all →
+        </a>
+      </div>
+      <div class="h-px w-24 mb-10 stem-line"></div>
+      <div class="space-y-1 border-l-2" style="border-color: var(--leaf);">
+        <a href="projects.html" class="group block p-8 hover:bg-white transition-colors">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h3 class="text-2xl font-light mb-1" style="color: var(--forest)">Design System 2.0</h3>
+              <p class="font-mono text-xs tracking-wider uppercase" style="color: var(--bark)">Component Library — 2025</p>
+            </div>
+            <span class="font-mono text-sm opacity-50 group-hover:opacity-100 transition" style="color: var(--sage)">→</span>
+          </div>
+          <p class="leading-relaxed" style="color: var(--sage)">
+            50+ components cultivated for 12 products. Built with React, TypeScript, and care.
+          </p>
+        </a>
+        <a href="projects.html" class="group block p-8 hover:bg-white transition-colors">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h3 class="text-2xl font-light mb-1" style="color: var(--forest)">Performance Dashboard</h3>
+              <p class="font-mono text-xs tracking-wider uppercase" style="color: var(--bark)">Analytics — 2025</p>
+            </div>
+            <span class="font-mono text-sm opacity-50 group-hover:opacity-100 transition" style="color: var(--sage)">→</span>
+          </div>
+          <p class="leading-relaxed" style="color: var(--sage)">
+            Real-time insights growing from 10M+ daily events. Fast, reliable, beautiful.
+          </p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t py-12 mt-32" style="border-color: var(--leaf)">
+    <div class="max-w-5xl mx-auto px-8">
+      <p class="font-mono text-xs tracking-wider" style="color: var(--moss)">
+        © 2026 — grown with care
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

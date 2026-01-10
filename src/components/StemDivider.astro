@@ -1,0 +1,16 @@
+---
+interface Props {
+  width?: 'short' | 'medium' | 'long' | 'full';
+}
+
+const { width = 'short' } = Astro.props;
+
+const widthClasses = {
+  short: 'w-8',
+  medium: 'w-16',
+  long: 'w-24',
+  full: 'w-full',
+};
+---
+
+<div class={`h-px stem-line ${widthClasses[width]}`}></div>
