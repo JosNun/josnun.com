@@ -173,7 +173,38 @@ nav.scrolled .nav-links {
   gap: 1rem;
 }
 
+/* Narrow screens: render the abbreviated ("scrolled") form by default
+   to keep the nav legible when the full text would overflow. */
+@media (max-width: 480px) {
+  nav .fade {
+    opacity: 0;
+    max-width: 0;
+  }
+  nav .logo {
+    font-size: 0.75rem;
+  }
+  nav .nav-links {
+    font-size: 0.65rem;
+    gap: 1rem;
+  }
+}
+
 /* Stem line utility */
 .stem-line {
   background: var(--moss);
 }
+
+/* Seed entry: whole card is a click target via a stretched link.
+   Only inline links inside the body sit above the stretch, so they
+   remain interactive; all other text falls through to the card link. */
+.seed-entry .seed-stretch {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.seed-entry .seed-body a {
+  position: relative;
+  z-index: 2;
+}
+

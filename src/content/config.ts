@@ -11,6 +11,16 @@ const writingCollection = defineCollection({
   }),
 });
 
+const seedsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string().optional(),
+    pubDate: z.date(),
+    draft: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   writing: writingCollection,
+  seeds: seedsCollection,
 };

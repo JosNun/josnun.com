@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import SeedsList from '../../../components/SeedsList.astro';
+import { getSortedSeeds, SEEDS_PAGE_SIZE } from '../../../utils/seeds';
+
+export async function getStaticPaths() {
+  const sorted = await getSortedSeeds();
+  const lastPage = Math.max(1, Math.ceil(sorted.length / SEEDS_PAGE_SIZE));
+
+  const paths = [];
+  for (let p = 2; p <= lastPage; p++) {
+    const start = (p - 1) * SEEDS_PAGE_SIZE;
+    paths.push({
+      params: { page: String(p) },
+      props: {
+        posts: sorted.slice(start, start + SEEDS_PAGE_SIZE),
+        currentPage: p,
+        lastPage,
+      },
+    });
+  }
+  return paths;
+}
+
+const { posts, currentPage, lastPage } = Astro.props;
+const prevUrl = currentPage === 2 ? '/seeds' : `/seeds/page/${currentPage - 1}`;
+const nextUrl = currentPage < lastPage ? `/seeds/page/${currentPage + 1}` : undefined;
+---
+
+<BaseLayout title={`Seeds (page ${currentPage}) - Josiah Nunemaker`} description="Short thoughts and ideas.">
+  <main class="max-w-5xl mx-auto px-8 py-20">
+
+    <PageHeader
+      title="Seeds"
+      subtitle="Short thoughts, unpolished but cultivated"
+    />
+
+    <SeedsList
+      posts={posts}
+      currentPage={currentPage}
+      lastPage={lastPage}
+      prevUrl={prevUrl}
+      nextUrl={nextUrl}
+    />
+
+  </main>
+</BaseLayout>

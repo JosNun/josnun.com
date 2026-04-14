@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SeedEntry from './SeedEntry.astro';
+
+interface Props {
+  posts: CollectionEntry<'seeds'>[];
+  prevUrl?: string;
+  nextUrl?: string;
+  currentPage: number;
+  lastPage: number;
+}
+
+const { posts, prevUrl, nextUrl, currentPage, lastPage } = Astro.props;
+const showPagination = lastPage > 1;
+---
+
+<div class="space-y-1 border-l-2 border-leaf">
+  {posts.map((post) => (
+    <SeedEntry post={post} />
+  ))}
+</div>
+
+{showPagination && (
+  <nav class="mt-16 flex justify-between items-center font-mono text-xs tracking-wider text-sage" aria-label="Pagination">
+    <div>
+      {prevUrl ? (
+        <a href={prevUrl} class="arrow-link hover:text-forest">← newer</a>
+      ) : (
+        <span class="opacity-30">← newer</span>
+      )}
+    </div>
+    <div class="text-bark">
+      {currentPage} / {lastPage}
+    </div>
+    <div>
+      {nextUrl ? (
+        <a href={nextUrl} class="arrow-link hover:text-forest">older →</a>
+      ) : (
+        <span class="opacity-30">older →</span>
+      )}
+    </div>
+  </nav>
+)}

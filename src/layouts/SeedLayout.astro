@@ -1,0 +1,50 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import StemDivider from '../components/StemDivider.astro';
+import { formatLongDate } from '../utils/formatDate';
+
+interface Props {
+  frontmatter: {
+    title?: string;
+    pubDate: Date;
+  };
+}
+
+const { frontmatter } = Astro.props;
+const formattedDate = formatLongDate(frontmatter.pubDate);
+const pageTitle = frontmatter.title
+  ? `${frontmatter.title} - Josiah Nunemaker`
+  : `${formattedDate} - Seeds`;
+---
+
+<BaseLayout title={pageTitle}>
+  <main class="max-w-2xl mx-auto px-8 py-20">
+    <header class="mb-12 fade-in">
+      {frontmatter.title ? (
+        <>
+          <time class="font-mono text-xs uppercase tracking-wider block mb-4 text-bark">
+            {formattedDate}
+          </time>
+          <h1 class="text-3xl sm:text-4xl font-light tracking-tight mb-6 text-forest">
+            {frontmatter.title}
+          </h1>
+        </>
+      ) : (
+        <h1 class="font-mono text-xs uppercase tracking-wider mb-6 text-bark">
+          <time>{formattedDate}</time>
+        </h1>
+      )}
+      <StemDivider width="short" />
+    </header>
+
+    <article class="prose prose-botanical max-w-none fade-in fade-in-delay-1">
+      <slot />
+    </article>
+
+    <div class="mt-16 pt-8 border-t border-leaf fade-in fade-in-delay-2">
+      <a href="/seeds" class="arrow-link font-mono text-sm text-moss">
+        ← all seeds
+      </a>
+    </div>
+  </main>
+</BaseLayout>

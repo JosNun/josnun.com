@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import SeedsList from '../../components/SeedsList.astro';
+import { getSortedSeeds, SEEDS_PAGE_SIZE } from '../../utils/seeds';
+
+const sorted = await getSortedSeeds();
+const firstPage = sorted.slice(0, SEEDS_PAGE_SIZE);
+const lastPage = Math.max(1, Math.ceil(sorted.length / SEEDS_PAGE_SIZE));
+const nextUrl = lastPage > 1 ? '/seeds/page/2' : undefined;
+---
+
+<BaseLayout title="Seeds - Josiah Nunemaker" description="Short thoughts and ideas.">
+  <main class="max-w-5xl mx-auto px-8 py-20">
+
+    <PageHeader
+      title="Seeds"
+      subtitle="Short thoughts, unpolished but cultivated"
+    />
+
+    {sorted.length === 0 ? (
+      <p class="text-lg text-sage fade-in">
+        No seeds planted yet.
+      </p>
+    ) : (
+      <SeedsList
+        posts={firstPage}
+        currentPage={1}
+        lastPage={lastPage}
+        nextUrl={nextUrl}
+      />
+    )}
+
+  </main>
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatShortDate } from '../utils/formatDate';
+
+interface Props {
+  post: CollectionEntry<'seeds'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const formattedDate = formatShortDate(post.data.pubDate);
+const permalink = `/seeds/${post.slug}/`;
+const linkLabel = post.data.title
+  ? `Permalink: ${post.data.title}`
+  : `Permalink to seed from ${formattedDate}`;
+---
+
+<article id={post.slug} class="group relative p-8 scroll-mt-24 hover:bg-white seed-entry">
+  <time class="font-mono text-xs uppercase tracking-wider block mb-4 text-bark">
+    {formattedDate}
+  </time>
+  {post.data.title && (
+    <h2 class="text-xl font-light mb-3 text-forest">
+      {post.data.title}
+    </h2>
+  )}
+  <div class="prose prose-botanical max-w-none seed-body">
+    <Content />
+  </div>
+  <a href={permalink} class="seed-stretch">
+    <span class="sr-only">{linkLabel}</span>
+  </a>
+</article>
