@@ -14,9 +14,9 @@ const { currentPath = '/' } = Astro.props;
       </a>
       <div class="flex gap-8 font-mono text-xs tracking-wider nav-links">
         <a
-          href="/"
+          href="/about"
           class="nav-link text-sage"
-          aria-current={currentPath === '/' ? 'page' : undefined}
+          aria-current={currentPath.startsWith('/about') ? 'page' : undefined}
         >
           ./a<span class="fade">bout</span>
         </a>

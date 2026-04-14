@@ -16,9 +16,20 @@ body {
   color: var(--forest);
 }
 
-/* Microinteractions - subtle default transition */
+/* Microinteractions - scoped to common interactive properties
+   to avoid transitioning layout/transform on every element. */
 * {
-  transition: all 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 2px;
+  border-radius: 1px;
 }
 
 /* Nav link underline animation */
@@ -129,6 +140,14 @@ nav .nav-link {
   display: inline-flex;
   align-items: baseline;
   white-space: nowrap;
+}
+
+nav .logo {
+  transition: font-size 0.4s ease;
+}
+
+nav .nav-links {
+  transition: font-size 0.4s ease, gap 0.4s ease;
 }
 
 nav .fade {

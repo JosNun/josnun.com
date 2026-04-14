@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ArrowLink from '../components/ArrowLink.astro';
+---
+
+<BaseLayout title="About - Josiah Nunemaker" description="About Josiah Nunemaker.">
+  <main class="max-w-5xl mx-auto px-8 py-20">
+
+    <PageHeader
+      title="About"
+      subtitle="A short note on who I am and how I work"
+    />
+
+    <section class="max-w-2xl space-y-6 text-lg font-light leading-relaxed text-sage fade-in fade-in-delay-1">
+      <p>
+        I'm a frontend developer and designer focused on building interfaces
+        that feel calm, legible, and a little alive.
+      </p>
+      <p>
+        More here soon — for now, the best place to find me is below.
+      </p>
+    </section>
+
+    <section class="mt-20 fade-in fade-in-delay-2">
+      <h2 class="font-mono text-xs uppercase tracking-wider mb-6 text-moss">
+        Elsewhere
+      </h2>
+      <div class="h-px w-8 mb-6 stem-line"></div>
+      <div class="space-y-3 font-mono text-sm">
+        <ArrowLink href="https://github.com/josnun" text="github.com/josnun" />
+        <ArrowLink href="mailto:hi@josnun.com" text="hi@josnun.com" />
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
