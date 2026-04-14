@@ -3,13 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ArrowLink from '../components/ArrowLink.astro';
 import StemDivider from '../components/StemDivider.astro';
 import FocusCard from '../components/FocusCard.astro';
+import SeedEntry from '../components/SeedEntry.astro';
 import { formatMonthYear } from '../utils/formatDate';
+import { getSortedSeeds } from '../utils/seeds';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('writing', ({ data }) => !data.draft);
 const recentPosts = posts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 2);
+
+const recentSeeds = (await getSortedSeeds()).slice(0, 2);
 ---
 
 <BaseLayout title="Josiah Nunemaker">
@@ -96,7 +100,7 @@ const recentPosts = posts
           </a>
         </div>
         <StemDivider width="long" />
-        <div class="space-y-1 border-l-2 border-leaf mt-10">
+        <div class="space-y-4 border-l-2 border-leaf mt-10">
           {recentPosts.map((post) => (
             <a href={`/writing/${post.slug}/`} class="group block p-8 hover:bg-white transition-colors">
               <div class="flex justify-between items-start mb-2">
@@ -113,6 +117,23 @@ const recentPosts = posts
               </p>
             </a>
           ))}
+        </div>
+      </section>
+    )}
+
+    {recentSeeds.length > 0 && (
+      <section class="mt-32 fade-in fade-in-delay-4">
+        <div class="flex justify-between items-center mb-3">
+          <h2 class="font-mono text-xs uppercase tracking-wider text-moss">
+            Recent Seeds
+          </h2>
+          <a href="/seeds" class="font-mono text-xs hover:opacity-70 transition text-sage">
+            view all →
+          </a>
+        </div>
+        <StemDivider width="long" />
+        <div class="space-y-4 border-l-2 border-leaf mt-10">
+          {recentSeeds.map((post) => <SeedEntry post={post} />)}
         </div>
       </section>
     )}

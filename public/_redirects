@@ -1,0 +1,5 @@
+/posts/*            /writing/:splat    301
+/about/person       /about             301
+/about/developer    /about             301
+/contact            /about             301
+/tags               /writing           301
