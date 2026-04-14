@@ -12,14 +12,14 @@ const { title, date, description, slug } = Astro.props;
 const formattedDate = formatMonthYear(date);
 ---
 
-<a href={`/writing/${slug}/`} class="group block p-8 hover:bg-white article-hover">
-  <time class="font-mono text-xs uppercase tracking-wider block mb-4 text-bark">
+<a href={`/writing/${slug}/`} class="group block p-10 hover:bg-white article-hover">
+  <time class="font-mono text-xs uppercase tracking-wider block mb-6 text-bark">
     {formattedDate}
   </time>
-  <h2 class="text-3xl font-light mb-4 group-hover:opacity-70 transition text-forest">
+  <h2 class="text-3xl font-light mb-6 group-hover:opacity-70 transition text-forest">
     {title}
   </h2>
-  <p class="text-lg leading-relaxed mb-6 text-sage">
+  <p class="text-lg leading-relaxed mb-8 text-sage">
     {description}
   </p>
   <span class="font-mono text-sm arrow-link text-moss">

@@ -34,8 +34,8 @@ export default {
               },
             },
             'code': {
-              backgroundColor: '#f4f1ea',
-              padding: '0.125rem 0.25rem',
+              backgroundColor: '#e8e2d4',
+              padding: '0.125rem 0.375rem',
               borderRadius: '0',
               fontWeight: '400',
             },
@@ -44,6 +44,16 @@ export default {
             },
             'code::after': {
               content: '""',
+            },
+            'pre': {
+              padding: '1.5rem',
+              borderRadius: '0',
+              border: '1px solid #a8c5b8',
+            },
+            'pre code': {
+              backgroundColor: 'transparent',
+              padding: '0',
+              fontWeight: '400',
             },
           },
         },

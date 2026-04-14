@@ -6,6 +6,11 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://josnun.com',
   output: 'static',
+  markdown: {
+    shikiConfig: {
+      theme: 'solarized-light',
+    },
+  },
   integrations: [
     mdx(),
     sitemap(),
