@@ -194,6 +194,20 @@ nav.scrolled .nav-links {
   background: var(--moss);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-in {
+    opacity: 1;
+  }
+}
+
 /* Seed entry: whole card is a click target via a stretched link.
    Only inline links inside the body sit above the stretch, so they
    remain interactive; all other text falls through to the card link. */

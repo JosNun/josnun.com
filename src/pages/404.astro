@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<BaseLayout title="Not found - Josiah Nunemaker" description="This page isn't growing here.">
+  <main class="max-w-5xl mx-auto px-8 py-20">
+    <PageHeader
+      title="404"
+      subtitle="This page isn't growing here"
+    />
+    <div class="fade-in fade-in-delay-1">
+      <a href="/" class="arrow-link font-mono text-sm text-moss">
+        ← back home
+      </a>
+    </div>
+  </main>
+</BaseLayout>

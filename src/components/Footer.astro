@@ -3,9 +3,13 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-leaf py-12 mt-32">
-  <div class="max-w-5xl mx-auto px-8">
+  <div class="max-w-5xl mx-auto px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <p class="font-mono text-xs tracking-wider text-moss">
       © {year} — grown with care
     </p>
+    <nav class="flex gap-6 font-mono text-xs tracking-wider" aria-label="Feeds">
+      <a href="/rss.xml" class="text-sage hover:text-forest">rss / writing</a>
+      <a href="/rss-seeds.xml" class="text-sage hover:text-forest">rss / seeds</a>
+    </nav>
   </div>
 </footer>
