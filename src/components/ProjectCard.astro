@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Tag from './Tag.astro';
+import Button from './Button.astro';
+
+interface Props {
+  title: string;
+  category?: string;
+  year?: number | string;
+  description: string;
+  tags?: string[];
+  liveUrl?: string;
+  repoUrl?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  archived?: boolean;
+}
+
+const {
+  title,
+  category,
+  year,
+  description,
+  tags = [],
+  liveUrl,
+  repoUrl,
+  image,
+  imageAlt,
+  archived,
+} = Astro.props;
+
+const meta = [category, year].filter(Boolean).join(' — ');
+const primaryUrl = archived ? undefined : liveUrl ?? repoUrl;
+const primaryLabel = liveUrl ? 'view' : 'repo';
+const showSourceLink = (!archived && liveUrl && repoUrl) || (archived && repoUrl);
+---
+
+<article class="p-12 article-hover hover:bg-white">
+  <div class={image ? 'md:flex md:items-start md:gap-10' : ''}>
+    {image && (
+      <div class="md:w-64 md:shrink-0 mb-6 md:mb-0">
+        <Image
+          src={image}
+          alt={imageAlt ?? title}
+          widths={[256, 512]}
+          sizes="(min-width: 768px) 256px, 100vw"
+          class="w-full"
+        />
+      </div>
+    )}
+
+    <div class="min-w-0 flex-1">
+      <header class="flex justify-between items-start gap-6 mb-6">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-light text-forest mb-3">{title}</h2>
+          {meta && (
+            <p class="font-mono text-xs uppercase tracking-wider text-bark">
+              {meta}
+            </p>
+          )}
+        </div>
+        {archived ? (
+          <span class="shrink-0 font-mono text-xs uppercase tracking-wider text-bark">
+            archived
+          </span>
+        ) : primaryUrl && (
+          <Button href={primaryUrl} external class="shrink-0">
+            {primaryLabel} →
+          </Button>
+        )}
+      </header>
+
+      <p class="text-lg leading-relaxed mb-8 text-sage max-w-2xl">
+        {description}
+      </p>
+
+      {(tags.length > 0 || showSourceLink) && (
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => <Tag>{tag}</Tag>)}
+          </div>
+          {showSourceLink && (
+            <a
+              href={repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="arrow-link font-mono text-xs tracking-wider text-moss"
+            >
+              source →
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</article>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+import prayershareImg from '../assets/projects/prayershare.png';
+import sitantImg from '../assets/projects/sitant.png';
+import bibleImg from '../assets/projects/bible.png';
+import codenamesImg from '../assets/projects/codenames.png';
+import ascendImg from '../assets/projects/ascend.png';
+
+const projects = [
+  {
+    title: 'PrayerShare',
+    category: 'Web App',
+    description:
+      'A pseudo-anonymous prayer request sharing platform. Users are able to follow their friends, and see when a request is made, but the poster will remain anonymous.',
+    tags: ['React'],
+    image: prayershareImg,
+    archived: true,
+  },
+  {
+    title: 'Sitant',
+    category: 'Chrome Extension',
+    description:
+      'A minimal, yet incredibly functional new tab replacement. It provides a quick place to jot down notes, todos, or tasks without a bunch of additional fluff.',
+    tags: ['Chrome Extension', 'React'],
+    image: sitantImg,
+    liveUrl:
+      'https://chromewebstore.google.com/detail/sitant-simple-tasks-in-ne/koggochfeennbhkkjmbpbhfhociingae',
+    repoUrl: 'https://github.com/JosNun/sitant',
+  },
+  {
+    title: 'Night Mode Bible',
+    category: 'Chrome Extension',
+    description:
+      'A Chrome extension to make Bible.com easier on your eyes at night. It provides a toggleable dark mode.',
+    tags: ['Chrome Extension', 'CSS'],
+    image: bibleImg,
+    liveUrl:
+      'https://chromewebstore.google.com/detail/night-mode-bible/ebiieffikaglhelcnogmmijmlejdhngk',
+    repoUrl: 'https://github.com/JosNun/night-mode-bible',
+  },
+  {
+    title: 'Parabox',
+    category: 'Library',
+    description:
+      'An easy-to-use parallax library built on top of CSS3 transforms. Available for use both in-browser and with modern build systems.',
+    tags: ['JavaScript', 'CSS'],
+    liveUrl: 'https://codepen.io/FracturedLoop/full/VBXpbj/',
+    repoUrl: 'https://github.com/JosNun/parabox.js',
+  },
+  {
+    title: 'Codenames',
+    category: 'Game',
+    description:
+      'A digital version of the board game enabling real-time multiplayer gameplay from any device. The real-time communication runs on WebSockets and is powered by Socket.io.',
+    tags: ['Node.js', 'Socket.io', 'WebSockets'],
+    image: codenamesImg,
+    repoUrl: 'https://github.com/JosNun/codenames',
+    archived: true,
+  },
+  {
+    title: 'Ascend Performance',
+    category: 'Practice Site',
+    description:
+      'A fictitious company website project used to practice design skills and experiment with new technologies like Styled Components.',
+    tags: ['React', 'Styled Components'],
+    image: ascendImg,
+    repoUrl: 'https://github.com/JosNun/ascend-performance',
+    archived: true,
+  },
+];
+---
+
+<BaseLayout title="Projects - Josiah Nunemaker" description="Selected work by Josiah Nunemaker.">
+  <main class="max-w-5xl mx-auto px-8 py-20">
+
+    <PageHeader
+      title="Projects"
+      subtitle="Things I've built, tinkered with, or shipped"
+    />
+
+    <div class="space-y-4 border-l-2 border-leaf">
+      {projects.map((project) => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+
+  </main>
+</BaseLayout>

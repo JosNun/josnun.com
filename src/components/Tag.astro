@@ -1,0 +1,17 @@
+---
+interface Props {
+  variant?: 'bordered' | 'filled';
+  class?: string;
+}
+
+const { variant = 'bordered', class: className = '' } = Astro.props;
+
+const variantClass =
+  variant === 'filled'
+    ? 'bg-leaf text-forest'
+    : 'border border-leaf text-forest';
+---
+
+<span class={`inline-block px-4 py-1 font-mono text-xs ${variantClass} ${className}`}>
+  <slot />
+</span>
