@@ -1,0 +1,16 @@
+---
+title: "Fixing mobile hover effects"
+description: "Using the CSS hover media feature to prevent hover effects from getting stuck on mobile devices."
+pubDate: 2018-07-17
+draft: false
+---
+
+One of the worst parts about hover effects is that they often look horrible on mobile devices because they trigger on click... Then don't go away and just sit there (laughing at you I guess). I got irritated, so I began wondering if there is a fix (Spoiler alert: there is). The solution is in CSS media queries.
+
+There's a neat little media feature called `hover`. Basically, if the _primary_ input method supports hovering, it'll pass, otherwise, the css will be skipped. An easy way to test this is to use your browser's mobile device simulator.
+
+If you did some looking around the MDN page for media features, you may have noticed that there's another similar feature called `any-hover`. This is similar to `hover` with the exception that `any-hover` will pass if _any_ of your input devices supports hovering, which could include a mouse or hover-capable touch screens.
+
+## Bonus SCSS Mixin
+
+If you use SCSS, here's a simple mixin to cut out some of the syntax fluff. Enjoy :)

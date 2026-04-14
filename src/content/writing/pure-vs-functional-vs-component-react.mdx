@@ -1,0 +1,34 @@
+---
+title: "Pure vs functional vs class React components"
+description: "Understanding React's component types helps developers write cleaner, more performant code."
+pubDate: 2018-10-06
+draft: true
+---
+
+The types of components in React is on of those topics that many don't quite grasp, or assume that it isn't worth the effort to learn it for the performance boost that they may get back. Honestly, though, the types of components in React aren't that complicated or difficult to understand. Learning the different types will help you not only get a better grasp of what React is doing under the hood, but also help you write cleaner, more performant code.
+
+Every React developer knows about the two "major" component types in React; class components and functional components. The majority of React code is written using just these two types. There's another type that most developers have probably heard about, however. That is the pure component. The differences are subtle, but they can make a sizable difference in code clarity and potentially in the application's performance.
+
+## Functional Components
+
+The first type of component, and also the simplest, is the functional component. As it's name suggests, it is a function. There's nothing special about functional components, and that's what makes them so simple to use. Whatever the function returns is what React will render. These components are great for displaying things, because they are *pure*. That is, given the same props, they will return the same thing. This makes them easy to test, and great to use because there aren't any side effects. There are some features that functional components lack, and that's when a developer can turn to the functional component's big brother, the class component.
+
+## Class Components
+
+Class components can be similar to a functional component. If a class component only has a render method, it performs neraly the same as a functional component. That said, one would typically use a a functional component in that case. The main reason one would use a class component is for the additional features it provides over a functional component, such as [state](https://reactjs.org/docs/state-and-lifecycle.html), [refs](https://reactjs.org/docs/refs-and-the-dom.html), and [lifecycle methods](https://reactjs.org/docs/react-component.html#the-component-lifecycle). For more information on those, feel free to look at their respective links. The main part we will focus on here is the lifecycle methods. Lifecycle methods provide ways to "hook" into different events that happen to a component. These allow you to run functions when the component mounts/unmounts, recieves new props, updates, and more. Additionally, some lifecycle methods provide ways to bypass or prevent certain events from happening. The most notable in this category is the [`shouldComponentUpdate`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) (SCU) method. By default, any time that a component's state or props change, the component will rerender. Do note that just because a component re-renders doesn't mean the DOM will get updated (See [here](https://reactjs.org/docs/reconciliation.html) for more details). There are times however, when a component shouldn't rerender when the props or state change. This is typically most productive when you have a large component with an expensive render method. These situations are typically rather unique, and you'll probably know when you should implement SCU. An alternative to writing a custom SCU function is using a Pure Component.
+
+## Pure Components
+
+Pure components are very similar class components. Really, the only difference between them is that by default, class components don't have a SCU function. Pure components, on the other hand, do implement a SCU function that does a *shallow* comparison of the props. That is, they don't recursively compare into the props children. The advantage is that often times, a render can be skipped if the props are the same. As noted, this is going to have the most benefit with a component that has an expensive render method. This also provides an advantage over functional components, as they don't have any lifecycle methods, and therefore rerender every time.
+
+## When to Use Each Type
+
+So when should one use which method? That question is a bit complicated to answer. Some basic guidelines are as follows:
+
+- If your component doesn't need to use state, refs, or lifecycle methods, use a functional component. Although one could argue that they don't provide the SCU method and therefore update every time the parent renders, these components usually don't do much in their render method other than spitting out what to render. As a result, they are fast, and the performance gains by using a pure component are typically negligible.
+
+- If your component does require state, refs, or some lifecycle methods, reach for a class component. Although they don't implement a SCU method by default, they make it a lot easier to develop when working with deeply nested props.
+
+- If you are having some performance issues, it may be time to start using pure components. By using class components or functional components initially, you can help prevent some bugs that arise when using complex data structures. But when your performance is suffering, it may be time to start adding in some pure components.
+
+- If you are having issues with pure components, or need to compare some props deeply, you should use a class component with a custom SCU method. They provide more flexibility than pure components, as they allow you to use custom logic in the SCU method, and enable you to do comparison more effective than a pure component. **DO NOT**, however, do a deep props comparison in a SCU method. Although you may end up calling the render function fewer times, you performance will most likely suffer, as deep comparison between props is an expensive operation, and will typically take *longer* than rendering.

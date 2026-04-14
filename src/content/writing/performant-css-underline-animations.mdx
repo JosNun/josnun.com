@@ -1,0 +1,30 @@
+---
+title: "Performant CSS Underline animations"
+description: "Comparing methods for animating underlines in CSS and finding the most performant approach."
+pubDate: 2018-07-15
+draft: false
+---
+
+## Animating the border
+
+The first method involves animating the border of an element.
+
+It's probably the simplest method, but it comes with a few downfalls. The primary issue is that it modifies the element's box model, which causes the entire element to repaint. In most cases, this is probably not an issue, but if you had a large element using this, things could get a little laggy. The second issue with this method is probably more important than the first. As you probably noticed, this animation isn't exactly the smoothest animation. This is because most browsers round to the nearest pixel when rendering things to increase performance. As a result, the animation jumps when it's size is animating. Finally, because we are animating the element's border, this method won't work if you are using the border already (well, it would work, but it would probably look horrible).
+
+## A pseudo element
+
+This method has a similar result to the first method, but has a slight increase in performance.
+
+This method is relatively straightforward. Instead of using the elements border as an underline, this method uses a pseudo element. There's a few advantages to using this method. Firstly, you can use it on an element that has an existing border. What's probably more important, however, is the fact that you are using CSS transforms, which greatly speeds up the animation. Also, the underline is a completely seperate element, so you could style it however you want (Rounded corners, anyone?), and also enables the use of relative sizes for the underline, like percentages.
+
+As you may have noticed, though, there's still the issue with rounding and glitchy animation in some cases, but overall, performance is a lot better. Another potential issue is that it requires a pseudo element, so you can't be using both :before and :after pseudo elements. Probably the largest issue (or potentially greatest benefit) is that it only places one underline under the entire element, even if there are multiple lines. With the border method, there will be an underline on every line.
+
+## A smoother solution
+
+So what can we do about the glitchy animation? Well, there's a relatively simple solution.
+
+By sizing up the element up, then using CSS transforms to shrink it back down, the browser will be rendering the whole-number values, but shrink the entire element down. This results in smoother animation because it is rendering the interpolated values of the animation. The difference between the animtaions becomes really obvious when you slow down the animation using devtools.
+
+So are there any cons? Sadly, yes. This suffers the same issues as the previous method, with the exception of the jittery animation. But for most instances the benefits greatly outweigh the cons, as you rarely deal with multiple pseudo elements anyway.
+
+This is only a few methods of animating an underline, and there's many more methods out there. For the most part though, one of these methods will work well, and greatly simplify things compared to more complex methods.

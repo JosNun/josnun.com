@@ -1,0 +1,96 @@
+---
+title: "You don't need TypeScript's index types (probably)"
+description: "TypeScript's Record utility provides a cleaner alternative to index types for most use cases."
+pubDate: 2019-10-21
+draft: false
+---
+
+TypeScript's index types seem super useful when you first find out about them. If you aren't familiar with index types, here's a crash course example:
+
+```typescript
+interface StringArray {
+  [key: number]: string;
+}
+
+const arr: StringArray = {
+  0: 0,
+  1: 'one',
+  2: 'two',
+  [Math.PI]: Math.PI,
+  // This isn't valid
+  'three': 'three'
+};
+```
+
+As you can see, `StringArray` allows any string to be a property name, and any number to be a value.
+
+Index types are handy when you have an object with unknown keys or when using an object as a dictionary. However, they have downsides: you can't specify what keys can be used, and the syntax is verbose. TypeScript provides a solution: the `Record` utility.
+
+In its simplest form, `Record` is similar to an index type:
+
+```typescript
+type StringArray = Record<number, string>;
+
+const arr: StringArray = {
+  0: 0,
+  1: 'one',
+  2: 'two',
+  [Math.PI]: Math.PI,
+  // This isn't valid
+  'three': 'three'
+};
+```
+
+Like index types, `arr` can have any number as a key and any string as a value. For simple examples, `Record` merely cleans up syntax. However, `Record` can do things that index types cannot easily accomplish, such as specifying allowed keys with a union type:
+
+```typescript
+// Ain't gonna work
+interface TypedKeys {
+    // An index signature parameter type must be 'string' or 'number'
+    [key: 0 | 1]: string;
+}
+
+// Works, but is verbose
+interface TypedKeys {
+    0: string;
+    1: string;
+}
+
+// Works, and is nice and concise
+type TypedKeys = Record<0 | 1, string>;
+
+const arr: TypedKeys = {
+  0: '0',
+  1: 'one',
+  // Object literal may only specify known properties, and '2' does not exist in type 'Record<0 | 1, string>'
+  2: 'two',
+};
+```
+
+You can also use advanced types for the value of a `Record`. While there may initially appear to be downsides, you can still have predefined keys using intersection types:
+
+```typescript
+interface TypedKeys {
+    0: 'zero'
+    [key: number]: string;
+}
+
+// Same as above
+type TypedKeys = Record<number, string> & {
+    0: 'zero';
+};
+
+const arr: TypedKeys = {
+  0: '0',
+  1: 'one',
+  2: 'two',
+  3: 'three'
+};
+```
+
+## Key takeaways
+
+- `Record` is an easier to read version of index types in its simplest form
+- It makes specifying keys and values easier when you have complex types
+- Fewer characters equals faster typing for most people
+- `Record` works well with intersection and union types
