@@ -9,11 +9,37 @@ draft: false
 
 The first method involves animating the border of an element.
 
+<iframe
+  height="400"
+  style="width: 100%"
+  scrolling="no"
+  title="Performant underline animation — border animation"
+  src="https://codepen.io/FracturedLoop/embed/RBrxJm?default-tab=css,result"
+  frameborder="no"
+  loading="lazy"
+  allowfullscreen="true"
+>
+  See the <a href="https://codepen.io/FracturedLoop/pen/RBrxJm">Pen</a> on CodePen.
+</iframe>
+
 It's probably the simplest method, but it comes with a few downfalls. The primary issue is that it modifies the element's box model, which causes the entire element to repaint. In most cases, this is probably not an issue, but if you had a large element using this, things could get a little laggy. The second issue with this method is probably more important than the first. As you probably noticed, this animation isn't exactly the smoothest animation. This is because most browsers round to the nearest pixel when rendering things to increase performance. As a result, the animation jumps when it's size is animating. Finally, because we are animating the element's border, this method won't work if you are using the border already (well, it would work, but it would probably look horrible).
 
 ## A pseudo element
 
 This method has a similar result to the first method, but has a slight increase in performance.
+
+<iframe
+  height="400"
+  style="width: 100%"
+  scrolling="no"
+  title="Performant underline animation — pseudo element"
+  src="https://codepen.io/FracturedLoop/embed/ZjQvPv?default-tab=css,result"
+  frameborder="no"
+  loading="lazy"
+  allowfullscreen="true"
+>
+  See the <a href="https://codepen.io/FracturedLoop/pen/ZjQvPv">Pen</a> on CodePen.
+</iframe>
 
 This method is relatively straightforward. Instead of using the elements border as an underline, this method uses a pseudo element. There's a few advantages to using this method. Firstly, you can use it on an element that has an existing border. What's probably more important, however, is the fact that you are using CSS transforms, which greatly speeds up the animation. Also, the underline is a completely seperate element, so you could style it however you want (Rounded corners, anyone?), and also enables the use of relative sizes for the underline, like percentages.
 
@@ -22,6 +48,19 @@ As you may have noticed, though, there's still the issue with rounding and glitc
 ## A smoother solution
 
 So what can we do about the glitchy animation? Well, there's a relatively simple solution.
+
+<iframe
+  height="400"
+  style="width: 100%"
+  scrolling="no"
+  title="Performant underline animation — scaled pseudo element"
+  src="https://codepen.io/FracturedLoop/embed/EpPQYe?default-tab=css,result"
+  frameborder="no"
+  loading="lazy"
+  allowfullscreen="true"
+>
+  See the <a href="https://codepen.io/FracturedLoop/pen/EpPQYe">Pen</a> on CodePen.
+</iframe>
 
 By sizing up the element up, then using CSS transforms to shrink it back down, the browser will be rendering the whole-number values, but shrink the entire element down. This results in smoother animation because it is rendering the interpolated values of the animation. The difference between the animtaions becomes really obvious when you slow down the animation using devtools.
 
