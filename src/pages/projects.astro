@@ -20,17 +20,6 @@ const projects = [
     archived: true,
   },
   {
-    title: 'Sitant',
-    category: 'Chrome Extension',
-    description:
-      'A minimal, yet incredibly functional new tab replacement. It provides a quick place to jot down notes, todos, or tasks without a bunch of additional fluff.',
-    tags: ['Chrome Extension', 'React'],
-    image: sitantImg,
-    liveUrl:
-      'https://chromewebstore.google.com/detail/sitant-simple-tasks-in-ne/koggochfeennbhkkjmbpbhfhociingae',
-    repoUrl: 'https://github.com/JosNun/sitant',
-  },
-  {
     title: 'Night Mode Bible',
     category: 'Chrome Extension',
     description:
@@ -40,6 +29,17 @@ const projects = [
     liveUrl:
       'https://chromewebstore.google.com/detail/night-mode-bible/ebiieffikaglhelcnogmmijmlejdhngk',
     repoUrl: 'https://github.com/JosNun/night-mode-bible',
+  },
+  {
+    title: 'Sitant',
+    category: 'Chrome Extension',
+    description:
+      'A minimal, yet incredibly functional new tab replacement. It provides a quick place to jot down notes, todos, or tasks without a bunch of additional fluff.',
+    tags: ['Chrome Extension', 'React'],
+    image: sitantImg,
+    liveUrl:
+      'https://chromewebstore.google.com/detail/sitant-simple-tasks-in-ne/koggochfeennbhkkjmbpbhfhociingae',
+    repoUrl: 'https://github.com/JosNun/sitant',
   },
   {
     title: 'Parabox',
@@ -81,10 +81,13 @@ const projects = [
       subtitle="Things I've built, tinkered with, or shipped"
     />
 
-    <div class="space-y-4 border-l-2 border-leaf">
-      {projects.map((project) => (
-        <ProjectCard {...project} />
-      ))}
+    <div class="space-y-8">
+      {projects
+        .slice()
+        .sort((a, b) => Number(a.archived ?? false) - Number(b.archived ?? false))
+        .map((project) => (
+          <ProjectCard {...project} />
+        ))}
     </div>
 
   </main>

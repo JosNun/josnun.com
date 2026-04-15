@@ -100,9 +100,9 @@ const recentSeeds = (await getSortedSeeds()).slice(0, 2);
           </a>
         </div>
         <StemDivider width="long" />
-        <div class="space-y-4 border-l-2 border-leaf mt-10">
+        <div class="space-y-8 mt-10">
           {recentPosts.map((post) => (
-            <a href={`/writing/${post.slug}/`} class="group block p-8 hover:bg-white transition-colors">
+            <a href={`/writing/${post.slug}/`} class="group block p-8 border-l-2 border-leaf hover:bg-white transition-colors">
               <div class="flex justify-between items-start mb-2">
                 <div>
                   <h3 class="text-2xl font-light mb-1 text-forest">{post.data.title}</h3>
@@ -132,7 +132,7 @@ const recentSeeds = (await getSortedSeeds()).slice(0, 2);
           </a>
         </div>
         <StemDivider width="long" />
-        <div class="space-y-4 border-l-2 border-leaf mt-10">
+        <div class="space-y-8 mt-10">
           {recentSeeds.map((post) => <SeedEntry post={post} />)}
         </div>
       </section>

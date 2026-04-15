@@ -5,7 +5,12 @@ import ArticleCard from '../../components/ArticleCard.astro';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('writing', ({ data }) => !data.draft);
-const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sortedPosts = posts.sort((a, b) => {
+  if (a.data.archived !== b.data.archived) {
+    return a.data.archived ? 1 : -1;
+  }
+  return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+});
 ---
 
 <BaseLayout title="Writing - Josiah Nunemaker" description="Thoughts on design, development, and the web.">
@@ -16,7 +21,7 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
       subtitle="Thoughts taking root on design, development, and the web"
     />
 
-    <div class="space-y-4 border-l-2 border-leaf">
+    <div class="space-y-8">
       {sortedPosts.map((post, index) => (
         <div class={`fade-in fade-in-delay-${Math.min(index + 1, 5)}`}>
           <ArticleCard

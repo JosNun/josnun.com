@@ -14,7 +14,7 @@ const { posts, prevUrl, nextUrl, currentPage, lastPage } = Astro.props;
 const showPagination = lastPage > 1;
 ---
 
-<div class="space-y-4 border-l-2 border-leaf">
+<div class="space-y-8">
   {posts.map((post) => (
     <SeedEntry post={post} />
   ))}

@@ -36,7 +36,7 @@ const primaryLabel = liveUrl ? 'view' : 'repo';
 const showSourceLink = (!archived && liveUrl && repoUrl) || (archived && repoUrl);
 ---
 
-<article class="p-12 article-hover hover:bg-white">
+<article class="p-12 border-l-2 border-leaf article-hover hover:bg-white">
   <div class={image ? 'md:flex md:items-start md:gap-10' : ''}>
     {image && (
       <div class="md:w-64 md:shrink-0 mb-6 md:mb-0">
@@ -45,7 +45,7 @@ const showSourceLink = (!archived && liveUrl && repoUrl) || (archived && repoUrl
           alt={imageAlt ?? title}
           widths={[256, 512]}
           sizes="(min-width: 768px) 256px, 100vw"
-          class="w-full"
+          class="w-full max-h-48 object-contain"
         />
       </div>
     )}
