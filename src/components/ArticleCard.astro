@@ -6,16 +6,24 @@ interface Props {
   date: Date;
   description: string;
   slug: string;
+  archived?: boolean;
 }
 
-const { title, date, description, slug } = Astro.props;
+const { title, date, description, slug, archived = false } = Astro.props;
 const formattedDate = formatMonthYear(date);
 ---
 
 <a href={`/writing/${slug}/`} class="group block p-10 hover:bg-white article-hover">
-  <time class="font-mono text-xs uppercase tracking-wider block mb-6 text-bark">
-    {formattedDate}
-  </time>
+  <div class="flex items-baseline gap-4 mb-6">
+    <time class="font-mono text-xs uppercase tracking-wider text-bark">
+      {formattedDate}
+    </time>
+    {archived && (
+      <span class="font-mono text-xs uppercase tracking-wider text-bark opacity-60">
+        archived
+      </span>
+    )}
+  </div>
   <h2 class="text-3xl font-light mb-6 group-hover:opacity-70 transition text-forest">
     {title}
   </h2>

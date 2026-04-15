@@ -8,6 +8,7 @@ const writingCollection = defineCollection({
     pubDate: z.date(),
     updatedDate: z.date().optional(),
     draft: z.boolean().default(false),
+    archived: z.boolean().default(false),
   }),
 });
 

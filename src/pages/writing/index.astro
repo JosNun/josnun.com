@@ -24,6 +24,7 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
             date={post.data.pubDate}
             description={post.data.description}
             slug={post.slug}
+            archived={post.data.archived}
           />
         </div>
       ))}

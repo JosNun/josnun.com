@@ -8,7 +8,7 @@ import { formatMonthYear } from '../utils/formatDate';
 import { getSortedSeeds } from '../utils/seeds';
 import { getCollection } from 'astro:content';
 
-const posts = await getCollection('writing', ({ data }) => !data.draft);
+const posts = await getCollection('writing', ({ data }) => !data.draft && !data.archived);
 const recentPosts = posts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 2);

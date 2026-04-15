@@ -2,7 +2,7 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 
 export async function GET(context) {
-  const posts = await getCollection('writing', ({ data }) => !data.draft);
+  const posts = await getCollection('writing', ({ data }) => !data.draft && !data.archived);
 
   return rss({
     title: 'Josiah Nunemaker - Writing',

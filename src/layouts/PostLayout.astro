@@ -8,6 +8,7 @@ interface Props {
     title: string;
     description: string;
     pubDate: Date;
+    archived?: boolean;
   };
 }
 
@@ -18,14 +19,29 @@ const formattedDate = formatLongDate(frontmatter.pubDate);
 <BaseLayout title={`${frontmatter.title} - Josiah Nunemaker`} description={frontmatter.description}>
   <main class="max-w-3xl mx-auto px-8 py-20">
     <header class="mb-16 fade-in">
-      <time class="font-mono text-xs uppercase tracking-wider block mb-4 text-bark">
-        {formattedDate}
-      </time>
+      <div class="flex items-baseline gap-4 mb-4">
+        <time class="font-mono text-xs uppercase tracking-wider text-bark">
+          {formattedDate}
+        </time>
+        {frontmatter.archived && (
+          <span class="font-mono text-xs uppercase tracking-wider text-bark opacity-60">
+            archived
+          </span>
+        )}
+      </div>
       <h1 class="text-4xl sm:text-5xl font-light tracking-tight mb-6 text-forest">
         {frontmatter.title}
       </h1>
       <StemDivider width="medium" />
     </header>
+
+    {frontmatter.archived && (
+      <aside class="mb-12 border-l-2 border-bark pl-6 py-3 fade-in fade-in-delay-1">
+        <p class="text-sage text-sm leading-relaxed">
+          This post is kept here for reference. Some information may be out of date.
+        </p>
+      </aside>
+    )}
 
     <article class="prose prose-botanical prose-lg max-w-none fade-in fade-in-delay-1">
       <slot />
