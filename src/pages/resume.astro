@@ -1,0 +1,785 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Resume — Josiah Nunemaker"
+  description="Resume of Josiah Nunemaker, Founding Engineer & Frontend Tech Lead."
+>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <main class="resume" aria-label="Resume of Josiah Nunemaker">
+    <div class="resume-actions no-print">
+      <button type="button" class="action-print btn-scribble">
+        <svg
+          class="btn-doodle"
+          viewBox="0 0 140 40"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            class="scribble-fill"
+            pathLength="100"
+            d="M 16 29 Q 19 19 26 11 Q 29 20 30 28 Q 33 18 40 12 Q 43 21 44 29 Q 47 19 54 11 Q 57 20 58 28 Q 61 18 68 12 Q 71 21 72 29 Q 75 19 82 11 Q 85 20 86 28 Q 89 18 96 12 Q 99 21 100 29 Q 103 19 110 11 Q 113 20 114 28 Q 117 18 124 12"
+            stroke="#8B5CF6"
+            stroke-width="3.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+          />
+          <path
+            d="M 6 8 C 36 6, 80 5, 132 7 C 133 14, 135 22, 133 32 C 100 34, 56 34, 8 33 C 5 26, 5 16, 6 8 Z"
+            stroke="#8B5CF6"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+          />
+        </svg>
+        <span>Save as PDF</span>
+      </button>
+    </div>
+
+    <article class="resume-sheet">
+      <header class="resume-header">
+        <h1>Josiah Nunemaker</h1>
+        <p class="role">Founding Engineer &amp; Frontend Tech Lead</p>
+        <ul class="contact" aria-label="Contact">
+          <li><a href="mailto:hi@josnun.com">hi@josnun.com</a></li>
+          <li><a href="https://josnun.com">josnun.com</a></li>
+          <li><a href="tel:+17174204506">(717) 420-4506</a></li>
+          <li>South-Central PA (EST)</li>
+        </ul>
+      </header>
+
+      <section class="summary" aria-label="Summary">
+        <p>
+          Founding engineer and frontend tech lead with a proven track record building B2B
+          and B2C applications at scale. My bread and butter is rich user interactions,
+          ensuring the experience feels good to use, not just functional. I innovate while
+          still keeping interfaces intuitive and easy to understand, bridging the gap
+          between complexity and seamless UX.
+        </p>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-heading">
+          <span class="heading-text">Experience</span>
+          <svg
+            class="highlight"
+            viewBox="0 0 200 18"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M 4 11 C 28 8, 58 13, 92 9 C 126 6, 158 12, 196 9"
+              stroke="#FBBF24"
+              stroke-width="13"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              fill="none"
+            />
+          </svg>
+        </h2>
+
+        <article class="job">
+          <header class="job-head">
+            <div class="job-headline">
+              <h3>Journalytic / Baserate</h3>
+              <span class="job-dates">2022 — 2026</span>
+            </div>
+            <p class="job-title">Founding Engineer &amp; Frontend Tech Lead</p>
+            <p class="job-summary">
+              B2C investment journaling platform (Journalytic) and B2B investment operating
+              system (Baserate) built on a shared codebase.
+            </p>
+          </header>
+          <ul>
+            <li>
+              First full-time engineer; grew from pre-launch to{' '}
+              <span class="circled">
+                <span class="circled-text">10,000+</span>
+                <svg
+                  class="circle-doodle"
+                  viewBox="0 0 110 44"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M 14 30 C 5 14, 30 4, 58 5 C 88 6, 104 14, 102 24 C 100 36, 78 42, 48 40 C 22 38, 8 32, 12 22 C 14 16, 22 11, 32 9"
+                    stroke="#8B5CF6"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    fill="none"
+                  />
+                </svg>
+              </span>{' '}
+              users across 50+ countries. 40+ investment firms representing $50B+ AUM.
+            </li>
+            <li>
+              Implemented core application modules including Timeline, Idea Lists, Decisions,
+              and Dashboards.
+            </li>
+            <li>
+              Developed key differentiator features; conviction scoring for unbiased team
+              input, sentiment and emotional marker tracking, process analytics, and more.
+            </li>
+            <li>
+              Reduced core feature load time by more than half by engineering a custom-built
+              high-performance virtualized list powering 3 core surfaces, supporting mixed
+              content, anchored scrolling, and infinite scroll.
+            </li>
+            <li>
+              Implemented complex virtualized data grids with thousands of rows based on
+              Tanstack Table supporting custom properties (text, numbers, multi-select,
+              people, multi-choice), filtering, sorting, and column configuration.
+            </li>
+            <li>
+              Real-time architecture: SSE-based entity sync across workspaces.
+            </li>
+            <li class="js-rust-bullet">
+              <span class="arrow-doodle" aria-hidden="true">
+                <svg
+                  viewBox="0 0 200 76"
+                  preserveAspectRatio="xMinYMid meet"
+                  focusable="false"
+                >
+                  <text
+                    x="60"
+                    y="22"
+                    font-family="Caveat, 'Comic Sans MS', cursive"
+                    font-size="22"
+                    fill="#8B5CF6"
+                  >
+                    Huge DX win!
+                  </text>
+                  <path
+                    d="M 120 34 C 96 40, 64 46, 30 50 C 22 51, 16 52, 12 54"
+                    stroke="#8B5CF6"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M 12 54 L 24 46 M 12 54 L 24 60"
+                    stroke="#8B5CF6"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    fill="none"
+                  />
+                </svg>
+              </span>
+              Architected high-leverage infrastructure and developer tooling upgrades:
+              executed zero-downtime migration from Firestore to Postgres for reliability
+              and scalability, and rewrote frontend toolchain (<span class="js-rust">JS → Rust</span>)
+              reducing dev server, build time, and memory consumption by{' '}
+              <span class="circled">
+                <span class="circled-text">&gt;30%</span>
+                <svg
+                  class="circle-doodle"
+                  viewBox="0 0 100 44"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M 12 28 C 6 12, 28 4, 52 6 C 78 8, 92 16, 90 26 C 88 36, 66 41, 42 39 C 20 37, 6 30, 11 20 C 13 14, 22 10, 32 8"
+                    stroke="#8B5CF6"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    fill="none"
+                  />
+                </svg>
+              </span>.
+            </li>
+            <li>
+              Set early standards for code health including formatting, linting, review,
+              and ideas-to-implementation pipelines.
+            </li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <header class="job-head">
+            <div class="job-headline">
+              <h3>ThirtyTech</h3>
+              <span class="job-dates">2018 — 2022</span>
+            </div>
+            <p class="job-title">Lead Developer</p>
+            <p class="job-summary">
+              Multi-tenant member management SaaS for one of the top 10 US unions, with
+              per-local customization.
+            </p>
+          </header>
+          <ul>
+            <li>
+              Migrated ExtJS → React, including migrating to AG-Grid for virtualized data
+              tables handling thousands of rows.
+            </li>
+            <li>
+              Built Stripe-based payment pipeline for automating dues and fee collection.
+            </li>
+            <li>
+              Maintained robust two-way sync system bridging legacy on-prem customer
+              databases with modern cloud infrastructure.
+            </li>
+            <li>Rewrote dev tooling, yielding 70+% reduction in compile time.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <header class="job-head">
+            <div class="job-headline">
+              <h3>Reciprocal Ministries International</h3>
+              <span class="job-dates">2015 — 2018</span>
+            </div>
+            <p class="job-title">IT Services Technician</p>
+            <p class="job-summary">IT infrastructure for an NGO in southern Haiti.</p>
+          </header>
+          <ul>
+            <li>
+              Managed IT infrastructure and automated administrative workflows (Google
+              Apps Script).
+            </li>
+            <li>
+              Increased network throughput 8× by optimizing routing policies and hardware
+              for 30+ employees.
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-heading">
+          <span class="heading-text">Projects</span>
+          <svg
+            class="highlight"
+            viewBox="0 0 200 18"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M 4 9 C 30 12, 62 7, 96 11 C 130 14, 162 8, 196 10"
+              stroke="#FBBF24"
+              stroke-width="13"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              fill="none"
+            />
+          </svg>
+        </h2>
+        <p class="aside">
+          For a more complete list, see <a href="https://josnun.com">josnun.com</a>.
+        </p>
+        <ul>
+          <li>
+            Dark mode Bible.com browser extension with 5k+ weekly active users (vanilla
+            JS, CSS).
+          </li>
+        </ul>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-heading-plain">Skills</h2>
+        <dl class="skills">
+          <div>
+            <dt>Stack</dt>
+            <dd>TypeScript, React, Tailwind, Tanstack, Postgres, Node.js, Go</dd>
+          </div>
+          <div>
+            <dt>Concepts</dt>
+            <dd>
+              Data grids, virtualization, SSE, responsive design, agent configuration,
+              build tooling, MCP Apps
+            </dd>
+          </div>
+          <div>
+            <dt>Tools</dt>
+            <dd>Git, Linear, Figma, Claude Code, shell, Sentry, LogRocket</dd>
+          </div>
+        </dl>
+      </section>
+    </article>
+  </main>
+
+  <style is:global>
+    /* Override the cream site background with the resume canvas color. */
+    body {
+      background: #f9fafb;
+      color: #1f2937;
+    }
+    #main-nav {
+      background: #f9fafb;
+    }
+
+    /* Print rules targeting elements outside this page's template
+       (the BaseLayout's nav and footer) must be global to escape
+       Astro's component-scoped CSS. */
+    @media print {
+      @page {
+        size: letter;
+        margin: 0.5in;
+      }
+      body {
+        background: #ffffff !important;
+      }
+      #main-nav,
+      footer {
+        display: none !important;
+      }
+    }
+  </style>
+
+  <style>
+    .resume {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1f2937;
+      font-feature-settings: 'cv11', 'ss01';
+    }
+
+    .resume-sheet {
+      position: relative;
+    }
+
+    /* Header */
+    .resume-header {
+      margin-bottom: 2rem;
+    }
+    .resume-header h1 {
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      margin: 0 0 0.4rem;
+      color: #1f2937;
+    }
+    .resume-header .role {
+      font-size: 1.0625rem;
+      font-weight: 500;
+      color: #4b5563;
+      margin: 0 0 0.9rem;
+      letter-spacing: -0.005em;
+    }
+    .contact {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.4rem;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    .contact a {
+      color: #1f2937;
+      text-decoration: none;
+      border-bottom: 1px solid #d1d5db;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .contact a:hover {
+      border-color: #8b5cf6;
+      color: #6d28d9;
+    }
+
+    /* Summary */
+    .summary {
+      margin: 0 0 2.25rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .summary p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin: 0;
+      color: #374151;
+      max-width: 64ch;
+    }
+
+    /* Sections */
+    .resume-section {
+      margin-bottom: 2.25rem;
+    }
+    .resume-section:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 0 0 1.25rem;
+      letter-spacing: -0.015em;
+    }
+
+    .section-heading {
+      position: relative;
+      display: inline-block;
+      isolation: isolate;
+    }
+    .section-heading .heading-text {
+      position: relative;
+      z-index: 2;
+    }
+    .section-heading .highlight {
+      position: absolute;
+      left: -8px;
+      right: -8px;
+      bottom: -1px;
+      width: calc(100% + 16px);
+      height: 14px;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: multiply;
+      opacity: 0.95;
+    }
+    .section-heading-plain {
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    /* Jobs */
+    .job {
+      margin-bottom: 1.75rem;
+    }
+    .job:last-child {
+      margin-bottom: 0;
+    }
+    .job-head {
+      margin-bottom: 0.6rem;
+    }
+    .job-headline {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .job-dates {
+      font-size: 0.8125rem;
+      color: #6b7280;
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+    .job-title {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: #4b5563;
+      margin: 0.1rem 0 0;
+    }
+    .job-summary {
+      font-size: 0.9375rem;
+      color: #4b5563;
+      margin: 0.4rem 0 0.6rem;
+      font-style: italic;
+      line-height: 1.55;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+    li {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: #374151;
+      margin-bottom: 0.35rem;
+    }
+    li::marker {
+      color: #9ca3af;
+    }
+
+    /* Inline circled metrics */
+    .circled {
+      position: relative;
+      display: inline-block;
+      padding: 0 0.3rem;
+      white-space: nowrap;
+    }
+    .circled-text {
+      position: relative;
+      z-index: 2;
+      font-weight: 600;
+      color: #1f2937;
+    }
+    .circle-doodle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% + 18px);
+      height: calc(100% + 14px);
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
+    }
+
+    /* JS -> Rust call-out: floats in the outer right margin (outside the
+       resume's max-width) so the bullet can span the full content width.
+       Hidden by default; shown only on viewports wide enough to fit it. */
+    .js-rust-bullet {
+      position: relative;
+    }
+    .js-rust {
+      position: relative;
+      font-weight: 600;
+      color: #1f2937;
+      white-space: nowrap;
+    }
+    .arrow-doodle {
+      display: none;
+      position: absolute;
+      top: -4px;
+      left: calc(100% + 16px);
+      width: 200px;
+      height: 76px;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .arrow-doodle svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .circle-doodle,
+    .highlight {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Reveal the margin doodle only when the viewport has room for it
+       outside the centered 880px content column. */
+    @media (min-width: 1180px) {
+      .arrow-doodle {
+        display: block;
+      }
+    }
+
+    .aside {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin: 0 0 0.5rem;
+      font-style: italic;
+    }
+    .aside a {
+      color: #4b5563;
+      border-bottom: 1px solid #d1d5db;
+      text-decoration: none;
+    }
+
+    /* Skills */
+    .skills {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .skills > div {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    .skills dt {
+      flex-shrink: 0;
+      width: 5.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 0.875rem;
+    }
+    .skills dd {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: #374151;
+      line-height: 1.55;
+    }
+
+    /* Floating PDF action — animated scribble button. */
+    .resume-actions {
+      position: fixed;
+      top: 5rem;
+      right: 1.5rem;
+      z-index: 40;
+    }
+    .action-print {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1.1rem;
+      font-family: inherit;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #1f2937;
+      letter-spacing: 0.005em;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .action-print:hover {
+      transform: translateY(-1px);
+    }
+    .action-print span {
+      position: relative;
+      z-index: 1;
+    }
+    .btn-doodle {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    /* Animated scribble fill. With pathLength=100 + dasharray "100 200"
+       the pattern is "100 dash, 200 gap" — the gap is longer than the
+       path so at dashoffset=150 both the previous dash's end cap
+       (around offset -50) and the next dash's start cap (around offset
+       150) sit safely outside the 0–100 path range, eliminating the
+       round-linecap stub that would otherwise leak onto the path's
+       end. Transitioning offset to 0 reveals the path like a marker
+       drawing in. Asymmetric timing makes the draw-in feel deliberate
+       and the retract feel quick. */
+    .btn-scribble .scribble-fill {
+      stroke-dasharray: 100 200;
+      stroke-dashoffset: 150;
+      transition: stroke-dashoffset 0.4s ease-in;
+    }
+    .btn-scribble:hover .scribble-fill,
+    .btn-scribble:focus-visible .scribble-fill {
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.65s cubic-bezier(0.5, 0.05, 0.4, 1);
+    }
+    /* The label has a permanent cream 1px outline. Cream-on-cream is
+       invisible at rest; once the scribble fills the button with purple
+       stripes the outline becomes the contrast edge that keeps the dark
+       glyphs legible — no transition needed. */
+    .btn-scribble span {
+      text-shadow:
+        -1px -1px 0 #f9fafb,
+         1px -1px 0 #f9fafb,
+        -1px  1px 0 #f9fafb,
+         1px  1px 0 #f9fafb,
+         0   -1px 0 #f9fafb,
+         0    1px 0 #f9fafb,
+        -1px  0   0 #f9fafb,
+         1px  0   0 #f9fafb;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .btn-scribble .scribble-fill {
+        transition: none;
+      }
+    }
+
+    /* Responsive: tighten padding on narrow screens. The arrow doodle's
+       visibility is governed by the `min-width: 1180px` rule above. */
+    @media (max-width: 720px) {
+      .resume {
+        padding: 3rem 1.25rem 5rem;
+      }
+      .resume-actions {
+        top: auto;
+        bottom: 1rem;
+        right: 1rem;
+      }
+    }
+
+    /* Print: clean Letter/A4 PDF. (@page + nav/footer hiding live in the
+       global block above so they escape Astro's component scoping.) */
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      .resume {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        font-size: 10.5pt;
+      }
+      .resume-header h1 {
+        font-size: 22pt;
+      }
+      .resume-header .role {
+        font-size: 11pt;
+      }
+      h2 {
+        font-size: 13pt;
+        margin-bottom: 0.6rem;
+      }
+      h3 {
+        font-size: 11pt;
+      }
+      /* Only avoid breaks within atomic units (jobs, summary). The whole
+         Experience section is too tall to keep together — letting it
+         flow lets it start on page 1 next to the summary. */
+      .summary,
+      .job {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      h2,
+      h3 {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+      .resume-section {
+        margin-bottom: 1.1rem;
+      }
+      .job {
+        margin-bottom: 0.9rem;
+      }
+      .summary {
+        margin-bottom: 1rem;
+        padding-bottom: 0.85rem;
+      }
+      li {
+        margin-bottom: 0.15rem;
+      }
+      /* The right-margin annotation has nowhere to go on Letter/A4 paper —
+         hide it so the bullet keeps its full width. */
+      .arrow-doodle {
+        display: none !important;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      /* Force the marker accents to render in PDFs / printers. */
+      *,
+      *::before,
+      *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+
+  <script>
+    document.querySelectorAll('.action-print').forEach((btn) => {
+      btn.addEventListener('click', () => window.print());
+    });
+  </script>
+</BaseLayout>
