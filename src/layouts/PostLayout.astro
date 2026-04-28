@@ -8,12 +8,39 @@ interface Props {
     title: string;
     description: string;
     pubDate: Date;
+    updatedDate?: Date;
     archived?: boolean;
   };
 }
 
 const { frontmatter } = Astro.props;
 const formattedDate = formatLongDate(frontmatter.pubDate);
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, '');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const blogPosting = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: frontmatter.title,
+  description: frontmatter.description,
+  datePublished: frontmatter.pubDate.toISOString(),
+  dateModified: (frontmatter.updatedDate ?? frontmatter.pubDate).toISOString(),
+  author: {
+    '@type': 'Person',
+    '@id': `${siteUrl}/#person`,
+    name: 'Josiah Nunemaker',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Person',
+    '@id': `${siteUrl}/#person`,
+    name: 'Josiah Nunemaker',
+    url: siteUrl,
+  },
+  url: canonicalURL,
+  mainEntityOfPage: canonicalURL,
+  image: `${siteUrl}/og-default.png`,
+};
 ---
 
 <BaseLayout
@@ -21,6 +48,7 @@ const formattedDate = formatLongDate(frontmatter.pubDate);
   description={frontmatter.description}
   article
   publishedTime={frontmatter.pubDate}
+  jsonLd={blogPosting}
 >
   <main class="max-w-3xl mx-auto px-8 py-20">
     <header class="mb-16 fade-in">

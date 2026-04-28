@@ -14,9 +14,32 @@ const recentPosts = posts
   .slice(0, 2);
 
 const recentSeeds = (await getSortedSeeds()).slice(0, 2);
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, '');
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${siteUrl}/#person`,
+  name: 'Josiah Nunemaker',
+  url: siteUrl,
+  jobTitle: 'Founding Engineer',
+  sameAs: [
+    'https://github.com/josnun',
+    'https://x.com/josiahnunemaker',
+    'https://bsky.app/profile/josnun.bsky.social',
+  ],
+};
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  url: siteUrl,
+  name: 'Josiah Nunemaker',
+  publisher: { '@id': `${siteUrl}/#person` },
+};
 ---
 
-<BaseLayout title="Josiah Nunemaker">
+<BaseLayout title="Josiah Nunemaker" jsonLd={[person, website]}>
   <main class="max-w-5xl mx-auto px-8 py-20">
 
     <section class="mb-32 fade-in">
