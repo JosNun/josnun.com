@@ -817,8 +817,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </style>
 
   <script>
-    document.querySelectorAll('.action-print').forEach((btn) => {
-      btn.addEventListener('click', () => window.print());
+    document.addEventListener('click', (e) => {
+      const target = e.target as Element | null;
+      if (target?.closest('.action-print')) window.print();
     });
   </script>
 </BaseLayout>

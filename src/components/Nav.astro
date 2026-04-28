@@ -54,9 +54,8 @@ const { currentPath = '/' } = Astro.props;
 </nav>
 
 <script>
-  const nav = document.getElementById('main-nav');
-
   const handleScroll = () => {
+    const nav = document.getElementById('main-nav');
     if (window.scrollY > 20) {
       nav?.classList.add('scrolled');
     } else {
@@ -65,5 +64,6 @@ const { currentPath = '/' } = Astro.props;
   };
 
   window.addEventListener('scroll', handleScroll, { passive: true });
+  document.addEventListener('astro:page-load', handleScroll);
   handleScroll();
 </script>

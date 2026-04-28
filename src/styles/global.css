@@ -11,6 +11,10 @@
   --bark: #8b7355;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   background: var(--cream);
   color: var(--forest);
