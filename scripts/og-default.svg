@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#f4f1ea"/>
+
+  <line x1="80" y1="120" x2="200" y2="120" stroke="#7a9b89" stroke-width="1"/>
+
+  <text x="80" y="280" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="120" font-weight="300" fill="#1a3a2e" letter-spacing="-2">Josiah</text>
+  <text x="80" y="410" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="120" font-weight="300" fill="#1a3a2e" letter-spacing="-2">Nunemaker</text>
+
+  <line x1="80" y1="490" x2="200" y2="490" stroke="#7a9b89" stroke-width="1"/>
+  <text x="80" y="535" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, monospace" font-size="22" fill="#4a6b5c" letter-spacing="3">FOUNDING ENGINEER / FRONTEND</text>
+  <text x="80" y="575" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, monospace" font-size="20" fill="#7a9b89">josnun.com</text>
+</svg>

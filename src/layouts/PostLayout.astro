@@ -16,7 +16,12 @@ const { frontmatter } = Astro.props;
 const formattedDate = formatLongDate(frontmatter.pubDate);
 ---
 
-<BaseLayout title={`${frontmatter.title} - Josiah Nunemaker`} description={frontmatter.description}>
+<BaseLayout
+  title={`${frontmatter.title} - Josiah Nunemaker`}
+  description={frontmatter.description}
+  article
+  publishedTime={frontmatter.pubDate}
+>
   <main class="max-w-3xl mx-auto px-8 py-20">
     <header class="mb-16 fade-in">
       <div class="flex items-baseline gap-4 mb-4">
