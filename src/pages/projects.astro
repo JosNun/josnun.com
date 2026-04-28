@@ -8,27 +8,62 @@ import sitantImg from '../assets/projects/sitant.png';
 import bibleImg from '../assets/projects/bible.png';
 import codenamesImg from '../assets/projects/codenames.png';
 import ascendImg from '../assets/projects/ascend.png';
+import inscribeImg from '../assets/projects/inscribe.png';
+import freeRangeIdeasImg from '../assets/projects/free-range-ideas.webp';
+import potluckBotImg from '../assets/projects/potluck-bot.webp';
+import displayReinitializerImg from '../assets/projects/display-reinitializer.png';
 
 const projects = [
   {
-    title: 'PrayerShare',
-    category: 'Web App',
+    title: 'Inscribe',
+    category: 'Mobile App',
     description:
-      'A pseudo-anonymous prayer request sharing platform. Users are able to follow their friends, and see when a request is made, but the poster will remain anonymous.',
-    tags: ['React'],
-    image: prayershareImg,
-    archived: true,
+      'A scripture memorization app that turns verses into playable, repeatable practice. Spaced repetition keeps them; community keeps you going. Currently in development.',
+    tags: ['Flutter', 'Bun', 'Hono', 'PostgreSQL'],
+    image: inscribeImg,
+    liveUrl: 'https://inscribe.josnun.com',
   },
   {
     title: 'Night Mode Bible',
     category: 'Chrome Extension',
     description:
-      'A Chrome extension to make Bible.com easier on your eyes at night. It provides a toggleable dark mode.',
+      'A Chrome extension that makes Bible.com easier on your eyes at night with a toggleable dark mode. Quietly serves 5,000+ weekly active users.',
     tags: ['Chrome Extension', 'CSS'],
     image: bibleImg,
     liveUrl:
       'https://chromewebstore.google.com/detail/night-mode-bible/ebiieffikaglhelcnogmmijmlejdhngk',
     repoUrl: 'https://github.com/JosNun/night-mode-bible',
+  },
+  {
+    title: 'Display Reinitializer',
+    category: 'Raycast Extension',
+    description:
+      'A Raycast extension to force re-detection and reinitialization of connected displays on macOS. Uses native CoreGraphics APIs and offers multiple reinitialization methods including DDC power-cycle, refresh-rate toggle, and resolution cycle.',
+    tags: ['Swift', 'Raycast', 'macOS'],
+    image: displayReinitializerImg,
+    liveUrl: 'https://www.raycast.com/JosNun/display-reinitializer',
+    repoUrl: 'https://github.com/JosNun/raycast-reinitialize-display',
+  },
+  {
+    title: 'Potluck Bot',
+    category: 'Discord Bot',
+    description:
+      'A Discord bot for organizing potluck events with interactive item management. Users can create potlucks, claim items, add custom items, and sync with Discord scheduled events — all through buttons in chat.',
+    tags: ['TypeScript', 'discord.js', 'SQLite'],
+    image: potluckBotImg,
+    imageType: 'icon' as const,
+    repoUrl: 'https://github.com/JosNun/potluck-bot',
+  },
+  {
+    title: 'Free-Range Ideas',
+    category: 'Web App',
+    description:
+      'A public shelf of project ideas free for the taking — if one sparks you, build it. A vibe-coded side project; the design is intentionally hasty and evolving.',
+    tags: ['Astro', 'Vibe Coded'],
+    image: freeRangeIdeasImg,
+    imageType: 'icon' as const,
+    liveUrl: 'https://ideas.josnun.com',
+    repoUrl: 'https://github.com/JosNun/free-range-ideas',
   },
   {
     title: 'Sitant',
@@ -49,6 +84,15 @@ const projects = [
     tags: ['JavaScript', 'CSS'],
     liveUrl: 'https://codepen.io/FracturedLoop/full/VBXpbj/',
     repoUrl: 'https://github.com/JosNun/parabox.js',
+  },
+  {
+    title: 'PrayerShare',
+    category: 'Web App',
+    description:
+      'A pseudo-anonymous prayer request sharing platform. Users are able to follow their friends, and see when a request is made, but the poster will remain anonymous.',
+    tags: ['React'],
+    image: prayershareImg,
+    archived: true,
   },
   {
     title: 'Codenames',

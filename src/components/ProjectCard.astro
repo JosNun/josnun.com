@@ -14,6 +14,7 @@ interface Props {
   repoUrl?: string;
   image?: ImageMetadata;
   imageAlt?: string;
+  imageType?: 'screenshot' | 'icon';
   archived?: boolean;
 }
 
@@ -27,6 +28,7 @@ const {
   repoUrl,
   image,
   imageAlt,
+  imageType = 'screenshot',
   archived,
 } = Astro.props;
 
@@ -37,16 +39,28 @@ const showSourceLink = (!archived && liveUrl && repoUrl) || (archived && repoUrl
 ---
 
 <article class="p-12 border-l-2 border-leaf article-hover hover:bg-white">
-  <div class={image ? 'md:flex md:items-start md:gap-10' : ''}>
+  <div class={image ? 'md:flex md:items-stretch md:gap-10' : ''}>
     {image && (
-      <div class="md:w-64 md:shrink-0 mb-6 md:mb-0">
-        <Image
-          src={image}
-          alt={imageAlt ?? title}
-          widths={[256, 512]}
-          sizes="(min-width: 768px) 256px, 100vw"
-          class="w-full max-h-48 object-contain"
-        />
+      <div class="md:w-72 md:shrink-0 mb-6 md:mb-0 flex items-center justify-center">
+        {imageType === 'icon' ? (
+          <div class="w-32 aspect-square bg-leaf/30 border border-leaf rounded-2xl p-4 flex items-center justify-center">
+            <Image
+              src={image}
+              alt={imageAlt ?? title}
+              widths={[96, 192]}
+              sizes="96px"
+              class="w-full h-full object-contain"
+            />
+          </div>
+        ) : (
+          <Image
+            src={image}
+            alt={imageAlt ?? title}
+            widths={[288, 576]}
+            sizes="(min-width: 768px) 288px, 100vw"
+            class="w-full max-h-96 object-contain"
+          />
+        )}
       </div>
     )}
 
