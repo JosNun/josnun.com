@@ -1,25 +1,23 @@
-import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
 
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  site: 'https://josnun.com',
-  output: 'static',
+  site: "https://josnun.com",
+  output: "static",
 
   markdown: {
     shikiConfig: {
-      theme: 'solarized-light',
+      theme: "solarized-light",
     },
   },
 
-  integrations: [
-    mdx(),
-    sitemap(),
-    tailwind(),
-  ],
+  integrations: [mdx(), sitemap(), tailwind()],
 
-  adapter: cloudflare()
+  adapter: cloudflare({
+    imageService: "compile",
+  }),
 });
