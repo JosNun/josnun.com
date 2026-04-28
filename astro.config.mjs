@@ -8,6 +8,10 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   site: "https://josnun.com",
   output: "static",
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
 
   markdown: {
     shikiConfig: {

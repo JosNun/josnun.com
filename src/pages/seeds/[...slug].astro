@@ -14,6 +14,6 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<SeedLayout frontmatter={post.data}>
+<SeedLayout frontmatter={post.data} slug={post.slug}>
   <Content />
 </SeedLayout>

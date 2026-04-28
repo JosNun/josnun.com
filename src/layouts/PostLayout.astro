@@ -11,13 +11,15 @@ interface Props {
     updatedDate?: Date;
     archived?: boolean;
   };
+  slug: string;
 }
 
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
 const formattedDate = formatLongDate(frontmatter.pubDate);
 
 const siteUrl = Astro.site!.toString().replace(/\/$/, '');
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = `/og/writing/${slug}.png`;
 const blogPosting = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -39,13 +41,14 @@ const blogPosting = {
   },
   url: canonicalURL,
   mainEntityOfPage: canonicalURL,
-  image: `${siteUrl}/og-default.png`,
+  image: `${siteUrl}${ogImage}`,
 };
 ---
 
 <BaseLayout
   title={`${frontmatter.title} - Josiah Nunemaker`}
   description={frontmatter.description}
+  image={ogImage}
   article
   publishedTime={frontmatter.pubDate}
   jsonLd={blogPosting}

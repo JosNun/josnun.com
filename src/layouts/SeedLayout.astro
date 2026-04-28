@@ -8,16 +8,18 @@ interface Props {
     title?: string;
     pubDate: Date;
   };
+  slug: string;
 }
 
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
 const formattedDate = formatLongDate(frontmatter.pubDate);
 const pageTitle = frontmatter.title
   ? `${frontmatter.title} - Josiah Nunemaker`
   : `${formattedDate} - Seeds`;
+const ogImage = `/og/seeds/${slug}.png`;
 ---
 
-<BaseLayout title={pageTitle}>
+<BaseLayout title={pageTitle} image={ogImage}>
   <main class="max-w-2xl mx-auto px-8 py-20">
     <header class="mb-12 fade-in">
       {frontmatter.title ? (
