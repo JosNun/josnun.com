@@ -103,9 +103,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </header>
           <ul>
             <li>
-              <strong>First full-time engineer</strong>; grew from pre-launch to{' '}
+              <strong>First full-time engineer</strong>; grew from pre-launch to 10,000+ users
+              across 50+ countries, including 40+ investment firms representing{' '}
               <span class="circled">
-                <span class="circled-text">10,000+</span>
+                <span class="circled-text">$50B+ AUM</span>
                 <svg
                   class="circle-doodle"
                   viewBox="0 0 110 44"
@@ -122,8 +123,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     fill="none"
                   />
                 </svg>
-              </span>{' '}
-              users across 50+ countries, including 40+ investment firms representing $50B+ AUM.
+              </span>.
             </li>
             <li>
               <strong>Built core product modules</strong> (Timeline, Idea Lists, Decisions, Dashboards) and
@@ -132,9 +132,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               and process analytics.
             </li>
             <li>
-              <strong>Reduced core feature load time</strong> by more than half by engineering a custom-built
-              high-performance virtualized list powering 3 core surfaces, supporting mixed
-              content, anchored scrolling, and infinite scroll.
+              <strong>Reduced core feature load time</strong> by{' '}
+              <span class="circled">
+                <span class="circled-text">more than half</span>
+                <svg
+                  class="circle-doodle"
+                  viewBox="0 0 140 44"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M 12 30 C 6 14, 32 5, 68 6 C 108 7, 130 15, 126 25 C 122 36, 92 41, 56 39 C 24 37, 8 30, 14 19 C 18 13, 30 9, 40 7"
+                    stroke="#8B5CF6"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    fill="none"
+                  />
+                </svg>
+              </span>{' '}
+              by engineering a custom-built high-performance virtualized list powering 3 core
+              surfaces, supporting mixed content, anchored scrolling, and infinite scroll.
             </li>
             <li>
               <strong>Implemented complex virtualized data grids</strong> with thousands of rows based on
@@ -181,26 +200,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </span>
               <strong>Led DX initiatives</strong> including frontend Firestore → Postgres migration for
               reliability and scalability, and <span class="js-rust">JS → Rust</span>
-              frontend toolchain reducing dev server and build time and memory consumption by{' '}
-              <span class="circled">
-                <span class="circled-text">30%+</span>
-                <svg
-                  class="circle-doodle"
-                  viewBox="0 0 100 44"
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path
-                    d="M 12 28 C 6 12, 28 4, 52 6 C 78 8, 92 16, 90 26 C 88 36, 66 41, 42 39 C 20 37, 6 30, 11 20 C 13 14, 22 10, 32 8"
-                    stroke="#8B5CF6"
-                    stroke-width="2.2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    fill="none"
-                  />
-                </svg>
-              </span>.
+              frontend toolchain reducing dev server and build time and memory consumption by 30%+.
             </li>
             <li>
               <strong>Built AI tooling</strong> and custom skills (including automated icon extraction from
@@ -257,8 +257,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               Apps Script).
             </li>
             <li>
-              <strong>Increased network throughput 8×</strong> by optimizing routing policies and hardware
-              for 30+ employees.
+              <strong>Increased network throughput</strong>{' '}
+              <span class="circled">
+                <span class="circled-text">8×</span>
+                <svg
+                  class="circle-doodle circle-doodle--sm"
+                  viewBox="0 0 60 44"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M 10 28 C 4 12, 22 4, 36 5 C 52 6, 58 14, 56 24 C 54 35, 40 40, 24 38 C 8 36, 2 28, 8 18 C 11 13, 18 9, 26 7"
+                    stroke="#8B5CF6"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    fill="none"
+                  />
+                </svg>
+              </span>{' '}
+              by optimizing routing policies and hardware for 30+ employees.
             </li>
           </ul>
         </article>
@@ -530,7 +549,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .circled-text {
       position: relative;
       z-index: 2;
-      font-weight: 600;
       color: #1f2937;
     }
     .circle-doodle {
@@ -538,11 +556,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: calc(100% + 18px);
-      height: calc(100% + 14px);
+      width: calc(100% + 28px);
+      height: calc(100% + 22px);
       pointer-events: none;
       z-index: 1;
       overflow: visible;
+    }
+    .circle-doodle--sm {
+      width: calc(100% + 16px);
+      height: calc(100% + 14px);
     }
 
     /* JS -> Rust call-out: floats in the outer right margin (outside the
