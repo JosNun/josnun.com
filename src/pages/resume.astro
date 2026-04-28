@@ -319,8 +319,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </main>
 
   <style is:global>
-    /* Override the cream site background with the resume canvas color. */
-    body {
+    /* Override the cream site background with the resume canvas color.
+       `html body` lifts specificity above global.css's plain `body`
+       rule so this wins regardless of stylesheet load order. */
+    html body {
       background: #f9fafb;
       color: #1f2937;
     }
