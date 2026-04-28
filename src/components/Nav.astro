@@ -61,7 +61,7 @@ const moreActive =
             data-more-panel
             inert
           >
-            <div class="more-card relative bg-cream min-w-[10rem]">
+            <div class="more-card relative min-w-[10rem]">
               <span class="edge edge-top" aria-hidden="true"></span>
               <span class="edge edge-right" aria-hidden="true"></span>
               <span class="edge edge-bottom" aria-hidden="true"></span>
@@ -261,15 +261,23 @@ const moreActive =
     pointer-events: auto;
   }
 
-  /* The card holds the four edges + content. The edges *are* the border. */
+  /* The card holds the four edges + content. The edges *are* the border;
+     the cream background fades in once the border has drawn (so the panel
+     stays fully transparent — non-occluding — when closed). */
   .more-card {
     --draw: 0;
-    transition: --draw var(--draw-close) ease-in;
+    background-color: transparent;
+    transition:
+      --draw var(--draw-close) ease-in,
+      background-color var(--item-close-duration) ease-in;
   }
 
   .more-menu.is-open .more-card {
     --draw: 1;
-    transition: --draw var(--draw-open) ease-out;
+    background-color: var(--cream);
+    transition:
+      --draw var(--draw-open) ease-out,
+      background-color 120ms ease-out var(--draw-open);
   }
 
   /*
