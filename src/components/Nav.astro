@@ -21,6 +21,13 @@ const { currentPath = '/' } = Astro.props;
           ./a<span class="fade">bout</span>
         </a>
         <a
+          href="/resume"
+          class="nav-link text-sage"
+          aria-current={currentPath.startsWith('/resume') ? 'page' : undefined}
+        >
+          ./r<span class="fade">esume</span>
+        </a>
+        <a
           href="/projects"
           class="nav-link text-sage"
           aria-current={currentPath.startsWith('/projects') ? 'page' : undefined}
