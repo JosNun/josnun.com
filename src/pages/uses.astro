@@ -1,0 +1,266 @@
+---
+import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import StemDivider from "../components/StemDivider.astro";
+import { formatMonthYear } from "../utils/formatDate";
+
+interface UsesItem {
+    name: string;
+    note: string;
+    href?: string;
+}
+
+interface UsesSection {
+    title: string;
+    items: UsesItem[];
+}
+
+function gitLastModified(path: string): Date | null {
+    try {
+        const iso = execFileSync(
+            "git",
+            ["log", "-1", "--format=%cI", "--", path],
+            { encoding: "utf-8", stdio: ["pipe", "pipe", "ignore"] },
+        ).trim();
+        return iso ? new Date(iso) : null;
+    } catch {
+        return null;
+    }
+}
+
+const lastUpdatedDate = gitLastModified(fileURLToPath(import.meta.url));
+const lastUpdated = lastUpdatedDate ? formatMonthYear(lastUpdatedDate) : null;
+
+const sections: UsesSection[] = [
+    {
+        title: "Dev Tooling",
+        items: [
+            {
+                name: "VS Code",
+                href: "https://code.visualstudio.com",
+                note: "primary editor, especially when remote containers are in play",
+            },
+            {
+                name: "Zed",
+                href: "https://zed.dev",
+                note: "reaching for it more often when remote containers aren’t involved. It feels zippy, clean, and fresh. Less bloated, IMO.",
+            },
+            {
+                name: "JetBrains Mono",
+                href: "https://www.jetbrains.com/lp/mono/",
+                note: "coding font. Been using it for a while, and I have no qualms",
+            },
+            {
+                name: "Arc",
+                href: "https://arc.net",
+                note: "browser. Is it becoming abandoned? Yes, but I've not found anything better, yet (Chrome devtools is a must for me)",
+            },
+            {
+                name: "Ghostty",
+                href: "https://ghostty.org",
+                note: "terminal. I used to use iTerm 2, but I've switched to Ghostty, and not looked back ",
+            },
+            {
+                name: "Claude Code",
+                href: "https://claude.com/claude-code",
+                note: "AI Agent goes brrrr",
+            },
+            {
+                name: "lazygit",
+                href: "https://github.com/jesseduffield/lazygit",
+                note: "git client. More TUIs need to be this good",
+            },
+            {
+                name: "chezmoi",
+                href: "https://www.chezmoi.io",
+                note: "dotfile manager. Simple, robust, well known. That said, I need to manage my dotfiles more",
+            },
+            {
+                name: "Neovim",
+                href: "https://neovim.io",
+                note: "for editing in the terminal",
+            },
+        ],
+    },
+    {
+        title: "Desktop Apps",
+        items: [
+            {
+                name: "Raycast",
+                href: "https://raycast.com",
+                note: "launcher; GOATed. Everyone should use this",
+            },
+            {
+                name: "Obsidian",
+                href: "https://obsidian.md",
+                note: "current home for my knowledge base — it rotates between Notion, Silverbullet.md, and Obsidian",
+            },
+            {
+                name: "Handy",
+                href: "https://handy.computer",
+                note: "voice transcription.",
+            },
+            {
+                name: "OrbStack",
+                href: "https://orbstack.dev",
+                note: "Docker on macOS, way faster and less buggy than Docker Desktop",
+            },
+            {
+                name: "Shottr",
+                href: "https://shottr.cc",
+                note: "easily markup screenshots",
+            },
+            {
+                name: "BetterMouse",
+                href: "https://better-mouse.com/",
+                note: "because Logitech Options was having a bad time",
+            },
+        ],
+    },
+    {
+        title: "Hardware",
+        items: [
+            {
+                name: "Flexispot E7",
+                note: "standing desk; IKEA butcher block top pulled from a dumpster",
+            },
+            {
+                name: "Steelcase Leap",
+                note: "chair. Got it refurbished",
+            },
+            {
+                name: "Walking pad",
+                note: "generic Amazon model",
+            },
+            {
+                name: "Corne (3x5)",
+                href: "https://github.com/foostan/crkbd",
+                note: "DIYed split keyboard, ZMK firmware with a Miryoku-variant keymap. Hot take: having more than 36 keys is a waste",
+            },
+            {
+                name: "MX Master",
+                note: "mouse. I've had this for 10 years, and it's still going strong. Had to do some modifications because the gesture button broke, though",
+            },
+            {
+                name: "Custom desktop",
+                href: "https://pop.system76.com",
+                note: "Ryzen 3600, GTX 1660, misc SSDs, Pop!_OS. There's also a windows disk that I can boot to when I need it",
+            },
+            {
+                name: 'M1 Pro MacBook Pro 14"',
+                note: "whatever work supplies — currently this. Fantastic machine.",
+            },
+            {
+                name: "HyperX Cloud Alpha",
+                note: "headphones. They were cheap when I got them, and they've been solid ever since",
+            },
+        ],
+    },
+    {
+        title: "Homelab",
+        items: [
+            {
+                name: "Dell PowerEdge R510",
+                note: "the box. Got it from a friend for free",
+            },
+            {
+                name: "Proxmox",
+                href: "https://www.proxmox.com",
+                note: "hypervisor",
+            },
+            {
+                name: "Jellyfin",
+                href: "https://jellyfin.org",
+                note: "media server. Mostly music, because my server doesn't have a GPU",
+            },
+            {
+                name: "Home Assistant",
+                href: "https://www.home-assistant.io",
+                note: "home automation, and way more possibilities for tinkering than I could ever satisfy",
+            },
+            {
+                name: "AdGuard Home",
+                href: "https://adguard.com/en/adguard-home/overview.html",
+                note: "network-wide ad and tracker blocking",
+            },
+            {
+                name: "Mealie",
+                href: "https://mealie.io",
+                note: "recipe manager. This helps my wife actually appreciate my server :p",
+            },
+            {
+                name: "Caddy",
+                href: "https://caddyserver.com",
+                note: "reverse proxy",
+            },
+            {
+                name: "FreshRSS",
+                href: "https://www.freshrss.org",
+                note: "RSS reader. Because I wanna see what I wanna see, not what the algorithms want me to",
+            },
+            {
+                name: "PiVPN",
+                href: "https://pivpn.io",
+                note: "VPN for connecting to my lan. Uses wireguard",
+            },
+            {
+                name: "Coolify",
+                href: "https://coolify.io",
+                note: "self-hosted PaaS. Runs a couple of my self-hosted projects",
+            },
+        ],
+    },
+];
+---
+
+<BaseLayout
+    title="Uses - Josiah Nunemaker"
+    description="Tools, hardware, and apps Josiah uses day to day."
+>
+    <main class="max-w-5xl mx-auto px-8 py-20">
+        <PageHeader
+            title="Uses"
+            subtitle="Tools, hardware, and apps I reach for day to day."
+            meta={lastUpdated ? `Last updated · ${lastUpdated}` : undefined}
+        />
+
+        <div class="space-y-20">
+            {
+                sections.map((section, i) => (
+                    <section
+                        class={`fade-in fade-in-delay-${Math.min(i + 1, 5)}`}
+                    >
+                        <h2 class="font-mono text-xs uppercase tracking-wider mb-3 text-moss">
+                            {section.title}
+                        </h2>
+                        <StemDivider width="medium" />
+                        <ul class="space-y-3 mt-8 max-w-2xl">
+                            {section.items.map((item) => (
+                                <li class="leading-relaxed text-sage">
+                                    {item.href ? (
+                                        <a
+                                            href={item.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="text-forest hover:text-moss font-medium"
+                                        >
+                                            {item.name}
+                                        </a>
+                                    ) : (
+                                        <span class="text-forest font-medium">
+                                            {item.name}
+                                        </span>
+                                    )}
+                                    <span class="text-moss"> &mdash; </span>
+                                    <span>{item.note}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                ))
+            }
+        </div>
+    </main>
+</BaseLayout>

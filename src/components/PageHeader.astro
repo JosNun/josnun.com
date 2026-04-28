@@ -2,9 +2,10 @@
 interface Props {
   title: string;
   subtitle?: string;
+  meta?: string;
 }
 
-const { title, subtitle } = Astro.props;
+const { title, subtitle, meta } = Astro.props;
 ---
 
 <header class="mb-20 fade-in">
@@ -15,6 +16,11 @@ const { title, subtitle } = Astro.props;
   {subtitle && (
     <p class="text-xl font-light text-sage">
       {subtitle}
+    </p>
+  )}
+  {meta && (
+    <p class="font-mono text-xs tracking-wider uppercase text-bark mt-6">
+      {meta}
     </p>
   )}
 </header>

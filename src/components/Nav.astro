@@ -4,6 +4,9 @@ interface Props {
 }
 
 const { currentPath = '/' } = Astro.props;
+
+const moreActive =
+  currentPath.startsWith('/resume') || currentPath.startsWith('/uses');
 ---
 
 <nav class="sticky top-0 bg-cream z-50" id="main-nav">
@@ -19,13 +22,6 @@ const { currentPath = '/' } = Astro.props;
           aria-current={currentPath.startsWith('/about') ? 'page' : undefined}
         >
           ./a<span class="fade">bout</span>
-        </a>
-        <a
-          href="/resume"
-          class="nav-link text-sage"
-          aria-current={currentPath.startsWith('/resume') ? 'page' : undefined}
-        >
-          ./r<span class="fade">esume</span>
         </a>
         <a
           href="/projects"
@@ -48,6 +44,51 @@ const { currentPath = '/' } = Astro.props;
         >
           ./s<span class="fade">eeds</span>
         </a>
+        <div class="more-menu relative" data-more>
+          <button
+            type="button"
+            class="nav-link text-sage more-trigger"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="more-panel"
+            aria-current={moreActive ? 'page' : undefined}
+          >
+            ./m<span class="fade">ore</span><span class="more-caret" aria-hidden="true"> &#9662;</span>
+          </button>
+          <div
+            id="more-panel"
+            class="more-panel absolute right-0 top-full pt-3"
+            data-more-panel
+            inert
+          >
+            <div class="more-card relative bg-cream min-w-[10rem]">
+              <span class="edge edge-top" aria-hidden="true"></span>
+              <span class="edge edge-right" aria-hidden="true"></span>
+              <span class="edge edge-bottom" aria-hidden="true"></span>
+              <span class="edge edge-left" aria-hidden="true"></span>
+              <ul class="more-list py-2 relative">
+                <li style="--i: 0">
+                  <a
+                    href="/resume"
+                    class="more-item block px-4 py-2 text-sage hover:text-forest"
+                    aria-current={currentPath.startsWith('/resume') ? 'page' : undefined}
+                  >
+                    ./resume
+                  </a>
+                </li>
+                <li style="--i: 1">
+                  <a
+                    href="/uses"
+                    class="more-item block px-4 py-2 text-sage hover:text-forest"
+                    aria-current={currentPath.startsWith('/uses') ? 'page' : undefined}
+                  >
+                    ./uses
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -66,4 +107,218 @@ const { currentPath = '/' } = Astro.props;
   window.addEventListener('scroll', handleScroll, { passive: true });
   document.addEventListener('astro:page-load', handleScroll);
   handleScroll();
+
+  const hoverMq = window.matchMedia('(hover: hover)');
+  const leaveTimers = new WeakMap<Element, number>();
+
+  const openMenu = (container: Element) => {
+    const trigger = container.querySelector('.more-trigger');
+    const panel = container.querySelector<HTMLElement>('[data-more-panel]');
+    if (!trigger || !panel) return;
+    trigger.setAttribute('aria-expanded', 'true');
+    panel.removeAttribute('inert');
+    container.classList.add('is-open');
+    (container as HTMLElement).dataset.opening = '1';
+  };
+
+  const closeMenu = (container: Element) => {
+    const trigger = container.querySelector('.more-trigger');
+    const panel = container.querySelector<HTMLElement>('[data-more-panel]');
+    if (!trigger || !panel) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    panel.setAttribute('inert', '');
+    container.classList.remove('is-open');
+    delete (container as HTMLElement).dataset.opening;
+  };
+
+  const isOpen = (container: Element) =>
+    container.querySelector('.more-trigger')?.getAttribute('aria-expanded') === 'true';
+
+  const setupContainer = (container: Element) => {
+    if ((container as HTMLElement).dataset.moreReady === '1') return;
+    (container as HTMLElement).dataset.moreReady = '1';
+
+    const trigger = container.querySelector('.more-trigger');
+    if (!trigger) return;
+
+    const card = container.querySelector('.more-card');
+    const onCardTransition = (e: Event) => {
+      const te = e as TransitionEvent;
+      if (te.propertyName === '--draw') {
+        delete (container as HTMLElement).dataset.opening;
+      }
+    };
+    card?.addEventListener('transitionend', onCardTransition);
+    card?.addEventListener('transitioncancel', onCardTransition);
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const pendingClose = leaveTimers.get(container);
+      if (pendingClose) window.clearTimeout(pendingClose);
+
+      if ((container as HTMLElement).dataset.opening === '1') {
+        return;
+      }
+
+      isOpen(container) ? closeMenu(container) : openMenu(container);
+    });
+
+    container.addEventListener('mouseenter', () => {
+      if (!hoverMq.matches) return;
+      const t = leaveTimers.get(container);
+      if (t) window.clearTimeout(t);
+      openMenu(container);
+    });
+
+    container.addEventListener('mouseleave', () => {
+      if (!hoverMq.matches) return;
+      const t = window.setTimeout(() => closeMenu(container), 150);
+      leaveTimers.set(container, t);
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      const ke = e as KeyboardEvent;
+      if (ke.key === 'ArrowDown' || ke.key === 'Enter' || ke.key === ' ') {
+        ke.preventDefault();
+        openMenu(container);
+        const firstItem = container.querySelector<HTMLElement>('.more-item');
+        firstItem?.focus();
+      }
+    });
+  };
+
+  const setupAll = () => {
+    document.querySelectorAll('[data-more]').forEach(setupContainer);
+  };
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as Node;
+    document.querySelectorAll('[data-more]').forEach((c) => {
+      if (!c.contains(target)) closeMenu(c);
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('[data-more]').forEach((c) => {
+        if (isOpen(c)) {
+          closeMenu(c);
+          c.querySelector<HTMLElement>('.more-trigger')?.focus();
+        }
+      });
+    }
+  });
+
+  setupAll();
+  document.addEventListener('astro:page-load', setupAll);
 </script>
+
+<style>
+  /* --- Tunable timing knobs ---------------------------------------------- */
+  .more-menu {
+    --draw-open: 320ms;
+    --draw-close: 180ms;
+    --item-stagger: 50ms;
+    --item-duration: 180ms;
+    --item-close-duration: 100ms;
+  }
+
+  /* Registered custom property so `--draw` can be transitioned smoothly. */
+  @property --draw {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: true;
+  }
+
+  .more-trigger {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    letter-spacing: inherit;
+  }
+
+  .more-caret {
+    display: inline-block;
+    margin-left: 0.15em;
+    transition: transform 0.2s ease;
+  }
+
+  .more-menu.is-open .more-caret {
+    transform: rotate(180deg);
+  }
+
+  .more-panel {
+    z-index: 60;
+    pointer-events: none;
+  }
+
+  .more-menu.is-open .more-panel {
+    pointer-events: auto;
+  }
+
+  /* The card holds the four edges + content. The edges *are* the border. */
+  .more-card {
+    --draw: 0;
+    transition: --draw var(--draw-close) ease-in;
+  }
+
+  .more-menu.is-open .more-card {
+    --draw: 1;
+    transition: --draw var(--draw-open) ease-out;
+  }
+
+  /*
+   * Two strokes start at top-right, simultaneously trace mirror-image
+   * L-shapes, and meet at bottom-left.
+   *   Stroke A: top edge (right→left), then left edge (top→down)
+   *   Stroke B: right edge (top→down), then bottom edge (right→left)
+   * Each edge derives its scale from the shared `--draw` (0→1) value:
+   *   top, right  → scale = clamp(0, draw*2,     1)   (first half)
+   *   left, bottom → scale = clamp(0, draw*2 - 1, 1)  (second half)
+   */
+  .edge {
+    position: absolute;
+    background: var(--leaf);
+    pointer-events: none;
+  }
+
+  .edge-top,
+  .edge-bottom {
+    height: 1px;
+    width: 100%;
+    transform-origin: right center;
+  }
+
+  .edge-right,
+  .edge-left {
+    width: 1px;
+    height: 100%;
+    transform-origin: center top;
+  }
+
+  .edge-top    { top: 0;    right: 0; transform: scaleX(clamp(0, calc(var(--draw) * 2),     1)); }
+  .edge-right  { top: 0;    right: 0; transform: scaleY(clamp(0, calc(var(--draw) * 2),     1)); }
+  .edge-left   { top: 0;    left:  0; transform: scaleY(clamp(0, calc(var(--draw) * 2 - 1), 1)); }
+  .edge-bottom { bottom: 0; right: 0; transform: scaleX(clamp(0, calc(var(--draw) * 2 - 1), 1)); }
+
+  /* Items: fade in only after the border has finished drawing, with stagger. */
+  .more-list li {
+    opacity: 0;
+    transition: opacity var(--item-close-duration) ease-in;
+  }
+
+  .more-menu.is-open .more-list li {
+    opacity: 1;
+    transition: opacity var(--item-duration) ease-out;
+    transition-delay: calc(var(--draw-open) + var(--i, 0) * var(--item-stagger));
+  }
+
+  .more-item[aria-current='page'] {
+    color: var(--forest);
+  }
+</style>
