@@ -3,6 +3,7 @@ title: "Preloading fonts to alleviate FOUC"
 description: "Using rel=\"preload\" to prioritize font loading and reduce the flash of unstyled content."
 pubDate: 2018-11-02
 draft: false
+archived: true
 ---
 
 We've all been there. That moment when you are on a slow connection and ever so slowly a page's content loads. One. thing. at. a. time. Then you can see everything but the text for a brief moment before _BAM!_ The font loads and everything goes blank while it is getting rerendered. As a user, it is jarring, and as developers, it's a pain to deal with. What if there was a simple solution? Good news! There is. It's not a cure all, but it can at least help alleviate the pain of the dreaded flash of unstyled content (FOUC). It comes in the form of [`rel="preload"`](https://w3c.github.io/preload/). Let's take a look at how easy it is to use.
