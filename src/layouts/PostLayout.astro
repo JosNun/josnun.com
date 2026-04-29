@@ -3,6 +3,11 @@ import BaseLayout from './BaseLayout.astro';
 import StemDivider from '../components/StemDivider.astro';
 import { formatLongDate } from '../utils/formatDate';
 
+interface PostLink {
+  slug: string;
+  title: string;
+}
+
 interface Props {
   frontmatter: {
     title: string;
@@ -12,9 +17,12 @@ interface Props {
     archived?: boolean;
   };
   slug: string;
+  readingStats?: { words: number; minutes: number };
+  newer?: PostLink | null;
+  older?: PostLink | null;
 }
 
-const { frontmatter, slug } = Astro.props;
+const { frontmatter, slug, readingStats, newer, older } = Astro.props;
 const formattedDate = formatLongDate(frontmatter.pubDate);
 
 const siteUrl = Astro.site!.toString().replace(/\/$/, '');
@@ -55,14 +63,21 @@ const blogPosting = {
 >
   <main class="max-w-3xl mx-auto px-8 py-20">
     <header class="mb-16 fade-in">
-      <div class="flex items-baseline gap-4 mb-4">
-        <time class="font-mono text-xs uppercase tracking-wider text-bark">
-          {formattedDate}
-        </time>
+      <div class="flex items-baseline flex-wrap gap-x-4 gap-y-1 mb-4 font-mono text-xs uppercase tracking-wider text-bark">
+        <time>{formattedDate}</time>
+        {readingStats && (
+          <>
+            <span aria-hidden="true" class="opacity-50">·</span>
+            <span>{readingStats.minutes} min read</span>
+            <span aria-hidden="true" class="opacity-50">·</span>
+            <span>{readingStats.words.toLocaleString()} words</span>
+          </>
+        )}
         {frontmatter.archived && (
-          <span class="font-mono text-xs uppercase tracking-wider text-bark opacity-60">
-            archived
-          </span>
+          <>
+            <span aria-hidden="true" class="opacity-50">·</span>
+            <span class="opacity-60">archived</span>
+          </>
         )}
       </div>
       <h1 class="text-4xl sm:text-5xl font-light tracking-tight mb-6 text-forest">
@@ -83,6 +98,44 @@ const blogPosting = {
       <slot />
     </article>
 
+    {(newer || older) && (
+      <nav
+        class="mt-20 pt-8 border-t border-leaf grid sm:grid-cols-2 gap-6 fade-in fade-in-delay-2"
+        aria-label="Post navigation"
+      >
+        <div>
+          {older && (
+            <a
+              href={`/writing/${older.slug}/`}
+              class="post-nav-link group block p-6 border-l-2 border-leaf hover:bg-white transition-colors"
+            >
+              <span class="block font-mono text-xs uppercase tracking-wider text-bark mb-2">
+                ← older
+              </span>
+              <span class="block text-lg font-light leading-snug text-forest">
+                {older.title}
+              </span>
+            </a>
+          )}
+        </div>
+        <div class="sm:text-right">
+          {newer && (
+            <a
+              href={`/writing/${newer.slug}/`}
+              class="post-nav-link post-nav-link--right group block p-6 border-r-2 border-leaf hover:bg-white transition-colors"
+            >
+              <span class="block font-mono text-xs uppercase tracking-wider text-bark mb-2">
+                newer →
+              </span>
+              <span class="block text-lg font-light leading-snug text-forest">
+                {newer.title}
+              </span>
+            </a>
+          )}
+        </div>
+      </nav>
+    )}
+
     <div class="mt-16 pt-8 border-t border-leaf fade-in fade-in-delay-2">
       <a href="/writing" class="arrow-link font-mono text-sm text-moss">
         ← back to writing
@@ -90,3 +143,13 @@ const blogPosting = {
     </div>
   </main>
 </BaseLayout>
+
+<style>
+  .post-nav-link {
+    border-left-width: 2px;
+  }
+  .post-nav-link--right {
+    border-left-width: 0;
+    border-right-width: 2px;
+  }
+</style>

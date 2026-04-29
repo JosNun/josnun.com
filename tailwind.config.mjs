@@ -55,6 +55,27 @@ export default {
               padding: '0',
               fontWeight: '400',
             },
+            'h2, h3, h4, h5, h6': {
+              scrollMarginTop: '5rem',
+            },
+            '.heading-anchor': {
+              marginLeft: '0.4em',
+              color: '#a8c5b8',
+              fontWeight: '300',
+              textDecoration: 'none',
+              border: '0',
+              opacity: '0',
+              transition: 'opacity 0.2s ease, color 0.2s ease',
+            },
+            'h2:hover .heading-anchor, h3:hover .heading-anchor, h4:hover .heading-anchor, h5:hover .heading-anchor, h6:hover .heading-anchor': {
+              opacity: '1',
+            },
+            '.heading-anchor:hover': {
+              color: '#7a9b89',
+            },
+            '.heading-anchor:focus-visible': {
+              opacity: '1',
+            },
           },
         },
       },
