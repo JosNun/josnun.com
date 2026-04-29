@@ -62,13 +62,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
             <section class="summary" aria-label="Summary">
                 <p>
-                    Founding engineer and frontend tech lead with a proven track
-                    record building B2B and B2C applications at scale. My bread
-                    and butter is rich user interactions, ensuring the
-                    experience feels good to use, not just functional. I
-                    innovate on products while still keeping interfaces
-                    intuitive and easy to understand, bridging the gap between
-                    complexity and seamless UX.
+                    Founding engineer and frontend tech lead with a track record
+                    shipping products at scale, focused on interfaces that feel
+                    inviting to use even when the work underneath is intricate.
+                    Rich interactions, careful detail, small things that
+                    compound.
                 </p>
             </section>
 
@@ -104,7 +102,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                         <p class="job-summary">
                             B2C investment journaling platform (Journalytic) and
                             B2B investment operating system (Baserate) built on
-                            a shared codebase.
+                            a shared codebase (TypeScript, React, Tanstack
+                            Query, Tailwind, Go, Postgres, Redis).
                         </p>
                     </header>
                     <ul>
@@ -132,11 +131,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                             </span>.
                         </li>
                         <li>
-                            <strong>Built core product modules</strong> (Timeline,
-                            Idea Lists, Decisions, Dashboards) and key differentiator
-                            features including conviction scoring, sentiment and emotional
-                            marker tracking, idea-level dashboards with price chart
-                            overlays, and process analytics.
+                            <strong>Primary frontend engineer</strong>,
+                            responsible for nearly all of the UI and working
+                            closely with the team on QA and code reviews.
+                            Shipped Timeline, Idea Lists, Decisions, Dashboards,
+                            conviction scoring, sentiment and emotional marker
+                            tracking, idea-level dashboards with price chart
+                            overlays, process analytics, and more.
                         </li>
                         <li>
                             <strong>Reduced core feature load time</strong> by{
@@ -162,7 +163,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                             </span>{" "}
                             by engineering a custom-built high-performance virtualized
                             list powering 3 core surfaces, supporting mixed content,
-                            anchored scrolling, and infinite scroll.
+                            bidirectional anchored scrolling, and infinite scroll.
                         </li>
                         <li>
                             <strong
@@ -174,8 +175,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                         <li>
                             <strong
                                 >Built real-time SSE-based entity sync</strong
-                            > across workspace members delivering live updates for
-                            changed entity modifications across clients.
+                            > across workspace members on a Go backend, delivering
+                            live updates for entity modifications across clients.
                         </li>
                         <li class="js-rust-bullet">
                             <span class="arrow-doodle" aria-hidden="true">
@@ -211,21 +212,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                             </span>
                             <strong>Led DX initiatives</strong> including frontend
                             Firestore → Postgres migration for reliability and scalability,
-                            and <span class="xjs-rust">JS → Rust</span>
-                            frontend toolchain reducing dev server and build time
-                            and memory consumption by 30%+.
+                            and ongoing frontend toolchain improvements that reduced
+                            dev server and build time and memory consumption by 30%+.
                         </li>
                         <li>
-                            <strong>Built AI tooling</strong> and custom skills (including
-                            automated icon extraction from design mocks) that caught
-                            bugs before review, reduced reviewer burden, provided
-                            context on features, and supported automation.
+                            <strong>Active design partner</strong> on every major
+                            feature, iterating closely with the designer and providing
+                            detailed, well-reasoned feedback grounded in product instinct.
                         </li>
                         <li>
-                            <strong>Set early standards</strong> for code health (formatting,
-                            linting, review pipelines, ideas-to-implementation workflows)
-                            and participated in technical interviews for engineering
-                            hires.
+                            <strong>Tool enthusiast</strong>; always on the
+                            lookout for opportunities to improve dev workflow
+                            and team productivity through custom AI tooling,
+                            skills, and automation.
                         </li>
                     </ul>
                 </article>
@@ -310,7 +309,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
             <section class="resume-section">
                 <h2 class="section-heading">
-                    <span class="heading-text">Projects</span>
+                    <span class="heading-text">Personal Projects</span>
                     <svg
                         class="highlight"
                         viewBox="0 0 200 18"
@@ -328,8 +327,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     </svg>
                 </h2>
                 <p class="aside">
-                    For a more complete list, see <a href="https://josnun.com"
-                        >josnun.com</a
+                    For a more complete list, see <a
+                        href="https://josnun.com/projects"
+                        target="_blank">josnun.com/projects</a
                     >.
                 </p>
                 <ul>
@@ -869,9 +869,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     margin-bottom: 0.15rem;
                 }
                 /* The right-margin annotation has nowhere to go on Letter/A4 paper —
-         hide it so the bullet keeps its full width. */
-                .arrow-doodle {
+         hide it so the bullet keeps its full width. The purple circle
+         doodles are also dropped in print so the PDF stays neutral. */
+                .arrow-doodle,
+                .circle-doodle {
                     display: none !important;
+                }
+                /* With the circle SVG hidden, strip the wrapper's positioning
+                   styles so the circled text flows like surrounding copy. */
+                .circled {
+                    display: inline;
+                    padding: 0;
+                    white-space: normal;
+                }
+                .circled-text {
+                    color: inherit;
                 }
                 .resume a {
                     color: inherit;
