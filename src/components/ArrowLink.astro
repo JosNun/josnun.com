@@ -4,16 +4,22 @@ interface Props {
   text: string;
   class?: string;
   external?: boolean;
+  me?: boolean;
 }
 
-const { href, text, class: className = '', external = false } = Astro.props;
+const { href, text, class: className = '', external = false, me = false } = Astro.props;
+
+const relParts: string[] = [];
+if (external) relParts.push('noopener', 'noreferrer');
+if (me) relParts.push('me');
+const rel = relParts.length > 0 ? relParts.join(' ') : undefined;
 ---
 
 <a
   href={href}
   class={`arrow-link text-moss ${className}`}
   target={external ? '_blank' : undefined}
-  rel={external ? 'noopener noreferrer' : undefined}
+  rel={rel}
 >
   → {text}
 </a>

@@ -6,6 +6,7 @@ import FocusCard from '../components/FocusCard.astro';
 import SeedEntry from '../components/SeedEntry.astro';
 import { formatMonthYear } from '../utils/formatDate';
 import { getSortedSeeds } from '../utils/seeds';
+import { socialLinks } from '../data/social';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('writing', ({ data }) => !data.draft && !data.archived);
@@ -82,10 +83,9 @@ const website = {
         </h2>
         <StemDivider width="short" />
         <div class="flex flex-col gap-3 font-mono text-sm mt-6">
-          <ArrowLink href="https://github.com/josnun" text="github.com/josnun" external />
-          <ArrowLink href="mailto:hi@josnun.com" text="hi@josnun.com" />
-          <ArrowLink href="https://x.com/josiahnunemaker" text="@josiahnunemaker" external />
-          <ArrowLink href="https://bsky.app/profile/josnun.bsky.social" text="@josnun.bsky.social" external />
+          {socialLinks.map((link) => (
+            <ArrowLink href={link.href} text={link.label} external={link.external} me={link.me} />
+          ))}
         </div>
       </div>
     </section>
