@@ -1,138 +1,165 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 
-import prayershareImg from '../assets/projects/prayershare.png';
-import sitantImg from '../assets/projects/sitant.png';
-import bibleImg from '../assets/projects/bible.png';
-import codenamesImg from '../assets/projects/codenames.png';
-import ascendImg from '../assets/projects/ascend.png';
-import inscribeImg from '../assets/projects/inscribe.png';
-import freeRangeIdeasImg from '../assets/projects/free-range-ideas.webp';
-import potluckBotImg from '../assets/projects/potluck-bot.webp';
-import displayReinitializerImg from '../assets/projects/display-reinitializer.png';
+import prayershareImg from "../assets/projects/prayershare.png";
+import sitantImg from "../assets/projects/sitant.png";
+import bibleImg from "../assets/projects/bible.png";
+import codenamesImg from "../assets/projects/codenames.png";
+import ascendImg from "../assets/projects/ascend.png";
+import inscribeImg from "../assets/projects/inscribe.png";
+import freeRangeIdeasImg from "../assets/projects/free-range-ideas.webp";
+import potluckBotImg from "../assets/projects/potluck-bot.webp";
+import displayReinitializerImg from "../assets/projects/display-reinitializer.png";
+import versetimeImg from "../assets/projects/versetime.png";
+import hangtimeImg from "../assets/projects/hangtime.png";
 
 const projects = [
-  {
-    title: 'Inscribe',
-    category: 'Mobile App',
-    description:
-      'A scripture memorization app that turns verses into playable, repeatable practice. Spaced repetition keeps them; community keeps you going. Currently in development.',
-    tags: ['Flutter', 'Bun', 'Hono', 'PostgreSQL'],
-    image: inscribeImg,
-    liveUrl: 'https://inscribe.josnun.com',
-  },
-  {
-    title: 'Night Mode Bible',
-    category: 'Chrome Extension',
-    description:
-      'A Chrome extension that makes Bible.com easier on your eyes at night with a toggleable dark mode. Quietly serves 5,000+ weekly active users.',
-    tags: ['Chrome Extension', 'CSS'],
-    image: bibleImg,
-    liveUrl:
-      'https://chromewebstore.google.com/detail/night-mode-bible/ebiieffikaglhelcnogmmijmlejdhngk',
-    repoUrl: 'https://github.com/JosNun/night-mode-bible',
-  },
-  {
-    title: 'Display Reinitializer',
-    category: 'Raycast Extension',
-    description:
-      'A Raycast extension to force re-detection and reinitialization of connected displays on macOS. Uses native CoreGraphics APIs and offers multiple reinitialization methods including DDC power-cycle, refresh-rate toggle, and resolution cycle.',
-    tags: ['Swift', 'Raycast', 'macOS'],
-    image: displayReinitializerImg,
-    liveUrl: 'https://www.raycast.com/JosNun/display-reinitializer',
-    repoUrl: 'https://github.com/JosNun/raycast-reinitialize-display',
-  },
-  {
-    title: 'Potluck Bot',
-    category: 'Discord Bot',
-    description:
-      'A Discord bot for organizing potluck events with interactive item management. Users can create potlucks, claim items, add custom items, and sync with Discord scheduled events — all through buttons in chat.',
-    tags: ['TypeScript', 'discord.js', 'SQLite'],
-    image: potluckBotImg,
-    imageType: 'icon' as const,
-    repoUrl: 'https://github.com/JosNun/potluck-bot',
-  },
-  {
-    title: 'Free-Range Ideas',
-    category: 'Web App',
-    description:
-      'A public shelf of project ideas free for the taking — if one sparks you, build it. A vibe-coded side project; the design is intentionally hasty and evolving.',
-    tags: ['Astro', 'Vibe Coded'],
-    image: freeRangeIdeasImg,
-    imageType: 'icon' as const,
-    liveUrl: 'https://ideas.josnun.com',
-    repoUrl: 'https://github.com/JosNun/free-range-ideas',
-  },
-  {
-    title: 'Sitant',
-    category: 'Chrome Extension',
-    description:
-      'A minimal, yet incredibly functional new tab replacement. It provides a quick place to jot down notes, todos, or tasks without a bunch of additional fluff.',
-    tags: ['Chrome Extension', 'React'],
-    image: sitantImg,
-    liveUrl:
-      'https://chromewebstore.google.com/detail/sitant-simple-tasks-in-ne/koggochfeennbhkkjmbpbhfhociingae',
-    repoUrl: 'https://github.com/JosNun/sitant',
-  },
-  {
-    title: 'Parabox',
-    category: 'Library',
-    description:
-      'An easy-to-use parallax library built on top of CSS3 transforms. Available for use both in-browser and with modern build systems.',
-    tags: ['JavaScript', 'CSS'],
-    liveUrl: 'https://codepen.io/FracturedLoop/full/VBXpbj/',
-    repoUrl: 'https://github.com/JosNun/parabox.js',
-  },
-  {
-    title: 'PrayerShare',
-    category: 'Web App',
-    description:
-      'A pseudo-anonymous prayer request sharing platform. Users are able to follow their friends, and see when a request is made, but the poster will remain anonymous.',
-    tags: ['React'],
-    image: prayershareImg,
-    archived: true,
-  },
-  {
-    title: 'Codenames',
-    category: 'Game',
-    description:
-      'A digital version of the board game enabling real-time multiplayer gameplay from any device. The real-time communication runs on WebSockets and is powered by Socket.io.',
-    tags: ['Node.js', 'Socket.io', 'WebSockets'],
-    image: codenamesImg,
-    repoUrl: 'https://github.com/JosNun/codenames',
-    archived: true,
-  },
-  {
-    title: 'Ascend Performance',
-    category: 'Practice Site',
-    description:
-      'A fictitious company website project used to practice design skills and experiment with new technologies like Styled Components.',
-    tags: ['React', 'Styled Components'],
-    image: ascendImg,
-    repoUrl: 'https://github.com/JosNun/ascend-performance',
-    archived: true,
-  },
+    {
+        title: "Inscribe",
+        category: "Mobile App",
+        description:
+            "A scripture memorization app that turns verses into playable, repeatable practice. Spaced repetition keeps them; community keeps you going. Currently in development.",
+        tags: ["Flutter", "Bun", "Hono", "PostgreSQL"],
+        image: inscribeImg,
+        liveUrl: "https://inscribe.josnun.com",
+    },
+    {
+        title: "Night Mode Bible",
+        category: "Chrome Extension",
+        description:
+            "A Chrome extension that makes Bible.com easier on your eyes at night with a toggleable dark mode. Quietly serves 5,000+ weekly active users.",
+        tags: ["Chrome Extension", "CSS"],
+        image: bibleImg,
+        liveUrl:
+            "https://chromewebstore.google.com/detail/night-mode-bible/ebiieffikaglhelcnogmmijmlejdhngk",
+        repoUrl: "https://github.com/JosNun/night-mode-bible",
+    },
+    {
+        title: "Display Reinitializer",
+        category: "Raycast Extension",
+        description:
+            "A Raycast extension to force re-detection and reinitialization of connected displays on macOS. Uses native CoreGraphics APIs and offers multiple reinitialization methods including DDC power-cycle, refresh-rate toggle, and resolution cycle.",
+        tags: ["Swift", "Raycast", "macOS"],
+        image: displayReinitializerImg,
+        liveUrl: "https://www.raycast.com/JosNun/display-reinitializer",
+        repoUrl: "https://github.com/JosNun/raycast-reinitialize-display",
+    },
+    {
+        title: "Potluck Bot",
+        category: "Discord Bot",
+        description:
+            "A Discord bot for organizing potluck events with interactive item management. Users can create potlucks, claim items, add custom items, and sync with Discord scheduled events — all through buttons in chat.",
+        tags: ["TypeScript", "discord.js", "SQLite"],
+        image: potluckBotImg,
+        imageType: "icon" as const,
+        repoUrl: "https://github.com/JosNun/potluck-bot",
+    },
+    {
+        title: "Versetime",
+        category: "Web App",
+        description:
+            "A rebuild of Hangtime to meet changing needs. Rather than manually added words that get rotated through, the user specifies a Bible reference, and we fetch the text via api.",
+        tags: ["Svelte"],
+        image: versetimeImg,
+        liveUrl: "https://versetime.josnun.com",
+        repoUrl: "https://github.com/JosNun/versetime",
+    },
+    {
+        title: "Hangtime",
+        category: "Web App",
+        description:
+            "Hangman + a countdown timer. Built to handle a need I had in kids ministry. Built with Svelte because I hadn't used it yet.",
+        tags: ["Svelte"],
+        image: hangtimeImg,
+        liveUrl: "https://hangtime.josnun.com",
+        repoUrl: "https://github.com/JosNun/hangtime",
+    },
+    {
+        title: "Free-Range Ideas",
+        category: "Web App",
+        description:
+            "A public shelf of project ideas free for the taking — if one sparks you, build it. A vibe-coded side project; the design is intentionally hasty and evolving.",
+        tags: ["Astro", "Vibe Coded"],
+        image: freeRangeIdeasImg,
+        imageType: "icon" as const,
+        liveUrl: "https://ideas.josnun.com",
+        repoUrl: "https://github.com/JosNun/free-range-ideas",
+    },
+    {
+        title: "Sitant",
+        category: "Chrome Extension",
+        description:
+            "A minimal, yet incredibly functional new tab replacement. It provides a quick place to jot down notes, todos, or tasks without a bunch of additional fluff.",
+        tags: ["Chrome Extension", "React"],
+        image: sitantImg,
+        liveUrl:
+            "https://chromewebstore.google.com/detail/sitant-simple-tasks-in-ne/koggochfeennbhkkjmbpbhfhociingae",
+        repoUrl: "https://github.com/JosNun/sitant",
+    },
+    {
+        title: "Parabox",
+        category: "Library",
+        description:
+            "An easy-to-use parallax library built on top of CSS3 transforms. Available for use both in-browser and with modern build systems.",
+        tags: ["JavaScript", "CSS"],
+        liveUrl: "https://codepen.io/FracturedLoop/full/VBXpbj/",
+        repoUrl: "https://github.com/JosNun/parabox.js",
+    },
+    {
+        title: "PrayerShare",
+        category: "Web App",
+        description:
+            "A pseudo-anonymous prayer request sharing platform. Users are able to follow their friends, and see when a request is made, but the poster will remain anonymous.",
+        tags: ["React"],
+        image: prayershareImg,
+        archived: true,
+    },
+    {
+        title: "Codenames",
+        category: "Game",
+        description:
+            "A digital version of the board game enabling real-time multiplayer gameplay from any device. The real-time communication runs on WebSockets and is powered by Socket.io.",
+        tags: ["Node.js", "Socket.io", "WebSockets"],
+        image: codenamesImg,
+        repoUrl: "https://github.com/JosNun/codenames",
+        archived: true,
+    },
+    {
+        title: "Ascend Performance",
+        category: "Practice Site",
+        description:
+            "A fictitious company website project used to practice design skills and experiment with new technologies like Styled Components.",
+        tags: ["React", "Styled Components"],
+        image: ascendImg,
+        repoUrl: "https://github.com/JosNun/ascend-performance",
+        archived: true,
+    },
 ];
 ---
 
-<BaseLayout title="Projects - Josiah Nunemaker" description="Selected work by Josiah Nunemaker.">
-  <main class="max-w-5xl mx-auto px-8 py-20">
+<BaseLayout
+    title="Projects - Josiah Nunemaker"
+    description="Selected work by Josiah Nunemaker."
+>
+    <main class="max-w-5xl mx-auto px-8 py-20">
+        <PageHeader
+            title="Projects"
+            subtitle="Things I've built, tinkered with, or shipped"
+        />
 
-    <PageHeader
-      title="Projects"
-      subtitle="Things I've built, tinkered with, or shipped"
-    />
-
-    <div class="space-y-8">
-      {projects
-        .slice()
-        .sort((a, b) => Number(a.archived ?? false) - Number(b.archived ?? false))
-        .map((project) => (
-          <ProjectCard {...project} />
-        ))}
-    </div>
-
-  </main>
+        <div class="space-y-8">
+            {
+                projects
+                    .slice()
+                    .sort(
+                        (a, b) =>
+                            Number(a.archived ?? false) -
+                            Number(b.archived ?? false),
+                    )
+                    .map((project) => <ProjectCard {...project} />)
+            }
+        </div>
+    </main>
 </BaseLayout>
