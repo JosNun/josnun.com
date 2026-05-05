@@ -3,11 +3,17 @@ interface Props {
   href: string;
   text: string;
   class?: string;
+  external?: boolean;
 }
 
-const { href, text, class: className = '' } = Astro.props;
+const { href, text, class: className = '', external = false } = Astro.props;
 ---
 
-<a href={href} class={`arrow-link text-moss ${className}`}>
+<a
+  href={href}
+  class={`arrow-link text-moss ${className}`}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+>
   → {text}
 </a>
