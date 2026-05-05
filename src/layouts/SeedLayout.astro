@@ -17,9 +17,35 @@ const pageTitle = frontmatter.title
   ? `${frontmatter.title} - Josiah Nunemaker`
   : `${formattedDate} - Seeds`;
 const ogImage = `/og/seeds/${slug}.png`;
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, '');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const blogPosting = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: frontmatter.title ?? formattedDate,
+  datePublished: frontmatter.pubDate.toISOString(),
+  dateModified: frontmatter.pubDate.toISOString(),
+  author: {
+    '@type': 'Person',
+    '@id': `${siteUrl}/#person`,
+    name: 'Josiah Nunemaker',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Person',
+    '@id': `${siteUrl}/#person`,
+    name: 'Josiah Nunemaker',
+    url: siteUrl,
+  },
+  url: canonicalURL,
+  mainEntityOfPage: canonicalURL,
+  image: `${siteUrl}${ogImage}`,
+  isPartOf: { '@id': `${siteUrl}/seeds/#blog` },
+};
 ---
 
-<BaseLayout title={pageTitle} image={ogImage}>
+<BaseLayout title={pageTitle} image={ogImage} article publishedTime={frontmatter.pubDate} jsonLd={blogPosting}>
   <main class="max-w-2xl mx-auto px-8 py-20">
     <header class="mb-12 fade-in">
       {frontmatter.title ? (

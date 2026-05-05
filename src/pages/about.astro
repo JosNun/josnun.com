@@ -3,11 +3,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ArrowLink from '../components/ArrowLink.astro';
 import { socialLinks } from '../data/social';
+
+const description =
+  'Founding engineer cultivating interface craft, careful detail, and the small things that compound. A bit about who I am beyond the work.';
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, '');
+const aboutPage = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': `${siteUrl}/about/#page`,
+  url: `${siteUrl}/about`,
+  name: 'About',
+  description,
+  mainEntity: { '@id': `${siteUrl}/#person` },
+};
 ---
 
 <BaseLayout
   title="About - Josiah Nunemaker"
-  description="Founding engineer cultivating interface craft, careful detail, and the small things that compound. A bit about who I am beyond the work."
+  description={description}
+  jsonLd={aboutPage}
 >
   <main class="max-w-3xl mx-auto px-8 py-20">
 

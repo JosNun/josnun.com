@@ -3,14 +3,43 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import SeedsList from '../../components/SeedsList.astro';
 import { getSortedSeeds, SEEDS_PAGE_SIZE } from '../../utils/seeds';
+import { formatLongDate } from '../../utils/formatDate';
 
 const sorted = await getSortedSeeds();
 const firstPage = sorted.slice(0, SEEDS_PAGE_SIZE);
 const lastPage = Math.max(1, Math.ceil(sorted.length / SEEDS_PAGE_SIZE));
 const nextUrl = lastPage > 1 ? '/seeds/page/2' : undefined;
+
+const description = 'Short thoughts and ideas.';
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, '');
+const blog = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': `${siteUrl}/seeds/#blog`,
+  url: `${siteUrl}/seeds`,
+  name: 'Seeds',
+  description,
+  author: { '@id': `${siteUrl}/#person` },
+  publisher: { '@id': `${siteUrl}/#person` },
+  blogPost: sorted.map((post) => ({
+    '@type': 'BlogPosting',
+    '@id': `${siteUrl}/seeds/${post.slug}`,
+    url: `${siteUrl}/seeds/${post.slug}`,
+    headline: post.data.title ?? formatLongDate(post.data.pubDate),
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: post.data.pubDate.toISOString(),
+    author: { '@id': `${siteUrl}/#person` },
+    image: `${siteUrl}/og/seeds/${post.slug}.png`,
+  })),
+};
 ---
 
-<BaseLayout title="Seeds - Josiah Nunemaker" description="Short thoughts and ideas.">
+<BaseLayout
+  title="Seeds - Josiah Nunemaker"
+  description={description}
+  jsonLd={blog}
+>
   <main class="max-w-5xl mx-auto px-8 py-20">
 
     <PageHeader

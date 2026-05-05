@@ -159,11 +159,58 @@ const projects = [
         archived: true,
     },
 ];
+
+const sortedProjects = projects
+    .slice()
+    .sort(
+        (a, b) =>
+            Number(a.archived ?? false) - Number(b.archived ?? false),
+    );
+
+const description =
+    "Most of these exist because I wanted them to. Some shipped, some lived briefly, some are still kicking. Built to scratch an itch.";
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, "");
+const projectsCollection = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteUrl}/projects/#page`,
+    url: `${siteUrl}/projects`,
+    name: "Projects",
+    description,
+    author: { "@id": `${siteUrl}/#person` },
+    mainEntity: {
+        "@type": "ItemList",
+        itemListElement: sortedProjects.map((project, index) => {
+            const projectUrl = project.liveUrl ?? project.repoUrl;
+            return {
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                    "@type": "CreativeWork",
+                    name: project.title,
+                    description: project.description,
+                    creator: { "@id": `${siteUrl}/#person` },
+                    ...(projectUrl ? { url: projectUrl } : {}),
+                    ...(project.image
+                        ? {
+                              image: new URL(
+                                  project.image.src,
+                                  Astro.site,
+                              ).toString(),
+                          }
+                        : {}),
+                },
+            };
+        }),
+    },
+};
 ---
 
 <BaseLayout
     title="Projects - Josiah Nunemaker"
-    description="Most of these exist because I wanted them to. Some shipped, some lived briefly, some are still kicking. Built to scratch an itch."
+    description={description}
+    jsonLd={projectsCollection}
 >
     <main class="max-w-5xl mx-auto px-8 py-20">
         <PageHeader
@@ -172,16 +219,7 @@ const projects = [
         />
 
         <div class="space-y-8">
-            {
-                projects
-                    .slice()
-                    .sort(
-                        (a, b) =>
-                            Number(a.archived ?? false) -
-                            Number(b.archived ?? false),
-                    )
-                    .map((project) => <ProjectCard {...project} />)
-            }
+            {sortedProjects.map((project) => <ProjectCard {...project} />)}
         </div>
     </main>
 </BaseLayout>

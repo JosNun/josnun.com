@@ -11,9 +11,38 @@ const sortedPosts = posts.sort((a, b) => {
   }
   return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
 });
+
+const description = 'Thoughts on design, development, and the web.';
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, '');
+const blog = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': `${siteUrl}/writing/#blog`,
+  url: `${siteUrl}/writing`,
+  name: 'Writing',
+  description,
+  author: { '@id': `${siteUrl}/#person` },
+  publisher: { '@id': `${siteUrl}/#person` },
+  blogPost: sortedPosts.map((post) => ({
+    '@type': 'BlogPosting',
+    '@id': `${siteUrl}/writing/${post.slug}`,
+    url: `${siteUrl}/writing/${post.slug}`,
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+    author: { '@id': `${siteUrl}/#person` },
+    image: `${siteUrl}/og/writing/${post.slug}.png`,
+  })),
+};
 ---
 
-<BaseLayout title="Writing - Josiah Nunemaker" description="Thoughts on design, development, and the web.">
+<BaseLayout
+  title="Writing - Josiah Nunemaker"
+  description={description}
+  jsonLd={blog}
+>
   <main class="max-w-5xl mx-auto px-8 py-20">
 
     <PageHeader

@@ -1,10 +1,62 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const description =
+    "Resume of Josiah Nunemaker, Founding Engineer & Frontend Tech Lead.";
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, "");
+const profilePage = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${siteUrl}/resume/#page`,
+    url: `${siteUrl}/resume`,
+    name: "Resume",
+    description,
+    mainEntity: {
+        "@type": "Person",
+        "@id": `${siteUrl}/#person`,
+        name: "Josiah Nunemaker",
+        url: siteUrl,
+        jobTitle: "Founding Engineer & Frontend Tech Lead",
+        email: "mailto:hi@josnun.com",
+        telephone: "+1-717-420-4506",
+        address: {
+            "@type": "PostalAddress",
+            addressRegion: "PA",
+            addressCountry: "US",
+        },
+        worksFor: {
+            "@type": "Organization",
+            name: "Journalytic / Baserate",
+        },
+        knowsAbout: [
+            "TypeScript",
+            "React",
+            "Tailwind CSS",
+            "TanStack Query",
+            "TanStack Table",
+            "PostgreSQL",
+            "Node.js",
+            "Go",
+            "Frontend architecture",
+            "Build tooling",
+            "Virtualized lists",
+            "Real-time sync",
+            "Server-Sent Events",
+        ],
+        sameAs: [
+            "https://github.com/josnun",
+            "https://x.com/josiahnunemaker",
+            "https://bsky.app/profile/josnun.bsky.social",
+        ],
+    },
+};
 ---
 
 <BaseLayout
     title="Resume — Josiah Nunemaker"
-    description="Resume of Josiah Nunemaker, Founding Engineer & Frontend Tech Lead."
+    description={description}
+    jsonLd={profilePage}
 >
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
