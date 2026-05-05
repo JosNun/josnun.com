@@ -1,167 +1,217 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ArrowLink from '../components/ArrowLink.astro';
-import StemDivider from '../components/StemDivider.astro';
-import FocusCard from '../components/FocusCard.astro';
-import SeedEntry from '../components/SeedEntry.astro';
-import { formatMonthYear } from '../utils/formatDate';
-import { getSortedSeeds } from '../utils/seeds';
-import { socialLinks } from '../data/social';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ArrowLink from "../components/ArrowLink.astro";
+import StemDivider from "../components/StemDivider.astro";
+import FocusCard from "../components/FocusCard.astro";
+import SeedEntry from "../components/SeedEntry.astro";
+import { formatMonthYear } from "../utils/formatDate";
+import { getSortedSeeds } from "../utils/seeds";
+import { socialLinks } from "../data/social";
+import { getCollection } from "astro:content";
 
-const posts = await getCollection('writing', ({ data }) => !data.draft && !data.archived);
+const posts = await getCollection(
+    "writing",
+    ({ data }) => !data.draft && !data.archived,
+);
 const recentPosts = posts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 2);
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 2);
 
 const recentSeeds = (await getSortedSeeds()).slice(0, 2);
 
-const siteUrl = Astro.site!.toString().replace(/\/$/, '');
+const siteUrl = Astro.site!.toString().replace(/\/$/, "");
 const person = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  '@id': `${siteUrl}/#person`,
-  name: 'Josiah Nunemaker',
-  url: siteUrl,
-  jobTitle: 'Founding Engineer',
-  sameAs: [
-    'https://github.com/josnun',
-    'https://x.com/josiahnunemaker',
-    'https://bsky.app/profile/josnun.bsky.social',
-  ],
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${siteUrl}/#person`,
+    name: "Josiah Nunemaker",
+    url: siteUrl,
+    jobTitle: "Founding Engineer",
+    sameAs: [
+        "https://github.com/josnun",
+        "https://x.com/josiahnunemaker",
+        "https://bsky.app/profile/josnun.bsky.social",
+    ],
 };
 const website = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': `${siteUrl}/#website`,
-  url: siteUrl,
-  name: 'Josiah Nunemaker',
-  publisher: { '@id': `${siteUrl}/#person` },
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    url: siteUrl,
+    name: "Josiah Nunemaker",
+    publisher: { "@id": `${siteUrl}/#person` },
 };
 ---
 
-<BaseLayout title="Josiah Nunemaker" jsonLd={[person, website]}>
-  <main class="max-w-5xl mx-auto px-8 py-20">
-
-    <section class="mb-32 fade-in">
-      <div class="mb-16">
-        <h1 class="text-6xl sm:text-7xl md:text-8xl font-light tracking-tight leading-none mb-6 text-forest">
-          Josiah<br/>Nunemaker
-        </h1>
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-12 h-px stem-line"></div>
-          <p class="font-mono text-xs tracking-wider uppercase text-sage">
-            founding engineer / frontend
-          </p>
-        </div>
-      </div>
-      <p class="text-2xl font-light leading-relaxed max-w-2xl mb-12 text-sage">
-        Building interfaces that feel inviting to use, even when the work
-        underneath is intricate. Rich interactions, careful detail, small
-        things that compound.
-      </p>
-    </section>
-
-    <section class="grid md:grid-cols-2 gap-24 mb-32 fade-in fade-in-delay-1">
-      <div>
-        <h2 class="font-mono text-xs uppercase tracking-wider mb-6 text-moss">
-          Philosophy
-        </h2>
-        <StemDivider width="short" />
-        <div class="space-y-4 text-lg leading-relaxed mt-6 text-sage">
-          <p>
-            The best interfaces are like well-tended gardens. They appear effortless, but they're the result of careful cultivation and constant refinement.
-          </p>
-          <p>
-            My work tends toward the places where interface complexity meets technical complexity. Virtualized lists, real-time sync, custom toolchains. The experience is only as good as the engineering underneath it.
-          </p>
-        </div>
-      </div>
-      <div>
-        <h2 class="font-mono text-xs uppercase tracking-wider mb-6 text-moss">
-          Connect
-        </h2>
-        <StemDivider width="short" />
-        <div class="flex flex-col gap-3 font-mono text-sm mt-6">
-          {socialLinks.map((link) => (
-            <ArrowLink href={link.href} text={link.label} external={link.external} me={link.me} />
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="mb-32 fade-in fade-in-delay-2">
-      <h2 class="font-mono text-xs uppercase tracking-wider mb-3 text-moss">
-        Current Focus
-      </h2>
-      <StemDivider width="medium" />
-      <div class="grid md:grid-cols-3 gap-8 mt-10">
-        <FocusCard
-          number="01"
-          title="Rich Interactions"
-          description="Interfaces that feel good to use, not just functional"
-        />
-        <FocusCard
-          number="02"
-          title="Polish & Detail"
-          description="Microinteractions, transitions, the small touches that make an interface feel alive"
-        />
-        <FocusCard
-          number="03"
-          title="Dev Experience"
-          description="Tooling and AI helpers that make the work itself feel good"
-        />
-      </div>
-    </section>
-
-    {recentPosts.length > 0 && (
-      <section class="fade-in fade-in-delay-3">
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="font-mono text-xs uppercase tracking-wider text-moss">
-            Recent Writing
-          </h2>
-          <a href="/writing" class="font-mono text-xs hover:opacity-70 transition text-sage">
-            view all →
-          </a>
-        </div>
-        <StemDivider width="long" />
-        <div class="space-y-8 mt-10">
-          {recentPosts.map((post) => (
-            <a href={`/writing/${post.slug}/`} class="group block p-8 border-l-2 border-leaf hover:bg-white transition-colors">
-              <div class="flex justify-between items-start mb-2">
-                <div>
-                  <h3 class="text-2xl font-light mb-1 text-forest">{post.data.title}</h3>
-                  <p class="font-mono text-xs tracking-wider uppercase text-bark">
-                    {formatMonthYear(post.data.pubDate)}
-                  </p>
+<BaseLayout
+    title="Josiah Nunemaker - Crafting interfaces with care"
+    description="Building interfaces that feel inviting to use, even when the work underneath is intricate. Writing on craft, design, and the web."
+    jsonLd={[person, website]}
+>
+    <main class="max-w-5xl mx-auto px-8 py-20">
+        <section class="mb-32 fade-in">
+            <div class="mb-16">
+                <h1
+                    class="text-6xl sm:text-7xl md:text-8xl font-light tracking-tight leading-none mb-6 text-forest"
+                >
+                    Josiah<br />Nunemaker
+                </h1>
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-px stem-line"></div>
+                    <p
+                        class="font-mono text-xs tracking-wider uppercase text-sage"
+                    >
+                        founding engineer / frontend
+                    </p>
                 </div>
-                <span class="font-mono text-sm opacity-50 group-hover:opacity-100 transition text-sage">→</span>
-              </div>
-              <p class="leading-relaxed text-sage">
-                {post.data.description}
-              </p>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
+            </div>
+            <p
+                class="text-2xl font-light leading-relaxed max-w-2xl mb-12 text-sage"
+            >
+                Building interfaces that feel inviting to use, even when the
+                work underneath is intricate. Rich interactions, careful detail,
+                small things that compound.
+            </p>
+        </section>
 
-    {recentSeeds.length > 0 && (
-      <section class="mt-32 fade-in fade-in-delay-4">
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="font-mono text-xs uppercase tracking-wider text-moss">
-            Recent Seeds
-          </h2>
-          <a href="/seeds" class="font-mono text-xs hover:opacity-70 transition text-sage">
-            view all →
-          </a>
-        </div>
-        <StemDivider width="long" />
-        <div class="space-y-8 mt-10">
-          {recentSeeds.map((post) => <SeedEntry post={post} />)}
-        </div>
-      </section>
-    )}
+        <section
+            class="grid md:grid-cols-2 gap-24 mb-32 fade-in fade-in-delay-1"
+        >
+            <div>
+                <h2
+                    class="font-mono text-xs uppercase tracking-wider mb-6 text-moss"
+                >
+                    Philosophy
+                </h2>
+                <StemDivider width="short" />
+                <div class="space-y-4 text-lg leading-relaxed mt-6 text-sage">
+                    <p>
+                        The best interfaces are like well-tended gardens. They
+                        appear effortless, but they're the result of careful
+                        cultivation and constant refinement.
+                    </p>
+                    <p>
+                        My work tends toward the places where interface
+                        complexity meets technical complexity. Virtualized
+                        lists, real-time sync, custom toolchains. The experience
+                        is only as good as the engineering underneath it.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <h2
+                    class="font-mono text-xs uppercase tracking-wider mb-6 text-moss"
+                >
+                    Connect
+                </h2>
+                <StemDivider width="short" />
+                <div class="flex flex-col gap-3 font-mono text-sm mt-6">
+                    {
+                        socialLinks.map((link) => (
+                            <ArrowLink
+                                href={link.href}
+                                text={link.label}
+                                external={link.external}
+                                me={link.me}
+                            />
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
 
-  </main>
+        <section class="mb-32 fade-in fade-in-delay-2">
+            <h2
+                class="font-mono text-xs uppercase tracking-wider mb-3 text-moss"
+            >
+                Current Focus
+            </h2>
+            <StemDivider width="medium" />
+            <div class="grid md:grid-cols-3 gap-8 mt-10">
+                <FocusCard
+                    number="01"
+                    title="Rich Interactions"
+                    description="Interfaces that feel good to use, not just functional"
+                />
+                <FocusCard
+                    number="02"
+                    title="Polish & Detail"
+                    description="Microinteractions, transitions, the small touches that make an interface feel alive"
+                />
+                <FocusCard
+                    number="03"
+                    title="Dev Experience"
+                    description="Tooling and AI helpers that make the work itself feel good"
+                />
+            </div>
+        </section>
+
+        {
+            recentPosts.length > 0 && (
+                <section class="fade-in fade-in-delay-3">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-mono text-xs uppercase tracking-wider text-moss">
+                            Recent Writing
+                        </h2>
+                        <a
+                            href="/writing"
+                            class="font-mono text-xs hover:opacity-70 transition text-sage"
+                        >
+                            view all →
+                        </a>
+                    </div>
+                    <StemDivider width="long" />
+                    <div class="space-y-8 mt-10">
+                        {recentPosts.map((post) => (
+                            <a
+                                href={`/writing/${post.slug}/`}
+                                class="group block p-8 border-l-2 border-leaf hover:bg-white transition-colors"
+                            >
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h3 class="text-2xl font-light mb-1 text-forest">
+                                            {post.data.title}
+                                        </h3>
+                                        <p class="font-mono text-xs tracking-wider uppercase text-bark">
+                                            {formatMonthYear(post.data.pubDate)}
+                                        </p>
+                                    </div>
+                                    <span class="font-mono text-sm opacity-50 group-hover:opacity-100 transition text-sage">
+                                        →
+                                    </span>
+                                </div>
+                                <p class="leading-relaxed text-sage">
+                                    {post.data.description}
+                                </p>
+                            </a>
+                        ))}
+                    </div>
+                </section>
+            )
+        }
+
+        {
+            recentSeeds.length > 0 && (
+                <section class="mt-32 fade-in fade-in-delay-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-mono text-xs uppercase tracking-wider text-moss">
+                            Recent Seeds
+                        </h2>
+                        <a
+                            href="/seeds"
+                            class="font-mono text-xs hover:opacity-70 transition text-sage"
+                        >
+                            view all →
+                        </a>
+                    </div>
+                    <StemDivider width="long" />
+                    <div class="space-y-8 mt-10">
+                        {recentSeeds.map((post) => (
+                            <SeedEntry post={post} />
+                        ))}
+                    </div>
+                </section>
+            )
+        }
+    </main>
 </BaseLayout>
