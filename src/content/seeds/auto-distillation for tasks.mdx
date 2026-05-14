@@ -1,0 +1,18 @@
+---
+title: "Auto-distillation for tasks by large models"
+pubDate: 2026-05-14
+draft: false
+---
+
+We're in the era where large models that run in the cloud can handle most straightforward tasks fairly quickly and accurately. The downside being, they are large, expensive models that run in the cloud. There's many tasks that could be done quickly and effectively with smaller, specifically trained local models on my own machine with my own compute, without a dependency on Anthropic, OpenAI, OpenRouter, or whatever the cloud provider du jour is. What if we made making these smaller distilled models a core part of our workflows?
+
+I've not sussed out a great interface for it yet, but the general workflow is that a larger model (or its harness) can identify when you are repeating a similar task multiple times. If it's a task that it deems "simple", it creates its own dataset of examples to train a much smaller model on. Some good cases for this could be categorization (eg, organize these downloads), simple data extraction (eg, get the first names out of this json), summarization, image conversion (eg, does this image that the user just downloaded need to be converted to a jpeg?), and similar tasks. 
+
+The advantage here being that, when tuned for one specific task, a smaller model can be much more efficient at tasks that it is capable of doing. It can be loaded into memory faster, so we can essentially run them as "on-demand" models. Their cost-effectiveness and speed would allow us to have a handful (or more) of very specific models that are able to do one thing, and do one thing well. Unlocking cost-effective automations that work online and offline, and are speedy, private, and essentially free because they run on our own hardware.
+
+The dream would be some level of OS (or browser?) integration so that it can proactively identify and automate tasks that the user does frequently, so that the user doesn't have to think about and identify tasks that could be effectively automated or accelerated by a model.
+
+## Challenges
+- How does a model determine repetition, and "simple tasks"? That's a hard problem to solve. Maybe v1 has the user manually specify these models, then publish them to some kind of marketplace for? Then you have the discovery issue, and the fact that the user (or agent) still needs to figure out which tasks are worth pulling a smaller model to automate.
+- Models struggle with correctness. How do you verify that this small, well-trained model is actually working properly?
+- As we create more and more models for specialized tasks, how do we keep track of them? Or update them? It could quickly turn into a model wrangling problem.
