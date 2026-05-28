@@ -14,8 +14,21 @@ import potluckBotImg from "../assets/projects/potluck-bot.webp";
 import displayReinitializerImg from "../assets/projects/display-reinitializer.png";
 import versetimeImg from "../assets/projects/versetime.png";
 import hangtimeImg from "../assets/projects/hangtime.png";
+import scribblerigImg from "../assets/projects/scribblerig.png";
 
 const projects = [
+    {
+        title: "ScribbleRig",
+        category: "Web App",
+        description:
+            "A sharable physics sandbox in your browser. Build simple mechanisms to complex machines, watch them run, and share your creations with your friends.",
+        tags: ["TypeScript", "Rapier", "Rough.js", "Cloudflare Workers"],
+        image: scribblerigImg,
+        imageAlt:
+            "Hand-drawn physics sketch with crosshatched beams and wheels, with a sketchy 'ScribbleRig!' title",
+        liveUrl: "https://scribblerig.josnun.com",
+        repoUrl: "https://github.com/JosNun/scribblerig",
+    },
     {
         title: "Inscribe",
         category: "Mobile App",
@@ -162,10 +175,7 @@ const projects = [
 
 const sortedProjects = projects
     .slice()
-    .sort(
-        (a, b) =>
-            Number(a.archived ?? false) - Number(b.archived ?? false),
-    );
+    .sort((a, b) => Number(a.archived ?? false) - Number(b.archived ?? false));
 
 const description =
     "Most of these exist because I wanted them to. Some shipped, some lived briefly, some are still kicking. Built to scratch an itch.";
