@@ -1,0 +1,35 @@
+---
+title: "Fixing Coolify websockets when running behind Caddy"
+pubDate: 2026-05-28
+draft: false
+---
+
+I run Coolify on my homelab for some self-hosted projects, but I've opted not to run their reverse proxy, since I have a Caddy container that routes my other traffic. I've had a persistent error with the websockets, though, and Coolify's firewall docs didn't quite clear things up.
+
+The issue that was showing in the console was as follows:
+```
+Coolify could not connect to its real-time service. This will cause unusual problems on the UI if not fixed! Please check the related documentation (https://coolify.io/docs/knowledge-base/cloudflare/tunnels/overview) or get help on Discord (https://coollabs.io/discord).
+```
+
+I experimented with adding the additional ports Coolify mentions in their docs as reverse_proxy rules in the handler for Caddy, but that didn't help. What I was missing was the key detail that I need to handle it for certain _routes_ not just the ports. Eventually, I stumbled upon [this solution](https://github.com/coollabsio/coolify/discussions/1682#discussioncomment-11610079) buried behind the "Show N previous replies" button on a Github discussion.
+
+In a nutshell, the solution is adding path matchers to your route handler so that the terminal websockets and the realtime UI websockets get routed to the correct ports on the Coolify server. The final caddyfile is like so (as mentioned in the gh discussion, surfacing here so it's easier to discover):
+```
+@terminal {
+        path /terminal/ws /terminal/ws/*
+}
+
+@app {
+        path /app/*
+}
+
+handle @terminal {
+        reverse_proxy YOUR_COOLIFY_IP:6002
+}
+
+handle @app {
+        reverse_proxy YOUR_COOLIFY_IP:6001
+}
+```
+
+When Coolify is running the reverse proxy itself, it automatically adds these rules behind the scenes, but when you are managing the Caddy instance, you have to add them yourself.
