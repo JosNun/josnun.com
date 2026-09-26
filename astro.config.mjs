@@ -7,6 +7,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 import cloudflare from "@astrojs/cloudflare";
 
+import react from "@astrojs/react";
+
 export default defineConfig({
   site: "https://josnun.com",
   output: "static",
@@ -38,7 +40,11 @@ export default defineConfig({
     ],
   },
 
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [mdx(), sitemap(), tailwind(), react()],
+
+  server: {
+    port: 7777,
+  },
 
   adapter: cloudflare({
     imageService: "compile",
