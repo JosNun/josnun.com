@@ -13,6 +13,11 @@ interface Props {
   publishedTime?: Date;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   noindex?: boolean;
+  /** Off for a page that brings its own header and footer (the site's nav and footer are left out). */
+  chrome?: boolean;
+  bodyClass?: string;
+  /** The browser's theme colour, when the page has a look of its own. */
+  themeColor?: string;
 }
 
 const {
@@ -24,6 +29,9 @@ const {
   publishedTime,
   jsonLd,
   noindex = false,
+  chrome = true,
+  bodyClass = '',
+  themeColor,
 } = Astro.props;
 
 const resolvedImageAlt = imageAlt ?? title;
@@ -46,8 +54,14 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#1a3a2e" media="(prefers-color-scheme: dark)" />
+    {themeColor ? (
+      <meta name="theme-color" content={themeColor} />
+    ) : (
+      <>
+        <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#1a3a2e" media="(prefers-color-scheme: dark)" />
+      </>
+    )}
 
     <link rel="alternate" type="application/rss+xml" title="Josiah Nunemaker - Writing" href="/rss.xml" />
     <link rel="alternate" type="application/rss+xml" title="Josiah Nunemaker - Seeds" href="/rss-seeds.xml" />
@@ -80,9 +94,9 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <title>{title}</title>
     <ClientRouter />
   </head>
-  <body class="font-sans antialiased">
-    <Nav currentPath={currentPath} />
+  <body class={`font-sans antialiased ${bodyClass}`.trim()}>
+    {chrome && <Nav currentPath={currentPath} />}
     <slot />
-    <Footer />
+    {chrome && <Footer />}
   </body>
 </html>

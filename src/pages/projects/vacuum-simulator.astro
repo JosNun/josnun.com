@@ -179,6 +179,9 @@ const jsonLd = {
     image={`${ASSETS}/og.png`}
     imageAlt="The Vacuum Simulator wordmark over Grandma Dot's garage, with its corkboard of job cards, vacuums and a shelf of robot vacuums"
     jsonLd={jsonLd}
+    chrome={false}
+    bodyClass="vs-body"
+    themeColor="#fbe8d0"
 >
     <Fragment slot="head">
         <link
@@ -199,6 +202,10 @@ const jsonLd = {
                     role="img"
                     aria-label="A pixel-art upright vacuum mowing pale stripes into a mint carpet, its cord trailing back to an outlet, while little robot vacuums wander about picking up crumbs"
                 ></canvas>
+                <nav class="vs-hud" aria-label="Vacuum Simulator">
+                    <a class="vs-hud-pill px" href="/">by JosNun</a>
+                    <a class="vs-hud-pill vs-hud-buy px" href={ITCH}>Get it <span>$5</span></a>
+                </nav>
                 <p class="vs-hint" aria-hidden="true">
                     tap the carpet to drop a crumb
                 </p>
@@ -305,7 +312,7 @@ const jsonLd = {
                                     </video>
                                 </div>
                             </figure>
-                            <div class="vs-row-text">
+                            <div class="vs-row-text px">
                                 <p class="vs-pill px">{c.tag}</p>
                                 <h3 id={`vs-${c.id}`} class="vs-h3">
                                     {c.heading}
@@ -424,43 +431,29 @@ const jsonLd = {
                 </div>
             </section>
 
-            <section class="vs-made" aria-labelledby="vs-made-h">
-                <h2
-                    id="vs-made-h"
-                    class="text-3xl font-light text-forest mb-6"
-                >
-                    How it was made
-                </h2>
-                <div class="h-px w-16 mb-8 stem-line"></div>
-                <div class="space-y-5 text-lg leading-relaxed text-sage max-w-2xl">
-                    <p>
-                        Vacuum Simulator is written in TypeScript on Phaser 4,
-                        and wrapped for the desktop with Tauri. There isn't a
-                        sprite sheet in the repo: every vacuum, robot, crumb and
-                        couch is drawn in code, a pixel at a time, on a 480 by
-                        270 grid, and the vacuums are turned into their 32
-                        headings when the game starts.
-                    </p>
-                    <p>
-                        The room at the top of this page runs on the same
-                        drawing code. That's the game's own starter upright,
-                        its robots and its crumbs, and the stripes follow the
-                        game's rule for which way the carpet's pile was last
-                        brushed.
-                    </p>
-                </div>
-                <p class="font-mono text-xs tracking-wider uppercase text-sage mt-10">
-                    Made by JosNun
-                </p>
-                <a
-                    href="/projects"
-                    class="arrow-link font-mono text-xs tracking-wider text-sage mt-4"
-                >
-                    ← all projects
-                </a>
-            </section>
         </div>
     </main>
+
+    <footer class="vs-footer">
+        <div class="vs-footer-in">
+            <div class="vs-dock" aria-hidden="true">
+                <span class="vs-zz">z</span>
+                <span class="vs-zz vs-zz2">z</span>
+                <i class="vs-bot"></i>
+                <i class="vs-dock-base"></i>
+            </div>
+            <div class="vs-footer-text">
+                <p class="vs-footer-title">Vacuum Simulator</p>
+                <p>
+                    Made by <a href="/">JosNun</a> · © {new Date().getFullYear()}
+                </p>
+            </div>
+            <ul class="vs-footer-links" role="list">
+                <li><a href={ITCH}>Get it on itch.io</a></li>
+                <li><a href="/">josnun.com</a></li>
+            </ul>
+        </div>
+    </footer>
 </BaseLayout>
 
 <script>
@@ -535,7 +528,8 @@ const jsonLd = {
 
 <style>
     /* The game's palette (vac-sim src/render/palette.ts and src/style.css). */
-    .vs {
+    .vs,
+    .vs-footer {
         --ink: #2b1f33;
         --ink-soft: #3b2c3f;
         --paper: #fff8ec;
@@ -600,6 +594,7 @@ const jsonLd = {
     .vs-hero {
         position: relative;
         isolation: isolate;
+        box-shadow: 0 6px 0 rgba(40, 20, 48, 0.14);
         background: #8cb59b;
     }
 
@@ -641,8 +636,8 @@ const jsonLd = {
     .vs-hero-inner {
         display: grid;
         place-items: center;
-        min-height: clamp(34rem, 78svh, 46rem);
-        padding: clamp(4.5rem, 12svh, 7rem) 1rem clamp(5rem, 13svh, 8rem);
+        min-height: clamp(36rem, 92svh, 54rem);
+        padding: clamp(5rem, 13svh, 8rem) 1rem clamp(5rem, 13svh, 8rem);
         pointer-events: none;
     }
 
@@ -673,8 +668,9 @@ const jsonLd = {
     }
 
     .vs-pitch {
-        font-size: 1.15rem;
-        line-height: 1.5;
+        font-family: var(--pixel);
+        font-size: 1.55rem;
+        line-height: 1.25;
         color: var(--ink-soft);
         margin: 1.1rem auto 1.4rem;
         max-width: 28rem;
@@ -752,7 +748,9 @@ const jsonLd = {
 
     .vs-platforms {
         margin-top: 1.25rem;
-        font-size: 0.85rem;
+        font-family: var(--pixel);
+        font-size: 1.2rem;
+        line-height: 1.2;
         color: #5c4d63;
         letter-spacing: 0.01em;
     }
@@ -761,7 +759,7 @@ const jsonLd = {
         /* On a phone the room is a band of its own, and the card sits on its lower edge. */
         .vs-room {
             position: relative;
-            height: clamp(15rem, 42svh, 21rem);
+            height: clamp(16rem, 46svh, 23rem);
             z-index: 0;
         }
 
@@ -808,8 +806,9 @@ const jsonLd = {
     }
 
     .vs-lede {
-        font-size: 1.3rem;
-        line-height: 1.6;
+        font-family: var(--pixel);
+        font-size: clamp(1.6rem, 1.3rem + 1vw, 2rem);
+        line-height: 1.25;
         color: var(--ink-soft);
     }
 
@@ -909,8 +908,10 @@ const jsonLd = {
     .vs-caption {
         margin-top: 1.4rem;
         text-align: center;
-        font-size: 0.85rem;
-        color: #6b5c70;
+        font-family: var(--pixel);
+        font-size: 1.2rem;
+        line-height: 1.2;
+        color: #5c4049;
     }
 
     /* Mown carpet: the mint ramp's light and dark stripes, as a rule between parts of the page. */
@@ -940,6 +941,10 @@ const jsonLd = {
         gap: 3.5rem;
         align-items: center;
         margin-bottom: 5.5rem;
+    }
+
+    .vs-row-flip {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
     }
 
     .vs-row-flip .vs-snap {
@@ -1027,9 +1032,11 @@ const jsonLd = {
 
     .vs-wall {
         padding: 5.5rem 0 6rem;
+        margin-top: 2rem;
+        /* A shelf along the top and the skirting along the bottom: the letter's bit of wall. */
         background:
-            linear-gradient(to top, var(--wood-dd) 0 4px, var(--wood-d) 4px 10px, var(--wood) 10px 22px, var(--wood-l) 22px 25px, transparent 25px),
-            repeating-linear-gradient(90deg, #f6e2cf 0 3px, #f1d9c4 3px 57px, #e3c4ab 57px 60px);
+            linear-gradient(to bottom, var(--wood-l) 0 3px, var(--wood) 3px 15px, var(--wood-d) 15px 21px, var(--wood-dd) 21px 24px, rgba(40, 20, 48, 0.12) 24px 30px, transparent 30px),
+            linear-gradient(to top, var(--wood-dd) 0 4px, var(--wood-d) 4px 10px, var(--wood) 10px 22px, var(--wood-l) 22px 25px, transparent 25px);
     }
 
     .vs-wall-h {
@@ -1277,9 +1284,6 @@ const jsonLd = {
         color: #5c4d63;
     }
 
-    .vs-made {
-        margin-top: 7rem;
-    }
 
     @media (max-width: 799px) {
         .vs-col {
@@ -1290,6 +1294,10 @@ const jsonLd = {
             grid-template-columns: minmax(0, 1fr);
             gap: 2rem;
             margin-bottom: 4rem;
+        }
+
+        .vs-row-flip {
+            grid-template-columns: minmax(0, 1fr);
         }
 
         .vs-row-flip .vs-snap {
@@ -1324,6 +1332,212 @@ const jsonLd = {
 
         .vs-intro {
             margin-top: 4rem;
+        }
+    }
+
+    /* ---------------------------------------------------------------- the game's own page: wall, HUD, footer */
+
+    :global(body.vs-body) {
+        color: #2b1f33;
+        /* The Garage's back wall: cream planks, a game pixel of shadow between them. */
+        background: #f1d9c4 repeating-linear-gradient(90deg, #f6e2cf 0 3px, #f1d9c4 3px 57px, #e3c4ab 57px 60px);
+    }
+
+    :global(body.vs-body :focus-visible) {
+        outline: 3px solid #2b1f33;
+        outline-offset: 4px;
+        border-radius: 0;
+    }
+
+    .vs-hud {
+        position: absolute;
+        top: 7px;
+        left: 14px;
+        right: 14px;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .vs-hud-pill {
+        --u: 2px;
+        --px-drop-y: 1;
+        pointer-events: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: var(--pixel);
+        font-size: 1.3rem;
+        line-height: 1;
+        padding: 0.25rem 0.6rem 0.32rem;
+        background: var(--paper);
+        color: var(--ink);
+        text-decoration: none;
+    }
+
+    .vs-hud-pill:hover {
+        background: #f3e6d2;
+    }
+
+    .vs-hud-buy {
+        --px-edge: var(--coral-dd);
+        background: var(--coral-d);
+        color: var(--paper);
+    }
+
+    .vs-hud-buy:hover {
+        background: #933630;
+    }
+
+    .vs-hud-buy span {
+        background: var(--paper);
+        color: var(--coral-d);
+        padding: 0 0.25rem 0.05rem;
+    }
+
+    .vs-row-text {
+        --u: 3px;
+        --px-edge: #b9a58c;
+        background: var(--paper);
+        padding: 1.5rem 1.6rem 1.6rem;
+    }
+
+    .vs-footer {
+        margin-top: 7rem;
+        padding: calc(27px + 3rem) 0 calc(3rem + env(safe-area-inset-bottom));
+        background:
+            linear-gradient(to bottom, var(--wood-l) 0 3px, var(--wood) 3px 18px, var(--wood-d) 18px 24px, var(--wood-dd) 24px 27px, transparent 27px),
+            var(--ink);
+        color: var(--paper);
+        font-family: var(--pixel);
+    }
+
+    .vs-footer-in {
+        max-width: 64rem;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.5rem 2rem;
+    }
+
+    .vs-footer-title {
+        font-size: 2.25rem;
+        line-height: 1;
+        color: var(--coral-l);
+        margin-bottom: 0.35rem;
+    }
+
+    .vs-footer-text p:last-child {
+        font-size: 1.35rem;
+        line-height: 1.2;
+    }
+
+    .vs-footer a {
+        color: var(--paper);
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+    }
+
+    .vs-footer a:hover {
+        color: var(--coral-l);
+    }
+
+    .vs-footer :focus-visible {
+        outline-color: var(--paper);
+    }
+
+    .vs-footer-links {
+        margin-left: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.75rem;
+        font-size: 1.45rem;
+        line-height: 1.2;
+    }
+
+    /* A cream bumper bot asleep on its dock (the game's own sprite, frame 12: facing up). */
+    .vs-dock {
+        position: relative;
+        width: 72px;
+        height: 78px;
+        flex: none;
+    }
+
+    .vs-bot {
+        position: absolute;
+        left: 6px;
+        top: 6px;
+        width: 60px;
+        height: 60px;
+        background: url("/projects/vacuum-simulator/sprites/robots.png") -720px 0 / 960px 360px no-repeat;
+        image-rendering: pixelated;
+    }
+
+    .vs-dock-base {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 72px;
+        height: 15px;
+        background: linear-gradient(var(--plum-l, #6f628a) 0 3px, var(--plum) 3px);
+    }
+
+    .vs-dock-base::after {
+        content: "";
+        position: absolute;
+        left: 33px;
+        top: 6px;
+        width: 6px;
+        height: 3px;
+        background: #78c26b;
+    }
+
+    .vs-zz {
+        position: absolute;
+        left: 54px;
+        top: -6px;
+        font-size: 1.3rem;
+        line-height: 1;
+        color: var(--paper);
+        animation: vs-zz 2.4s steps(6) infinite;
+    }
+
+    .vs-zz2 {
+        left: 64px;
+        top: -20px;
+        font-size: 1rem;
+        animation-delay: 1.2s;
+    }
+
+    @keyframes vs-zz {
+        0% { transform: translate(0, 6px); opacity: 0; }
+        30% { opacity: 1; }
+        100% { transform: translate(6px, -12px); opacity: 0; }
+    }
+
+    @media (max-width: 719px) {
+        .vs-hud {
+            top: 3px;
+            left: 8px;
+            right: 8px;
+        }
+
+        .vs-hud-pill {
+            font-size: 1.05rem;
+            padding: 0.18rem 0.45rem 0.24rem;
+        }
+
+        .vs-footer-in {
+            padding: 0 1rem;
+        }
+
+        .vs-footer-links {
+            margin-left: 0;
+            width: 100%;
         }
     }
 </style>
