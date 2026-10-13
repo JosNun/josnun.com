@@ -137,6 +137,33 @@ const shots = [
     },
 ];
 
+const PRESS = `${ASSETS}/press`;
+const pressFacts = [
+    ["Title", "Vacuum Simulator"],
+    ["Developer", "JosNun (solo)"],
+    ["Released", "12 October 2026"],
+    ["Platforms", "Mac, Windows, Linux"],
+    ["Price", "Pay what you want, from $3 ($5 suggested), with a free demo"],
+    ["Controls", "Keyboard and mouse, or a controller"],
+    ["Language", "English"],
+    ["Sessions", "A job takes about five minutes; it saves as you go, even mid-job"],
+    ["Demo", "Free: the start of the game, up to 15 reputation stars. Its save carries into the full game on the same computer."],
+];
+const pressArt = [
+    { file: "vacuum-simulator-logo.png", label: "Logo", size: "976 × 160, transparent", w: 976, h: 160, kind: "logo" },
+    { file: "vacuum-simulator-key-art-2520x1080.png", label: "Key art, wide", size: "2520 × 1080", w: 2520, h: 1080, kind: "wide" },
+    { file: "vacuum-simulator-social-1200x630.png", label: "Social image", size: "1200 × 630", w: 1200, h: 630, kind: "wide" },
+    { file: "vacuum-simulator-icon-512.png", label: "Icon", size: "512 × 512", w: 512, h: 512, kind: "icon" },
+];
+const pressShots = [
+    { src: shotStripes, file: "vacuum-simulator-01-stripes-and-robots.png", label: "Stripes and robots" },
+    { src: shotFleet, file: "vacuum-simulator-02-whole-home-fleet.png", label: "A whole home and the crew" },
+    { src: shotGarage, file: "vacuum-simulator-03-garage-late-game.png", label: "The garage, late game" },
+    { src: shotSpotless, file: "vacuum-simulator-04-spotless.png", label: "Spotless" },
+    { src: shotLightsOut, file: "vacuum-simulator-05-bonus-home-lights-out.png", label: "A Bonus Home: lights out" },
+    { src: shotHud, file: "vacuum-simulator-06-first-jobs-hud.png", label: "An early job, with the HUD" },
+];
+
 const siteUrl = Astro.site!.toString().replace(/\/$/, "");
 const pageUrl = `${siteUrl}/projects/vacuum-simulator`;
 const jsonLd = {
@@ -156,10 +183,16 @@ const jsonLd = {
     playMode: "SinglePlayer",
     inLanguage: "en",
     sameAs: [ITCH],
+    // Pay what you want on itch.io: $3 minimum ($5 suggested), so the offer's price is the minimum.
     offers: {
         "@type": "Offer",
-        price: "5.00",
+        price: "3.00",
         priceCurrency: "USD",
+        priceSpecification: {
+            "@type": "PriceSpecification",
+            minPrice: "3.00",
+            priceCurrency: "USD",
+        },
         url: ITCH,
         availability: "https://schema.org/InStock",
     },
@@ -211,7 +244,7 @@ const jsonLd = {
                 ></canvas>
                 <nav class="vs-hud" aria-label="Vacuum Simulator">
                     <a class="vs-hud-pill px" href="/">by JosNun</a>
-                    <a class="vs-hud-pill vs-hud-buy px" href={ITCH}>Get it <span>$5</span></a>
+                    <a class="vs-hud-pill vs-hud-buy px" href={ITCH}>Get it <span>from $3</span></a>
                 </nav>
                 <p class="vs-hint" aria-hidden="true">
                     tap the carpet to drop a crumb
@@ -231,7 +264,7 @@ const jsonLd = {
                     <p class="vs-pitch">{pitch}</p>
                     <div class="vs-cta">
                         <a class="vs-btn px" href={ITCH}>
-                            Get it on itch.io <span class="vs-price">$5</span>
+                            Get it on itch.io <span class="vs-price">from $3</span>
                         </a>
                         <a class="vs-btn vs-btn-quiet px" href={ITCH}>
                             Try the free demo
@@ -419,7 +452,7 @@ const jsonLd = {
                         go, even mid-job, so you can put it down any time.
                     </p>
                     <dl class="vs-facts">
-                        <div><dt>Price</dt><dd>$5, with a free demo</dd></div>
+                        <div><dt>Price</dt><dd>Pay what you want, from $3 ($5 suggested), with a free demo</dd></div>
                         <div><dt>Plays on</dt><dd>Mac, Windows and Linux</dd></div>
                         <div>
                             <dt>Controls</dt><dd>Keyboard and mouse, or a controller</dd>
@@ -429,7 +462,7 @@ const jsonLd = {
                 </div>
                 <div class="vs-get-cta">
                     <a class="vs-btn vs-btn-big px" href={ITCH}>
-                        Get it on itch.io <span class="vs-price">$5</span>
+                        Get it on itch.io <span class="vs-price">from $3</span>
                     </a>
                     <p class="vs-get-small">
                         The demo is on the same page: the start of the game, and
@@ -438,6 +471,168 @@ const jsonLd = {
                 </div>
             </section>
 
+            <!-- The press kit: the fact sheet, the descriptions and the images, for writers and video makers. -->
+            <section id="press" class="vs-press" aria-labelledby="vs-press-h">
+                <div class="vs-press-head">
+                    <h2 id="vs-press-h" class="vs-plaque">Press kit</h2>
+                    <p class="vs-press-intro">
+                        For writers, streamers and video makers. Questions, or
+                        a key for the full game:
+                        <a href="mailto:hi@josnun.com">hi@josnun.com</a>.
+                    </p>
+                </div>
+
+                <div class="vs-press-grid">
+                    <div class="vs-press-card px">
+                        <h3 class="vs-h3">Fact sheet</h3>
+                        <dl class="vs-facts vs-press-facts">
+                            {
+                                pressFacts.map(([k, v]) => (
+                                    <div>
+                                        <dt>{k}</dt>
+                                        <dd>{v}</dd>
+                                    </div>
+                                ))
+                            }
+                            <div>
+                                <dt>Contact</dt>
+                                <dd><a href="mailto:hi@josnun.com">hi@josnun.com</a></dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <div class="vs-press-card px">
+                        <h3 class="vs-h3">About the game</h3>
+                        <p>
+                            Vacuum Simulator is a cozy pixel-art game about
+                            cleaning homes. Grandma Dot leaves you her cleaning
+                            business: mow stripes into carpet, wrangle the cord,
+                            mind the brushroll, and decide for yourself when a
+                            home is clean enough. Then grow the business with
+                            upgrades and a crew of robot vacuums.
+                        </p>
+                        <details class="vs-press-more">
+                            <summary>The long description</summary>
+                            <p>
+                                Grandma Dot is hanging up her apron, and she's
+                                leaving you her cleaning business: a garage, a
+                                well-loved vacuum, and a corkboard full of
+                                neighbors who need a hand.
+                            </p>
+                            <p>
+                                Pick a job and get to work. Every home is
+                                different, and every pass leaves a satisfying
+                                stripe in the carpet. Suck up crumbs. Wrangle the
+                                cord from outlet to outlet. Empty the dustbin
+                                before the suction fades, and switch the
+                                brushroll off before it flings cereal across the
+                                kitchen tiles. There are no timers and no rush:
+                                you decide when a home is clean enough, wrap up,
+                                get paid, and watch your reputation rise.
+                            </p>
+                            <p>
+                                As the neighborhood starts to talk, Dot writes to
+                                you, the homes get bigger, and the garage fills
+                                up. Upgrade your vacuum's suction, head, motor,
+                                dustbin and cord. Buy a heavy-duty upright or a
+                                nimble stick vac. Build a crew of little robot
+                                vacuums, kit them out with modules and give them
+                                stickers. Find 60 small things people have lost
+                                under their furniture, from a wishbone to Dot's
+                                own sock, and fill the glass cabinet in the
+                                garage. Later come the odd jobs: a haunted house,
+                                a power cut, moving day. And somewhere at the top
+                                of the hill is the Mansion.
+                            </p>
+                            <p>
+                                A lighthearted game for short sessions or long
+                                ones, made by one person, JosNun.
+                            </p>
+                        </details>
+                        <h4 class="vs-press-h4">Video and streaming</h4>
+                        <p>
+                            You're welcome to stream Vacuum Simulator and to make
+                            and monetize videos of it. For a key, write to
+                            <a href="mailto:hi@josnun.com">hi@josnun.com</a>.
+                        </p>
+                        <h4 class="vs-press-h4">Links</h4>
+                        <ul class="vs-press-links" role="list">
+                            <li><a href={ITCH}>itch.io: josnun.itch.io/vacuum-simulator</a></li>
+                            <li>
+                                <a href={`https://www.youtube.com/watch?v=${TRAILER_ID}`}>The trailer on YouTube</a>
+                            </li>
+                            <li><a href={pageUrl}>This page: josnun.com/projects/vacuum-simulator</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="vs-press-card vs-press-dl px">
+                    <div class="vs-press-dl-head">
+                        <div>
+                            <h3 class="vs-h3">Images</h3>
+                            <p class="vs-press-note">
+                                Pixel art: scale it by whole numbers with
+                                nearest-neighbor scaling (no smoothing), or use it
+                                at the size given.
+                            </p>
+                        </div>
+                        <a
+                            class="vs-btn px"
+                            href={`${PRESS}/vacuum-simulator-press-kit.zip`}
+                            download
+                        >
+                            Download all <span class="vs-price">.zip · 0.8 MB</span>
+                        </a>
+                    </div>
+                    <ul class="vs-assets" role="list">
+                        {
+                            pressArt.map((a) => (
+                                <li class="vs-asset">
+                                    <a
+                                        class:list={["vs-asset-thumb", `vs-asset-${a.kind}`]}
+                                        href={`${PRESS}/${a.file}`}
+                                        download
+                                    >
+                                        <img
+                                            src={`${PRESS}/${a.file}`}
+                                            width={a.w}
+                                            height={a.h}
+                                            alt=""
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    </a>
+                                    <p class="vs-asset-label">
+                                        <a href={`${PRESS}/${a.file}`} download>{a.label}</a>
+                                        <span>{a.size} PNG</span>
+                                    </p>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                    <h4 class="vs-press-h4">Screenshots <span>1920 × 1080 PNG</span></h4>
+                    <ul class="vs-assets vs-assets-shots" role="list">
+                        {
+                            pressShots.map((sh) => (
+                                <li class="vs-asset">
+                                    <a class="vs-asset-thumb vs-asset-shot" href={`${PRESS}/${sh.file}`} download>
+                                        <Image
+                                            src={sh.src}
+                                            widths={[320, 640]}
+                                            sizes="(min-width: 960px) 280px, (min-width: 640px) 45vw, calc(100vw - 4rem)"
+                                            alt=""
+                                            loading="lazy"
+                                        />
+                                    </a>
+                                    <p class="vs-asset-label">
+                                        <a href={`${PRESS}/${sh.file}`} download>{sh.label}</a>
+                                    </p>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -457,6 +652,7 @@ const jsonLd = {
             </div>
             <ul class="vs-footer-links" role="list">
                 <li><a href={ITCH}>Get it on itch.io</a></li>
+                <li><a href="#press">Press kit</a></li>
                 <li><a href="/">josnun.com</a></li>
             </ul>
         </div>
@@ -1306,6 +1502,232 @@ const jsonLd = {
         max-width: 18rem;
         font-size: 0.9rem;
         color: #5c4d63;
+    }
+
+
+    /* ---------------------------------------------------------------- press kit */
+
+    .vs-press {
+        margin-top: 6.5rem;
+        scroll-margin-top: 1.5rem;
+    }
+
+    .vs-press-head {
+        text-align: center;
+        margin-bottom: 2.25rem;
+    }
+
+    .vs-press-head .vs-plaque {
+        margin-bottom: 1.25rem;
+    }
+
+    .vs-press-intro {
+        max-width: 34rem;
+        margin: 0 auto;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+    }
+
+    .vs-press a:not(.vs-btn):not(.vs-asset-thumb) {
+        color: var(--coral-d);
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+    }
+
+    .vs-press a:not(.vs-btn):not(.vs-asset-thumb):hover {
+        color: var(--coral-dd);
+    }
+
+    .vs-press-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 2rem;
+        align-items: start;
+    }
+
+    .vs-press-card {
+        --u: 3px;
+        --px-edge: #b9a58c;
+        --px-drop-y: 3;
+        background: var(--paper);
+        padding: 1.75rem 1.9rem 1.9rem;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+    }
+
+    .vs-press-card p + p,
+    .vs-press-more p {
+        margin-top: 0.8rem;
+    }
+
+    .vs-press-facts {
+        margin-top: 0.4rem;
+    }
+
+    .vs-press-facts div {
+        grid-template-columns: 6.75rem 1fr;
+    }
+
+    .vs-press-facts dd {
+        line-height: 1.5;
+        padding-top: 0.1rem;
+    }
+
+    .vs-press-h4 {
+        font-family: var(--pixel);
+        font-weight: 400;
+        font-size: 1.45rem;
+        line-height: 1.1;
+        color: var(--coral-d);
+        margin: 1.5rem 0 0.4rem;
+    }
+
+    .vs-press-h4 span {
+        font-family: "Nunito", system-ui, sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #7a6a80;
+        margin-left: 0.4rem;
+    }
+
+    .vs-press-more {
+        margin-top: 1rem;
+        border-top: 3px dotted #e2d2c0;
+        border-bottom: 3px dotted #e2d2c0;
+        padding: 0.5rem 0;
+    }
+
+    .vs-press-more summary {
+        cursor: pointer;
+        font-family: var(--pixel);
+        font-size: 1.3rem;
+        line-height: 1.3;
+        color: var(--plum);
+    }
+
+    .vs-press-more[open] summary {
+        margin-bottom: 0.4rem;
+    }
+
+    .vs-press-links {
+        display: grid;
+        gap: 0.3rem;
+        overflow-wrap: anywhere;
+    }
+
+    .vs-press-dl {
+        margin-top: 2rem;
+    }
+
+    .vs-press-dl-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1.25rem 2rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .vs-press-note {
+        max-width: 30rem;
+        font-size: 0.95rem;
+    }
+
+    .vs-assets {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+
+    .vs-assets-shots {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 0.9rem;
+    }
+
+    .vs-asset-thumb {
+        --u: 3px;
+        --px-edge: var(--ink);
+        display: grid;
+        place-items: center;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: #e9dcc8;
+        box-shadow:
+            0 -3px 0 0 var(--ink),
+            0 3px 0 0 var(--ink),
+            -3px 0 0 0 var(--ink),
+            3px 0 0 0 var(--ink);
+        transition: transform 0.15s ease;
+    }
+
+    .vs-asset-thumb:hover {
+        transform: translateY(-3px);
+    }
+
+    .vs-asset-thumb img,
+    .vs-asset-thumb :global(img) {
+        display: block;
+        image-rendering: pixelated;
+    }
+
+    .vs-asset-wide img,
+    .vs-asset-shot :global(img) {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .vs-asset-logo {
+        background: #8cb59b;
+    }
+
+    .vs-asset-logo img {
+        width: 86%;
+        height: auto;
+    }
+
+    .vs-asset-icon {
+        background: #f1d9c4;
+    }
+
+    .vs-asset-icon img {
+        height: 74%;
+        width: auto;
+    }
+
+    .vs-asset-label {
+        margin-top: 0.75rem;
+        font-size: 0.95rem;
+        line-height: 1.35;
+    }
+
+    .vs-asset-label a {
+        font-weight: 800;
+    }
+
+    .vs-asset-label span {
+        display: block;
+        font-size: 0.85rem;
+        color: #7a6a80;
+    }
+
+    @media (max-width: 799px) {
+        .vs-press-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .vs-press-card {
+            padding: 1.5rem 1.25rem 1.6rem;
+        }
+
+        .vs-assets,
+        .vs-assets-shots {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.25rem 1rem;
+        }
     }
 
 
