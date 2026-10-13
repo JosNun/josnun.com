@@ -76,6 +76,7 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       <script type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
 
+    <slot name="head" />
     <title>{title}</title>
     <ClientRouter />
   </head>

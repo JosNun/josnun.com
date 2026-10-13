@@ -1,0 +1,1329 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+import shotStripes from "../../assets/vacuum-simulator/screens/01-stripes-and-robots.png";
+import shotFleet from "../../assets/vacuum-simulator/screens/02-whole-home-fleet.png";
+import shotGarage from "../../assets/vacuum-simulator/screens/03-garage-late-game.png";
+import shotSpotless from "../../assets/vacuum-simulator/screens/04-spotless.png";
+import shotLightsOut from "../../assets/vacuum-simulator/screens/05-bonus-home-lights-out.png";
+import shotHud from "../../assets/vacuum-simulator/screens/06-first-jobs-hud.png";
+
+const ITCH = "https://josnun.itch.io/vacuum-simulator";
+const TRAILER_ID = "qpDZFhOITb8";
+const ASSETS = "/projects/vacuum-simulator";
+
+const title = "Vacuum Simulator - Josiah Nunemaker";
+const pitch =
+    "Inherit Grandma Dot's cleaning business. Mow stripes into carpet, wrangle the cord, and build a crew of robot vacuums.";
+const description =
+    "A cozy pixel-art game about vacuuming. Inherit Grandma Dot's cleaning business, mow stripes into carpet, wrangle the cord and build a crew of robot vacuums. For Mac, Windows and Linux on itch.io.";
+
+const clips = [
+    {
+        id: "stripes",
+        tag: "Stripes",
+        heading: "Every pass leaves a stripe",
+        body: "Pick a job and get to work. Every home is different, and every pass leaves a satisfying stripe in the carpet. Push up, pull back, and watch the pile turn pale behind the head.",
+        file: "1-stripes",
+        w: 1240,
+        h: 696,
+        alt: "A push up a mint carpet and the pull back, a pale stripe coming in behind the vacuum's head",
+        deco: "tape",
+    },
+    {
+        id: "cord",
+        tag: "Cord",
+        heading: "Wrangle the cord",
+        body: "Your vacuum is plugged into the wall, and the cord only reaches so far. It pulls tight, catches on table legs, and wants replugging at the next outlet along.",
+        file: "2-cord",
+        w: 1240,
+        h: 616,
+        alt: "The vacuum's cord pulls tight, and the plug is moved to the next outlet so the vacuum can carry on",
+        deco: "pin",
+    },
+    {
+        id: "brushroll",
+        tag: "Brush off",
+        heading: "Mind the brushroll",
+        body: "The spinning brushroll lifts the dust out of carpet. It also flings cereal right across the kitchen tiles. Switch it off on hard floors, and it all comes up.",
+        file: "3-brushroll",
+        w: 1240,
+        h: 696,
+        alt: "The vacuum's brushroll flings a cereal spill across kitchen tiles; with the brush switched off, it all comes up",
+        deco: "tape",
+    },
+    {
+        id: "robots",
+        tag: "Crew",
+        heading: "A crew of little robots",
+        body: "Buy bumper bots for the business, pick their colors, give them stickers and kit them out with modules. They do their rows while you do yours, and boink off the furniture as they go.",
+        file: "4-robots",
+        w: 1240,
+        h: 696,
+        alt: "The upright mowing a lane while two small robot vacuums do their own rows nearby",
+        deco: "pin",
+    },
+    {
+        id: "spotless",
+        tag: "Spotless",
+        heading: "No timers. No rush.",
+        body: "You decide when a home is clean enough. Wrap up, get paid, and watch your reputation rise. Get every room spotless and the stars land with a little fanfare.",
+        file: "5-spotless-payout",
+        w: 620,
+        h: 468,
+        alt: "A home turns Spotless, a before-and-after wipe shows the difference, and the payout's three stars land",
+        deco: "tape",
+    },
+];
+
+const board = [
+    {
+        top: "#f59bb4",
+        heading: "Upgrades",
+        body: "Suction, floor head, motor, dustbin, cord, and more. Your old upright gets better with every job.",
+    },
+    {
+        top: "#f2994a",
+        heading: "More vacuums",
+        body: "A heavy-duty brute, a nimble stick vac: each with its own quirks and features, and a fresh coat of paint if you like.",
+    },
+    {
+        top: "#6fa8dc",
+        heading: "Trinkets",
+        body: "Sixty small finds turn up on the floors: a wishbone, a tin soldier, Dot's lost sock. Collect them for perks.",
+    },
+    {
+        top: "#78c26b",
+        heading: "Bonus homes",
+        body: "A haunted house whose dust bunnies drift. A glitter party. A power cut, with only the moon and your headlight to clean by.",
+    },
+    {
+        top: "#c7b3ec",
+        heading: "Reputation",
+        body: "Earn stars to unlock bigger homes, and read Dot's letters along the way as the neighborhood starts to talk.",
+    },
+    {
+        top: "#a8413a",
+        heading: "The Mansion",
+        body: "Somewhere at the top of the hill is a house bigger than all the rest…",
+    },
+];
+
+const shots = [
+    {
+        src: shotStripes,
+        alt: "A part-mown mint carpet: the upright vacuum mid-lane with its cord trailing back to an outlet, pale stripes behind it, two robot vacuums at work and a cereal spill ahead",
+    },
+    {
+        src: shotGarage,
+        alt: "Grandma Dot's garage late in the game: a corkboard of job cards, a shelf of sleeping robot vacuums, a workbench full of trinkets and the vacuums parked by the wall",
+    },
+    {
+        src: shotFleet,
+        alt: "A whole home seen at once, five rooms of carpet and tile, with robot vacuums working through the rooms and the upright striping the living room",
+    },
+    {
+        src: shotSpotless,
+        alt: "A living room turned Spotless: a sparkle and the word Spotless over a freshly striped carpet, the cleaning HUD reading 100 percent",
+    },
+    {
+        src: shotLightsOut,
+        alt: "The lights-out bonus home: a dark room lit only by the vacuum's headlight beam and a lamp, dust glowing in the light",
+    },
+    {
+        src: shotHud,
+        alt: "An early job: a dusty sage carpet with a few stripes mown into it, a cereal spill ahead of the vacuum and the HUD across the top",
+    },
+];
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, "");
+const pageUrl = `${siteUrl}/projects/vacuum-simulator`;
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "@id": `${pageUrl}#game`,
+    name: "Vacuum Simulator",
+    url: pageUrl,
+    description,
+    image: `${siteUrl}${ASSETS}/og.png`,
+    author: { "@id": `${siteUrl}/#person` },
+    creator: { "@id": `${siteUrl}/#person` },
+    genre: ["Simulation", "Casual", "Cozy"],
+    gamePlatform: ["Mac", "Windows", "Linux"],
+    operatingSystem: "macOS, Windows, Linux",
+    applicationCategory: "Game",
+    playMode: "SinglePlayer",
+    inLanguage: "en",
+    sameAs: [ITCH],
+    offers: {
+        "@type": "Offer",
+        price: "5.00",
+        priceCurrency: "USD",
+        url: ITCH,
+        availability: "https://schema.org/InStock",
+    },
+    trailer: {
+        "@type": "VideoObject",
+        name: "Vacuum Simulator trailer",
+        description: pitch,
+        embedUrl: `https://www.youtube-nocookie.com/embed/${TRAILER_ID}`,
+        thumbnailUrl: `https://i.ytimg.com/vi/${TRAILER_ID}/hqdefault.jpg`,
+    },
+};
+---
+
+<BaseLayout
+    title={title}
+    description={description}
+    image={`${ASSETS}/og.png`}
+    imageAlt="The Vacuum Simulator wordmark over Grandma Dot's garage, with its corkboard of job cards, vacuums and a shelf of robot vacuums"
+    jsonLd={jsonLd}
+>
+    <Fragment slot="head">
+        <link
+            rel="preload"
+            href="/fonts/jersey10-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+    </Fragment>
+
+    <main class="vs">
+        <!-- The room: the game's starter upright mowing the carpet, robots about, the card standing on the floor. -->
+        <section class="vs-hero" aria-labelledby="vs-title">
+            <div class="vs-room" data-room>
+                <canvas
+                    data-room-canvas
+                    role="img"
+                    aria-label="A pixel-art upright vacuum mowing pale stripes into a mint carpet, its cord trailing back to an outlet, while little robot vacuums wander about picking up crumbs"
+                ></canvas>
+                <p class="vs-hint" aria-hidden="true">
+                    tap the carpet to drop a crumb
+                </p>
+            </div>
+            <div class="vs-hero-inner">
+                <div class="vs-card px" data-room-furniture>
+                    <p class="vs-eyebrow">A cozy game about vacuuming</p>
+                    <h1 id="vs-title" class="vs-wordmark">
+                        <img
+                            src={`${ASSETS}/sprites/wordmark.png`}
+                            width="244"
+                            height="40"
+                            alt="Vacuum Simulator"
+                        />
+                    </h1>
+                    <p class="vs-pitch">{pitch}</p>
+                    <div class="vs-cta">
+                        <a class="vs-btn px" href={ITCH}>
+                            Get it on itch.io <span class="vs-price">$5</span>
+                        </a>
+                        <a class="vs-btn vs-btn-quiet px" href={ITCH}>
+                            Try the free demo
+                        </a>
+                    </div>
+                    <p class="vs-platforms">
+                        Mac · Windows · Linux <span aria-hidden="true">·</span>
+                        <span class="whitespace-nowrap">keyboard and mouse, or a controller</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="vs-col">
+            <section class="vs-intro" aria-labelledby="vs-intro-h">
+                <h2 id="vs-intro-h" class="vs-h2">The business is yours</h2>
+                <p class="vs-lede">
+                    Grandma Dot is hanging up her apron, and she's leaving you
+                    her cleaning business: a garage, a well-loved vacuum, and a
+                    corkboard full of neighbors who need a hand.
+                </p>
+            </section>
+
+            <figure class="vs-trailer">
+                <div class="vs-tv px">
+                    <a
+                        class="vs-yt"
+                        href={`https://www.youtube.com/watch?v=${TRAILER_ID}`}
+                        data-yt={TRAILER_ID}
+                        aria-label="Play the Vacuum Simulator trailer"
+                    >
+                        <Image
+                            src={shotStripes}
+                            widths={[960, 1920]}
+                            sizes="(min-width: 960px) 880px, calc(100vw - 2rem)"
+                            alt=""
+                            class="vs-yt-poster"
+                            loading="lazy"
+                        />
+                        <span class="vs-play" aria-hidden="true"></span>
+                        <span class="vs-yt-label">Watch the trailer</span>
+                    </a>
+                </div>
+                <figcaption class="vs-caption">
+                    The trailer plays from YouTube when you press play.
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="vs-carpet-rule" aria-hidden="true"></div>
+
+        <div class="vs-col">
+            <section class="vs-job" aria-labelledby="vs-job-h">
+                <h2 id="vs-job-h" class="vs-h2">How a job goes</h2>
+                {
+                    clips.map((c, i) => (
+                        <article
+                            class:list={["vs-row", i % 2 && "vs-row-flip"]}
+                            aria-labelledby={`vs-${c.id}`}
+                        >
+                            <figure
+                                class:list={[
+                                    "vs-snap",
+                                    `vs-snap-${c.deco}`,
+                                    c.w < 1000 && "vs-snap-small",
+                                ]}
+                            >
+                                <div class="vs-snap-frame px">
+                                    <video
+                                        data-clip
+                                        muted
+                                        loop
+                                        playsinline
+                                        controls
+                                        preload="none"
+                                        width={c.w}
+                                        height={c.h}
+                                        poster={`${ASSETS}/clips/${c.file}.webp`}
+                                        aria-label={c.alt}
+                                    >
+                                        <source
+                                            src={`${ASSETS}/clips/${c.file}.mp4`}
+                                            type="video/mp4"
+                                        />
+                                    </video>
+                                </div>
+                            </figure>
+                            <div class="vs-row-text">
+                                <p class="vs-pill px">{c.tag}</p>
+                                <h3 id={`vs-${c.id}`} class="vs-h3">
+                                    {c.heading}
+                                </h3>
+                                <p>{c.body}</p>
+                            </div>
+                        </article>
+                    ))
+                }
+            </section>
+        </div>
+
+        <!-- Dot's letter, taped up on the garage wall. -->
+        <section class="vs-wall" aria-labelledby="vs-letter-h">
+            <div class="vs-col">
+                <h2 id="vs-letter-h" class="vs-h2 vs-wall-h">
+                    A letter from Dot
+                </h2>
+                <div class="vs-letter px">
+                    <i class="vs-tape" aria-hidden="true"></i>
+                    <p class="vs-letter-greet">My dear,</p>
+                    <p>
+                        Forty-one years I pushed a vacuum round this
+                        neighborhood, and my knees have finally put in a
+                        complaint. So the Business is yours now: the Garage, my
+                        old upright, the Job Board and every Client pinned on
+                        it.
+                    </p>
+                    <p>
+                        Don’t fret. Start small, take the grubby bits slowly,
+                        and pick the socks up before the Vacuum does. The
+                        neighbors will talk either way, so give them something
+                        nice to say.
+                    </p>
+                    <p>I’m proud of you already.</p>
+                    <p class="vs-letter-sign">All my love, Dot</p>
+                </div>
+                <p class="vs-wall-note">
+                    The opening letter. Dot writes again as your reputation
+                    grows.
+                </p>
+            </div>
+        </section>
+
+        <div class="vs-col">
+            <section class="vs-board-wrap" aria-labelledby="vs-board-h">
+                <h2 id="vs-board-h" class="vs-plaque">Grow the business</h2>
+                <div class="vs-board">
+                    <ul class="vs-cards" role="list">
+                        {
+                            board.map((b, i) => (
+                                <li
+                                    class="vs-index px"
+                                    style={`--top: ${b.top}; --tilt: ${[-1.2, 0.8, -0.4, 1.1, -0.9, 0.5][i]}deg`}
+                                >
+                                    <i class="vs-pin" aria-hidden="true" />
+                                    <h3 class="vs-h3">{b.heading}</h3>
+                                    <p>{b.body}</p>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </section>
+
+            <section class="vs-shots" aria-labelledby="vs-shots-h">
+                <h2 id="vs-shots-h" class="vs-h2">Around the neighborhood</h2>
+                <ul class="vs-shot-grid" role="list">
+                    {
+                        shots.map((s) => (
+                            <li>
+                                <a
+                                    href={s.src.src}
+                                    class="vs-shot px"
+                                    aria-label={`Open full size: ${s.alt}`}
+                                >
+                                    <Image
+                                        src={s.src}
+                                        widths={[640, 960]}
+                                        sizes="(min-width: 960px) 432px, (min-width: 640px) 45vw, calc(100vw - 2rem)"
+                                        alt={s.alt}
+                                        loading="lazy"
+                                    />
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+
+            <section class="vs-get px" aria-labelledby="vs-get-h">
+                <div class="vs-get-text">
+                    <h2 id="vs-get-h" class="vs-h2">Play your way</h2>
+                    <p>
+                        A lighthearted game for short sessions or long ones. A
+                        job takes about five minutes, and the game saves as you
+                        go, even mid-job, so you can put it down any time.
+                    </p>
+                    <dl class="vs-facts">
+                        <div><dt>Price</dt><dd>$5, with a free demo</dd></div>
+                        <div><dt>Plays on</dt><dd>Mac, Windows and Linux</dd></div>
+                        <div>
+                            <dt>Controls</dt><dd>Keyboard and mouse, or a controller</dd>
+                        </div>
+                        <div><dt>Saves</dt><dd>As you go, even mid-job</dd></div>
+                    </dl>
+                </div>
+                <div class="vs-get-cta">
+                    <a class="vs-btn vs-btn-big px" href={ITCH}>
+                        Get it on itch.io <span class="vs-price">$5</span>
+                    </a>
+                    <p class="vs-get-small">
+                        The demo is on the same page: the start of the game, and
+                        your save carries over.
+                    </p>
+                </div>
+            </section>
+
+            <section class="vs-made" aria-labelledby="vs-made-h">
+                <h2
+                    id="vs-made-h"
+                    class="text-3xl font-light text-forest mb-6"
+                >
+                    How it was made
+                </h2>
+                <div class="h-px w-16 mb-8 stem-line"></div>
+                <div class="space-y-5 text-lg leading-relaxed text-sage max-w-2xl">
+                    <p>
+                        Vacuum Simulator is written in TypeScript on Phaser 4,
+                        and wrapped for the desktop with Tauri. There isn't a
+                        sprite sheet in the repo: every vacuum, robot, crumb and
+                        couch is drawn in code, a pixel at a time, on a 480 by
+                        270 grid, and the vacuums are turned into their 32
+                        headings when the game starts.
+                    </p>
+                    <p>
+                        The room at the top of this page runs on the same
+                        drawing code. That's the game's own starter upright,
+                        its robots and its crumbs, and the stripes follow the
+                        game's rule for which way the carpet's pile was last
+                        brushed.
+                    </p>
+                </div>
+                <p class="font-mono text-xs tracking-wider uppercase text-sage mt-10">
+                    Made by JosNun
+                </p>
+                <a
+                    href="/projects"
+                    class="arrow-link font-mono text-xs tracking-wider text-sage mt-4"
+                >
+                    ← all projects
+                </a>
+            </section>
+        </div>
+    </main>
+</BaseLayout>
+
+<script>
+    import { mountVacuumRoom } from "../../scripts/vacuumRoom";
+
+    let cleanups: (() => void)[] = [];
+
+    function mountClips(): () => void {
+        const videos = [...document.querySelectorAll<HTMLVideoElement>("video[data-clip]")];
+        if (!videos.length) return () => {};
+        const still = window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (still.matches) return () => {};
+        // With motion allowed, the clips play like GIFs while they're on screen: no controls, muted, looping.
+        for (const v of videos) v.removeAttribute("controls");
+        const io = new IntersectionObserver(
+            (entries) => {
+                for (const e of entries) {
+                    const v = e.target as HTMLVideoElement;
+                    if (e.isIntersecting) v.play().catch(() => v.setAttribute("controls", ""));
+                    else v.pause();
+                }
+            },
+            { rootMargin: "120px 0px" },
+        );
+        videos.forEach((v) => io.observe(v));
+        return () => io.disconnect();
+    }
+
+    function mountTrailer(): () => void {
+        const link = document.querySelector<HTMLAnchorElement>("a[data-yt]");
+        if (!link) return () => {};
+        const onClick = (e: MouseEvent) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+            e.preventDefault();
+            const iframe = document.createElement("iframe");
+            iframe.src = `https://www.youtube-nocookie.com/embed/${link.dataset.yt}?autoplay=1&rel=0`;
+            iframe.title = "Vacuum Simulator trailer";
+            iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+            iframe.allowFullscreen = true;
+            iframe.className = "vs-yt-frame";
+            link.replaceWith(iframe);
+            iframe.focus();
+        };
+        link.addEventListener("click", onClick);
+        return () => link.removeEventListener("click", onClick);
+    }
+
+    function mount() {
+        cleanups.forEach((c) => c());
+        cleanups = [];
+        const room = document.querySelector<HTMLElement>("[data-room]");
+        if (!room) return;
+        cleanups.push(mountVacuumRoom(room), mountClips(), mountTrailer());
+    }
+
+    document.addEventListener("astro:page-load", mount);
+    document.addEventListener("astro:before-swap", () => {
+        cleanups.forEach((c) => c());
+        cleanups = [];
+    });
+</script>
+
+<style is:global>
+    @font-face {
+        font-family: "Jersey 10";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("/fonts/jersey10-latin.woff2") format("woff2");
+    }
+</style>
+
+<style>
+    /* The game's palette (vac-sim src/render/palette.ts and src/style.css). */
+    .vs {
+        --ink: #2b1f33;
+        --ink-soft: #3b2c3f;
+        --paper: #fff8ec;
+        --letter: #fff8e4;
+        --coral: #ff7f66;
+        --coral-l: #ffa68f;
+        --coral-d: #a8413a;
+        --coral-dd: #7e3530;
+        --mint: #3fb392;
+        --plum: #54476a;
+        --edge: #54476a;
+        --wood: #c07d4f;
+        --wood-d: #9a5e3b;
+        --wood-l: #dca070;
+        --wood-dd: #5e3524;
+        --cork: #c99a63;
+        --u: 3px; /* one game pixel, on the page */
+        --pixel: "Jersey 10", ui-monospace, monospace;
+        color: var(--ink);
+    }
+
+    /* A pixel box: a one-game-pixel outline with notched corners and a soft drop, as the game's UI draws them. */
+    .px {
+        --px-edge: var(--edge);
+        --px-drop: rgba(40, 20, 48, 0.28);
+        --px-drop-y: 2;
+        box-shadow:
+            0 calc(var(--u) * -1) 0 0 var(--px-edge),
+            0 var(--u) 0 0 var(--px-edge),
+            calc(var(--u) * -1) 0 0 0 var(--px-edge),
+            var(--u) 0 0 0 var(--px-edge),
+            0 calc(var(--u) * (1 + var(--px-drop-y))) 0 0 var(--px-drop);
+    }
+
+    .vs-h2 {
+        font-family: var(--pixel);
+        font-weight: 400;
+        font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem);
+        line-height: 1;
+        letter-spacing: 0.01em;
+        color: var(--ink);
+        margin-bottom: 1.25rem;
+    }
+
+    .vs-h3 {
+        font-family: var(--pixel);
+        font-weight: 400;
+        font-size: 2rem;
+        line-height: 1;
+        color: var(--ink);
+        margin-bottom: 0.6rem;
+    }
+
+    .vs-col {
+        max-width: 64rem;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* ---------------------------------------------------------------- the room */
+
+    .vs-hero {
+        position: relative;
+        isolation: isolate;
+        background: #8cb59b;
+    }
+
+    .vs-room {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: -1;
+    }
+
+    .vs-room canvas {
+        display: block;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        touch-action: manipulation;
+        cursor: crosshair;
+    }
+
+    .vs-hint {
+        position: absolute;
+        right: 1rem;
+        bottom: 1.4rem;
+        font-family: var(--pixel);
+        font-size: 1.15rem;
+        line-height: 1;
+        color: var(--ink);
+        background: var(--paper);
+        padding: 0.3rem 0.6rem 0.35rem;
+        --u: 2px;
+        box-shadow:
+            0 -2px 0 0 var(--plum),
+            0 2px 0 0 var(--plum),
+            -2px 0 0 0 var(--plum),
+            2px 0 0 0 var(--plum),
+            0 6px 0 0 rgba(40, 20, 48, 0.28);
+        pointer-events: none;
+    }
+
+    .vs-hero-inner {
+        display: grid;
+        place-items: center;
+        min-height: clamp(34rem, 78svh, 46rem);
+        padding: clamp(4.5rem, 12svh, 7rem) 1rem clamp(5rem, 13svh, 8rem);
+        pointer-events: none;
+    }
+
+    .vs-card {
+        pointer-events: auto;
+        width: min(36rem, 100%);
+        background: var(--paper);
+        padding: 1.75rem 2.25rem 1.6rem;
+        text-align: center;
+        --u: 3px;
+        --px-drop-y: 3;
+    }
+
+    .vs-eyebrow {
+        font-family: var(--pixel);
+        font-size: 1.35rem;
+        line-height: 1;
+        color: var(--coral-d);
+        margin-bottom: 0.9rem;
+    }
+
+    .vs-wordmark img {
+        display: block;
+        width: min(100%, 488px);
+        height: auto;
+        margin: 0 auto;
+        image-rendering: pixelated;
+    }
+
+    .vs-pitch {
+        font-size: 1.15rem;
+        line-height: 1.5;
+        color: var(--ink-soft);
+        margin: 1.1rem auto 1.4rem;
+        max-width: 28rem;
+    }
+
+    .vs-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 1.1rem;
+        justify-content: center;
+    }
+
+    .vs-btn {
+        --u: 3px;
+        --px-edge: var(--coral-dd);
+        --px-drop-y: 1;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: var(--pixel);
+        font-size: 1.6rem;
+        line-height: 1;
+        padding: 0.55rem 1.1rem 0.65rem;
+        background: var(--coral-d);
+        color: var(--paper);
+        text-decoration: none;
+        position: relative;
+        transition: background-color 0.15s ease, transform 0.08s steps(1);
+    }
+
+    .vs-btn::after {
+        /* The lit top edge, as on the game's buttons. */
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: var(--u);
+        background: rgba(255, 255, 255, 0.22);
+    }
+
+    .vs-btn:hover {
+        background: #933630;
+    }
+
+    .vs-btn:active {
+        transform: translateY(var(--u));
+    }
+
+    .vs-btn:focus-visible {
+        outline: 3px solid var(--mint);
+        outline-offset: 6px;
+    }
+
+    .vs-btn-quiet {
+        --px-edge: var(--plum);
+        background: var(--paper);
+        color: var(--ink);
+    }
+
+    .vs-btn-quiet::after {
+        background: #fff;
+    }
+
+    .vs-btn-quiet:hover {
+        background: #f3e6d2;
+    }
+
+    .vs-price {
+        background: var(--paper);
+        color: var(--coral-d);
+        padding: 0.05rem 0.35rem 0.12rem;
+        font-size: 1.35rem;
+    }
+
+    .vs-platforms {
+        margin-top: 1.25rem;
+        font-size: 0.85rem;
+        color: #5c4d63;
+        letter-spacing: 0.01em;
+    }
+
+    @media (max-width: 719px) {
+        /* On a phone the room is a band of its own, and the card sits on its lower edge. */
+        .vs-room {
+            position: relative;
+            height: clamp(15rem, 42svh, 21rem);
+            z-index: 0;
+        }
+
+        .vs-hint {
+            bottom: 4.4rem;
+            right: auto;
+            left: 0.85rem;
+            font-size: 1rem;
+        }
+
+        .vs-hero-inner {
+            min-height: 0;
+            padding: 0 1rem 1rem;
+            margin-top: -3.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vs-hero {
+            background: transparent;
+        }
+
+        .vs-card {
+            padding: 1.4rem 1.25rem 1.3rem;
+        }
+
+        .vs-btn {
+            font-size: 1.45rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .vs-hint {
+            display: none;
+        }
+    }
+
+    /* ---------------------------------------------------------------- intro and trailer */
+
+    .vs-intro {
+        max-width: 44rem;
+        margin: 5.5rem auto 2.5rem;
+        text-align: center;
+    }
+
+    .vs-lede {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+    }
+
+    .vs-trailer {
+        max-width: 55rem;
+        margin: 0 auto;
+    }
+
+    .vs-tv {
+        --u: 4px;
+        --px-edge: var(--ink);
+        background: var(--ink);
+        padding: 10px;
+        aspect-ratio: 16 / 9;
+        box-sizing: content-box;
+        position: relative;
+    }
+
+    .vs-yt {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    :global(.vs-yt-poster),
+    :global(.vs-yt-frame) {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 0;
+    }
+
+    .vs-yt::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(43, 31, 51, 0.28);
+        transition: background-color 0.2s ease;
+        z-index: 1;
+    }
+
+    .vs-yt:hover::before {
+        background: rgba(43, 31, 51, 0.12);
+    }
+
+    .vs-play {
+        position: absolute;
+        z-index: 2;
+        left: 50%;
+        top: 50%;
+        width: 96px;
+        height: 96px;
+        margin: -48px 0 0 -48px;
+        background: var(--coral-d);
+        /* A stepped pixel circle, 16 × 16 cells of 6 px. */
+        clip-path: polygon(30% 0, 70% 0, 70% 6.25%, 81.25% 6.25%, 81.25% 12.5%, 87.5% 12.5%, 87.5% 18.75%, 93.75% 18.75%, 93.75% 30%, 100% 30%, 100% 70%, 93.75% 70%, 93.75% 81.25%, 87.5% 81.25%, 87.5% 87.5%, 81.25% 87.5%, 81.25% 93.75%, 70% 93.75%, 70% 100%, 30% 100%, 30% 93.75%, 18.75% 93.75%, 18.75% 87.5%, 12.5% 87.5%, 12.5% 81.25%, 6.25% 81.25%, 6.25% 70%, 0 70%, 0 30%, 6.25% 30%, 6.25% 18.75%, 12.5% 18.75%, 12.5% 12.5%, 18.75% 12.5%, 18.75% 6.25%, 30% 6.25%);
+        transition: transform 0.15s steps(2);
+    }
+
+    .vs-play::after {
+        content: "";
+        position: absolute;
+        left: 37.5%;
+        top: 28%;
+        width: 36%;
+        height: 44%;
+        background: var(--paper);
+        clip-path: polygon(0 0, 16.7% 0, 16.7% 7%, 33.3% 7%, 33.3% 14%, 50% 14%, 50% 21.4%, 66.7% 21.4%, 66.7% 28.5%, 83.3% 28.5%, 83.3% 35.7%, 100% 35.7%, 100% 64.3%, 83.3% 64.3%, 83.3% 71.5%, 66.7% 71.5%, 66.7% 78.6%, 50% 78.6%, 50% 86%, 33.3% 86%, 33.3% 93%, 16.7% 93%, 16.7% 100%, 0 100%);
+    }
+
+    .vs-yt:hover .vs-play {
+        transform: scale(1.08);
+    }
+
+    .vs-yt-label {
+        position: absolute;
+        z-index: 2;
+        left: 50%;
+        top: calc(50% + 62px);
+        transform: translateX(-50%);
+        font-family: var(--pixel);
+        font-size: 1.6rem;
+        line-height: 1;
+        color: var(--paper);
+        text-shadow: 0 3px 0 var(--ink);
+        white-space: nowrap;
+    }
+
+    .vs-yt:focus-visible {
+        outline: 3px solid var(--mint);
+        outline-offset: 4px;
+    }
+
+    .vs-caption {
+        margin-top: 1.4rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #6b5c70;
+    }
+
+    /* Mown carpet: the mint ramp's light and dark stripes, as a rule between parts of the page. */
+    .vs-carpet-rule {
+        height: 30px;
+        margin: 6rem 0 0;
+        background:
+            linear-gradient(to bottom, #d9b18e 0 3px, transparent 3px),
+            repeating-linear-gradient(90deg, #9dd6b8 0 66px, #89caaa 66px 132px);
+        box-shadow: 0 -3px 0 #fbe8d0, 0 3px 0 #fbe8d0;
+    }
+
+    /* ---------------------------------------------------------------- how a job goes */
+
+    .vs-job {
+        margin-top: 5rem;
+    }
+
+    .vs-job > .vs-h2 {
+        text-align: center;
+        margin-bottom: 3.5rem;
+    }
+
+    .vs-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+        gap: 3.5rem;
+        align-items: center;
+        margin-bottom: 5.5rem;
+    }
+
+    .vs-row-flip .vs-snap {
+        order: 2;
+    }
+
+    .vs-row-text {
+        font-size: 1.1rem;
+        line-height: 1.65;
+        color: var(--ink-soft);
+    }
+
+    .vs-pill {
+        --u: 2px;
+        --px-drop-y: 1;
+        display: inline-block;
+        font-family: var(--pixel);
+        font-size: 1.15rem;
+        line-height: 1;
+        padding: 0.25rem 0.55rem 0.32rem;
+        background: var(--paper);
+        color: var(--plum);
+        margin-bottom: 1rem;
+    }
+
+    .vs-snap {
+        position: relative;
+        margin: 0;
+        transform: rotate(-0.8deg);
+    }
+
+    .vs-row-flip .vs-snap {
+        transform: rotate(0.7deg);
+    }
+
+    .vs-snap-small {
+        max-width: 26rem;
+        justify-self: center;
+    }
+
+    .vs-snap-frame {
+        --u: 3px;
+        --px-edge: #d9c9ad;
+        --px-drop: rgba(40, 20, 48, 0.25);
+        --px-drop-y: 3;
+        background: var(--paper);
+        padding: 10px;
+    }
+
+    .vs-snap video {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: #8cb59b;
+    }
+
+    .vs-snap-tape::before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        top: -14px;
+        width: 120px;
+        height: 27px;
+        margin-left: -60px;
+        background: rgba(247, 214, 94, 0.75);
+        transform: rotate(2deg);
+    }
+
+    .vs-snap-pin::before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        top: -9px;
+        width: 21px;
+        height: 21px;
+        margin-left: -10px;
+        background: #e0474c;
+        clip-path: polygon(33% 0, 67% 0, 67% 14%, 86% 14%, 86% 33%, 100% 33%, 100% 67%, 86% 67%, 86% 86%, 67% 86%, 67% 100%, 33% 100%, 33% 86%, 14% 86%, 14% 67%, 0 67%, 0 33%, 14% 33%, 14% 14%, 33% 14%);
+        box-shadow: inset 6px 6px 0 -3px #f26b6b;
+    }
+
+    /* ---------------------------------------------------------------- Dot's letter on the garage wall */
+
+    .vs-wall {
+        padding: 5.5rem 0 6rem;
+        background:
+            linear-gradient(to top, var(--wood-dd) 0 4px, var(--wood-d) 4px 10px, var(--wood) 10px 22px, var(--wood-l) 22px 25px, transparent 25px),
+            repeating-linear-gradient(90deg, #f6e2cf 0 3px, #f1d9c4 3px 57px, #e3c4ab 57px 60px);
+    }
+
+    .vs-wall-h {
+        text-align: center;
+        margin-bottom: 2.75rem;
+    }
+
+    .vs-letter {
+        --u: 3px;
+        --px-edge: #d9c9ad;
+        --px-drop: rgba(20, 10, 26, 0.3);
+        --px-drop-y: 4;
+        position: relative;
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 2.4rem 2.5rem 2rem 4.75rem;
+        color: var(--ink-soft);
+        font-family: var(--pixel);
+        font-size: 1.6rem;
+        line-height: 2.1rem;
+        background-color: var(--letter);
+        background-image:
+            linear-gradient(to right, transparent 3.2rem, #f2a0a0 3.2rem, #f2a0a0 calc(3.2rem + 3px), transparent calc(3.2rem + 3px)),
+            repeating-linear-gradient(to bottom, transparent 0, transparent calc(2.1rem - 3px), #cfe0ee calc(2.1rem - 3px), #cfe0ee 2.1rem);
+        background-position: 0 0, 0 2.1rem;
+        transform: rotate(-0.6deg);
+    }
+
+    .vs-letter p {
+        margin: 0;
+        text-indent: 1.5em;
+    }
+
+    .vs-letter .vs-letter-greet,
+    .vs-letter .vs-letter-sign {
+        text-indent: 0;
+    }
+
+    .vs-tape {
+        position: absolute;
+        left: 50%;
+        top: -14px;
+        width: 140px;
+        height: 30px;
+        margin-left: -70px;
+        background: rgba(247, 214, 94, 0.75);
+        transform: rotate(1.5deg);
+    }
+
+    .vs-letter-greet,
+    .vs-letter-sign {
+        color: #8a4a5e;
+    }
+
+    .vs-letter-sign {
+        text-align: right;
+        margin-bottom: 0 !important;
+    }
+
+    .vs-wall-note {
+        text-align: center;
+        margin-top: 2.6rem;
+        font-size: 0.9rem;
+        color: #5c4049;
+    }
+
+    /* ---------------------------------------------------------------- the corkboard */
+
+    .vs-board-wrap {
+        margin-top: 6rem;
+        text-align: center;
+    }
+
+    .vs-plaque {
+        --u: 3px;
+        --px-edge: var(--wood-dd);
+        display: inline-block;
+        font-family: var(--pixel);
+        font-weight: 400;
+        font-size: clamp(1.9rem, 1.5rem + 1.5vw, 2.5rem);
+        line-height: 1;
+        color: var(--paper);
+        background: var(--plum);
+        padding: 0.5rem 1.4rem 0.6rem;
+        margin-bottom: 1.75rem;
+        box-shadow:
+            0 -3px 0 0 var(--ink),
+            0 3px 0 0 var(--ink),
+            -3px 0 0 0 var(--ink),
+            3px 0 0 0 var(--ink),
+            0 9px 0 0 rgba(40, 20, 48, 0.25);
+    }
+
+    .vs-board {
+        --u: 3px;
+        text-align: left;
+        padding: 2.25rem;
+        background-color: var(--cork);
+        background-image:
+            radial-gradient(#b3854f 1.5px, transparent 1.6px),
+            radial-gradient(#dbb27d 1.5px, transparent 1.6px),
+            radial-gradient(#a8784a 1.5px, transparent 1.6px);
+        background-size: 27px 27px, 33px 33px, 45px 45px;
+        background-position: 0 0, 11px 17px, 22px 5px;
+        border: 15px solid var(--wood);
+        border-image: linear-gradient(var(--wood-l), var(--wood) 20%, var(--wood) 80%, var(--wood-d)) 1;
+        box-shadow:
+            0 0 0 3px var(--wood-dd),
+            inset 0 0 0 3px var(--wood-d),
+            0 12px 0 3px rgba(40, 20, 48, 0.22);
+    }
+
+    .vs-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+        gap: 2.25rem 1.75rem;
+    }
+
+    .vs-index {
+        --u: 3px;
+        --px-edge: #b9a58c;
+        --px-drop: rgba(40, 20, 48, 0.3);
+        position: relative;
+        background:
+            linear-gradient(var(--top) 0 12px, transparent 12px),
+            var(--paper);
+        padding: 1.6rem 1.25rem 1.2rem;
+        transform: rotate(var(--tilt));
+        font-size: 0.98rem;
+        line-height: 1.55;
+        color: var(--ink-soft);
+    }
+
+    .vs-index .vs-h3 {
+        font-size: 1.75rem;
+    }
+
+    .vs-pin {
+        position: absolute;
+        left: 50%;
+        top: -6px;
+        width: 15px;
+        height: 15px;
+        margin-left: -7px;
+        background: #e0474c;
+        clip-path: polygon(20% 0, 80% 0, 80% 20%, 100% 20%, 100% 80%, 80% 80%, 80% 100%, 20% 100%, 20% 80%, 0 80%, 0 20%, 20% 20%);
+        box-shadow: inset 3px 3px 0 0 #f26b6b;
+    }
+
+    /* ---------------------------------------------------------------- screenshots */
+
+    .vs-shots {
+        margin-top: 6.5rem;
+    }
+
+    .vs-shots .vs-h2 {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .vs-shot-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem;
+    }
+
+    .vs-shot {
+        --u: 3px;
+        --px-edge: var(--ink);
+        display: block;
+        background: var(--ink);
+        transition: transform 0.15s ease;
+    }
+
+    .vs-shot :global(img) {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .vs-shot:hover {
+        transform: translateY(-3px);
+    }
+
+    .vs-shot:focus-visible {
+        outline: 3px solid var(--mint);
+        outline-offset: 6px;
+    }
+
+    /* ---------------------------------------------------------------- get it */
+
+    .vs-get {
+        --u: 3px;
+        --px-drop-y: 3;
+        margin-top: 6.5rem;
+        background: var(--paper);
+        padding: 2.5rem 2.75rem;
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+        gap: 2.5rem;
+        align-items: center;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+    }
+
+    .vs-facts {
+        margin-top: 1.4rem;
+        display: grid;
+        gap: 0.35rem;
+    }
+
+    .vs-facts div {
+        display: grid;
+        grid-template-columns: 6.5rem 1fr;
+        gap: 1rem;
+        padding: 0.35rem 0;
+        border-bottom: 3px dotted #e2d2c0;
+    }
+
+    .vs-facts dt {
+        font-family: var(--pixel);
+        font-size: 1.3rem;
+        line-height: 1.3;
+        color: var(--coral-d);
+    }
+
+    .vs-get-cta {
+        text-align: center;
+    }
+
+    .vs-btn-big {
+        font-size: 2rem;
+        padding: 0.75rem 1.4rem 0.85rem;
+    }
+
+    .vs-btn-big .vs-price {
+        font-size: 1.6rem;
+    }
+
+    .vs-get-small {
+        margin: 1.4rem auto 0;
+        max-width: 18rem;
+        font-size: 0.9rem;
+        color: #5c4d63;
+    }
+
+    .vs-made {
+        margin-top: 7rem;
+    }
+
+    @media (max-width: 799px) {
+        .vs-col {
+            padding: 0 1rem;
+        }
+
+        .vs-row {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .vs-row-flip .vs-snap {
+            order: 0;
+        }
+
+        .vs-shot-grid {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1.5rem;
+        }
+
+        .vs-get {
+            grid-template-columns: minmax(0, 1fr);
+            padding: 2rem 1.4rem;
+        }
+
+        .vs-letter {
+            padding: 2rem 1.25rem 1.6rem 3.25rem;
+            font-size: 1.4rem;
+            line-height: 1.9rem;
+            background-image:
+                linear-gradient(to right, transparent 2.2rem, #f2a0a0 2.2rem, #f2a0a0 calc(2.2rem + 3px), transparent calc(2.2rem + 3px)),
+                repeating-linear-gradient(to bottom, transparent 0, transparent calc(1.9rem - 3px), #cfe0ee calc(1.9rem - 3px), #cfe0ee 1.9rem);
+            background-position: 0 0, 0 1.75rem;
+        }
+
+
+        .vs-board {
+            padding: 1.5rem 1.1rem;
+            border-width: 10px;
+        }
+
+        .vs-intro {
+            margin-top: 4rem;
+        }
+    }
+</style>

@@ -1,0 +1,99 @@
+{
+  "note": "Written by vac-sim promo/siteArt.ts (issue 0138), from the game's own code.",
+  "sizes": {
+    "vacuum": 64,
+    "vacuumFrames": 32,
+    "robot": 20,
+    "robotFrames": 16,
+    "debrisCell": 4,
+    "crumbs": 6,
+    "cereal": 2
+  },
+  "robotColors": [
+    {
+      "name": "Cream",
+      "shell": "#fff8ec",
+      "light": "#ffffff",
+      "shade": "#fbe8d0",
+      "key": "cream"
+    },
+    {
+      "name": "Coral",
+      "shell": "#ff9a84",
+      "light": "#ffc2b2",
+      "shade": "#e0725f",
+      "key": "coral"
+    },
+    {
+      "name": "Lemon",
+      "shell": "#f7df74",
+      "light": "#fff2b8",
+      "shade": "#dcb84a",
+      "key": "lemon"
+    }
+  ],
+  "bits": {
+    "boink": [
+      0,
+      9
+    ],
+    "sparkleBig": [
+      9,
+      7
+    ],
+    "sparkleSmall": [
+      16,
+      3
+    ],
+    "puff": [
+      19,
+      5
+    ]
+  },
+  "carpet": {
+    "name": "Mint",
+    "clean": [
+      "#80c4a3",
+      "#89caaa",
+      "#93d0b1",
+      "#9dd6b8",
+      "#a9dcc1"
+    ],
+    "lived": [
+      "#86ae95",
+      "#8cb59b",
+      "#93bba1",
+      "#9bc2a8"
+    ],
+    "speck": "#7b9884",
+    "crumb": "#b39a72",
+    "lint": "#e3e5de"
+  },
+  "cord": {
+    "core": "#f7ecdc",
+    "shade": "#a996ac",
+    "shadow": "rgba(40,20,48,0.27)",
+    "taut": "#ff7f66"
+  },
+  "outlet": {
+    "edge": "#857e93",
+    "face": "#fff8ec",
+    "body": "#dcd7e2"
+  },
+  "palette": {
+    "ink": "#2b1f33",
+    "paper": "#fff8ec",
+    "coral": "#ff7f66",
+    "coralD": "#d95a4a",
+    "coralDD": "#a8413a",
+    "coralL": "#ffa68f",
+    "teal": "#3f8f8a",
+    "wood": "#c07d4f",
+    "woodD": "#9a5e3b",
+    "woodL": "#dca070",
+    "woodDD": "#5e3524",
+    "cream": "#f8e6c0",
+    "plum": "#54476a",
+    "yellow": "#f7d65e"
+  }
+}

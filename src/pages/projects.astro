@@ -15,8 +15,21 @@ import displayReinitializerImg from "../assets/projects/display-reinitializer.pn
 import versetimeImg from "../assets/projects/versetime.png";
 import hangtimeImg from "../assets/projects/hangtime.png";
 import scribblerigImg from "../assets/projects/scribblerig.png";
+import vacuumSimulatorImg from "../assets/projects/vacuum-simulator.png";
 
 const projects = [
+    {
+        title: "Vacuum Simulator",
+        category: "Game",
+        description:
+            "A cozy little game about vacuuming. Take over Grandma Dot's cleaning business, mow satisfying stripes into carpet, wrangle the cord from outlet to outlet, and build a crew of robot vacuums. Every bit of the pixel art is drawn in code.",
+        tags: ["TypeScript", "Phaser", "Tauri", "Pixel Art"],
+        image: vacuumSimulatorImg,
+        imageAlt:
+            "The Vacuum Simulator wordmark in chunky coral pixel letters, its O a little robot vacuum, over Grandma Dot's garage with a corkboard of job cards, upright vacuums and a shelf of robots",
+        pageUrl: "/projects/vacuum-simulator",
+        liveUrl: "https://josnun.itch.io/vacuum-simulator",
+    },
     {
         title: "ScribbleRig",
         category: "Web App",
@@ -192,7 +205,9 @@ const projectsCollection = {
     mainEntity: {
         "@type": "ItemList",
         itemListElement: sortedProjects.map((project, index) => {
-            const projectUrl = project.liveUrl ?? project.repoUrl;
+            const projectUrl = project.pageUrl
+                ? new URL(project.pageUrl, Astro.site).toString()
+                : (project.liveUrl ?? project.repoUrl);
             return {
                 "@type": "ListItem",
                 position: index + 1,

@@ -12,6 +12,8 @@ interface Props {
   tags?: string[];
   liveUrl?: string;
   repoUrl?: string;
+  /** A page of its own on this site: the primary link goes there instead. */
+  pageUrl?: string;
   image?: ImageMetadata;
   imageAlt?: string;
   imageType?: 'screenshot' | 'icon';
@@ -26,6 +28,7 @@ const {
   tags = [],
   liveUrl,
   repoUrl,
+  pageUrl,
   image,
   imageAlt,
   imageType = 'screenshot',
@@ -33,8 +36,8 @@ const {
 } = Astro.props;
 
 const meta = [category, year].filter(Boolean).join(' — ');
-const primaryUrl = archived ? undefined : liveUrl ?? repoUrl;
-const primaryLabel = liveUrl ? 'view' : 'repo';
+const primaryUrl = archived ? undefined : pageUrl ?? liveUrl ?? repoUrl;
+const primaryLabel = pageUrl || liveUrl ? 'view' : 'repo';
 const showSourceLink = (!archived && liveUrl && repoUrl) || (archived && repoUrl);
 ---
 
@@ -79,7 +82,7 @@ const showSourceLink = (!archived && liveUrl && repoUrl) || (archived && repoUrl
             archived
           </span>
         ) : primaryUrl && (
-          <Button href={primaryUrl} external class="shrink-0">
+          <Button href={primaryUrl} external={!pageUrl} class="shrink-0">
             {primaryLabel} →
           </Button>
         )}
