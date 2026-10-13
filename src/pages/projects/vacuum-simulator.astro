@@ -191,6 +191,13 @@ const jsonLd = {
             type="font/woff2"
             crossorigin
         />
+        <link
+            rel="preload"
+            href="/fonts/nunito-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
     </Fragment>
 
     <main class="vs">
@@ -524,6 +531,15 @@ const jsonLd = {
         font-display: swap;
         src: url("/fonts/jersey10-latin.woff2") format("woff2");
     }
+    /* Nunito (SIL OFL 1.1, public/fonts/Nunito-OFL.txt), variable 500-800: the body text, round and sturdy enough to
+       sit beside the pixel font. */
+    @font-face {
+        font-family: "Nunito";
+        font-style: normal;
+        font-weight: 500 800;
+        font-display: swap;
+        src: url("/fonts/nunito-latin.woff2") format("woff2");
+    }
 </style>
 
 <style>
@@ -531,7 +547,7 @@ const jsonLd = {
     .vs,
     .vs-footer {
         --ink: #2b1f33;
-        --ink-soft: #3b2c3f;
+        --ink-soft: #33263a;
         --paper: #fff8ec;
         --letter: #fff8e4;
         --coral: #ff7f66;
@@ -549,6 +565,14 @@ const jsonLd = {
         --u: 3px; /* one game pixel, on the page */
         --pixel: "Jersey 10", ui-monospace, monospace;
         color: var(--ink);
+        font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-weight: 600;
+        -webkit-font-smoothing: auto;
+        -moz-osx-font-smoothing: auto;
+    }
+    .vs :global(strong),
+    .vs :global(b) {
+        font-weight: 800;
     }
 
     /* A pixel box: a one-game-pixel outline with notched corners and a soft drop, as the game's UI draws them. */
