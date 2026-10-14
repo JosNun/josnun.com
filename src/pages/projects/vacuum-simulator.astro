@@ -17,25 +17,25 @@ const title = "Vacuum Simulator - Josiah Nunemaker";
 const pitch =
     "Inherit Grandma Dot's cleaning business. Mow stripes into carpet, wrangle the cord, and build a crew of robot vacuums.";
 const description =
-    "A cozy pixel-art game about vacuuming. Inherit Grandma Dot's cleaning business, mow stripes into carpet, wrangle the cord and build a crew of robot vacuums. For Mac, Windows and Linux on itch.io.";
+    "A cozy pixel-art game about vacuuming. Inherit Grandma Dot's cleaning business, mow stripes into carpet, wrangle the cord, and build a crew of robot vacuums. For Mac, Windows, and Linux on itch.io.";
 
 const clips = [
     {
         id: "stripes",
         tag: "Stripes",
         heading: "Every pass leaves a stripe",
-        body: "Pick a job and get to work. Every home is different, and every pass leaves a satisfying stripe in the carpet. Push up, pull back, and watch the pile turn pale behind the head.",
+        body: "Pick a job and get to work. Every home is different, and every pass leaves a satisfying stripe in the carpet. Push up, pull back, and watch the carpet turn pale behind you.",
         file: "1-stripes",
         w: 1240,
         h: 696,
-        alt: "A push up a mint carpet and the pull back, a pale stripe coming in behind the vacuum's head",
+        alt: "The vacuum pushed up a mint carpet and pulled back, leaving a pale stripe behind it",
         deco: "tape",
     },
     {
         id: "cord",
         tag: "Cord",
         heading: "Wrangle the cord",
-        body: "Your vacuum is plugged into the wall, and the cord only reaches so far. It pulls tight, catches on table legs, and wants replugging at the next outlet along.",
+        body: "Your vacuum is plugged into the wall, and the cord only reaches so far. It pulls tight, catches on table legs, and has to be moved to the next outlet.",
         file: "2-cord",
         w: 1240,
         h: 616,
@@ -57,7 +57,7 @@ const clips = [
         id: "robots",
         tag: "Crew",
         heading: "A crew of little robots",
-        body: "Buy bumper bots for the business, pick their colors, give them stickers and kit them out with modules. They do their rows while you do yours, and boink off the furniture as they go.",
+        body: "Buy bumper bots for the business, pick their colors, give them stickers, and upgrade them with modules. They do their rows while you do yours, and boink off the furniture as they go.",
         file: "4-robots",
         w: 1240,
         h: 696,
@@ -86,17 +86,17 @@ const board = [
     {
         top: "#f2994a",
         heading: "More vacuums",
-        body: "A heavy-duty brute, a nimble stick vac: each with its own quirks and features, and a fresh coat of paint if you like.",
+        body: "Heavy-duty uprights and nimble stick vacs, each with its own quirks. Paint them however you want.",
     },
     {
         top: "#6fa8dc",
         heading: "Trinkets",
-        body: "Sixty small finds turn up on the floors: a wishbone, a tin soldier, Dot's lost sock. Collect them for perks.",
+        body: "Sixty lost things are hiding around the neighborhood, like a wishbone, a tin soldier, and Dot's missing sock. Collect them for perks.",
     },
     {
         top: "#78c26b",
         heading: "Bonus homes",
-        body: "A haunted house whose dust bunnies drift. A glitter party. A power cut, with only the moon and your headlight to clean by.",
+        body: "Special jobs with a twist, like a haunted house with drifting dust bunnies, a glitter party, and a power outage where you clean by headlight.",
     },
     {
         top: "#c7b3ec",
@@ -117,7 +117,7 @@ const shots = [
     },
     {
         src: shotGarage,
-        alt: "Grandma Dot's garage late in the game: a corkboard of job cards, a shelf of sleeping robot vacuums, a workbench full of trinkets and the vacuums parked by the wall",
+        alt: "Grandma Dot's garage late in the game: a corkboard of job cards, a shelf of sleeping robot vacuums, a workbench full of trinkets, and the vacuums parked by the wall",
     },
     {
         src: shotFleet,
@@ -133,7 +133,7 @@ const shots = [
     },
     {
         src: shotHud,
-        alt: "An early job: a dusty sage carpet with a few stripes mown into it, a cereal spill ahead of the vacuum and the HUD across the top",
+        alt: "An early job: a dusty sage carpet with a few stripes mown into it, a cereal spill ahead of the vacuum, and the HUD across the top",
     },
 ];
 
@@ -142,12 +142,12 @@ const pressFacts = [
     ["Title", "Vacuum Simulator"],
     ["Developer", "JosNun (solo)"],
     ["Released", "12 October 2026"],
-    ["Platforms", "Mac, Windows, Linux (the free demo also plays in the browser, on the itch.io page)"],
+    ["Platforms", "Mac, Windows, and Linux. The free demo also plays in the browser on the itch.io page."],
     ["Price", "Pay what you want, from $3 ($5 suggested), with a free demo"],
     ["Controls", "Keyboard and mouse, or a controller"],
     ["Language", "English"],
-    ["Sessions", "A job takes about five minutes; it saves as you go, even mid-job"],
-    ["Demo", "Free: the start of the game, up to 15 reputation stars. Play it in the browser on the itch.io page (no install), or download it for Mac, Windows or Linux. The downloaded demo's save carries into the full game on the same computer; the browser demo's moves by Export save and Import save."],
+    ["Sessions", "A job takes about five minutes, and the game saves as you go, even mid-job"],
+    ["Demo", "Free, and covers the start of the game (up to 15 reputation stars). Play it in the browser on the itch.io page, or download it for Mac, Windows, or Linux. Progress from the downloaded demo carries over to the full game automatically. Progress from the browser demo can be moved over with Export save and Import save in Settings."],
 ];
 const pressArt = [
     { file: "vacuum-simulator-logo.png", label: "Logo", size: "976 × 160, transparent", w: 976, h: 160, kind: "logo" },
@@ -454,7 +454,7 @@ const jsonLd = {
                     </p>
                     <dl class="vs-facts">
                         <div><dt>Price</dt><dd>Pay what you want, from $3 ($5 suggested), with a free demo</dd></div>
-                        <div><dt>Plays on</dt><dd>Mac, Windows and Linux</dd></div>
+                        <div><dt>Plays on</dt><dd>Mac, Windows, and Linux</dd></div>
                         <div>
                             <dt>Controls</dt><dd>Keyboard and mouse, or a controller</dd>
                         </div>
@@ -466,8 +466,8 @@ const jsonLd = {
                         Get it on itch.io <span class="vs-price">from $3</span>
                     </a>
                     <p class="vs-get-small">
-                        The free demo plays right on the same page, in your
-                        browser: the start of the game, nothing to install.
+                        You can play the free demo right on that page in your
+                        browser. No install needed.
                     </p>
                 </div>
             </section>
@@ -477,8 +477,8 @@ const jsonLd = {
                 <div class="vs-press-head">
                     <h2 id="vs-press-h" class="vs-plaque">Press kit</h2>
                     <p class="vs-press-intro">
-                        For writers, streamers and video makers. Questions, or
-                        a key for the full game:
+                        For writers, streamers, and video makers. If you have
+                        questions or want a key for the full game, email
                         <a href="mailto:hi@josnun.com">hi@josnun.com</a>.
                     </p>
                 </div>
@@ -507,9 +507,9 @@ const jsonLd = {
                         <p>
                             Vacuum Simulator is a cozy pixel-art game about
                             cleaning homes. Grandma Dot leaves you her cleaning
-                            business: mow stripes into carpet, wrangle the cord,
-                            mind the brushroll, and decide for yourself when a
-                            home is clean enough. Then grow the business with
+                            business, and it's up to you to mow stripes into
+                            carpet, wrangle the cord, mind the brushroll, and
+                            decide when a home is clean enough. Then grow the business with
                             upgrades and a crew of robot vacuums.
                         </p>
                         <details class="vs-press-more">
@@ -527,33 +527,34 @@ const jsonLd = {
                                 cord from outlet to outlet. Empty the dustbin
                                 before the suction fades, and switch the
                                 brushroll off before it flings cereal across the
-                                kitchen tiles. There are no timers and no rush:
-                                you decide when a home is clean enough, wrap up,
+                                kitchen tiles. There are no timers and no rush.
+                                You decide when a home is clean enough, wrap up,
                                 get paid, and watch your reputation rise.
                             </p>
                             <p>
                                 As the neighborhood starts to talk, Dot writes to
                                 you, the homes get bigger, and the garage fills
                                 up. Upgrade your vacuum's suction, head, motor,
-                                dustbin and cord. Buy a heavy-duty upright or a
+                                dustbin, and cord. Buy a heavy-duty upright or a
                                 nimble stick vac. Build a crew of little robot
-                                vacuums, kit them out with modules and give them
+                                vacuums, upgrade them with modules, and give them
                                 stickers. Find 60 small things people have lost
                                 under their furniture, from a wishbone to Dot's
                                 own sock, and fill the glass cabinet in the
-                                garage. Later come the odd jobs: a haunted house,
-                                a power cut, moving day. And somewhere at the top
+                                garage. Later on there are special jobs, like a
+                                haunted house, a power outage, and moving day.
+                                And somewhere at the top
                                 of the hill is the Mansion.
                             </p>
                             <p>
                                 A lighthearted game for short sessions or long
-                                ones, made by one person, JosNun.
+                                ones, made by JosNun.
                             </p>
                         </details>
                         <h4 class="vs-press-h4">Video and streaming</h4>
                         <p>
                             You're welcome to stream Vacuum Simulator and to make
-                            and monetize videos of it. For a key, write to
+                            and monetize videos of it. For a key, email
                             <a href="mailto:hi@josnun.com">hi@josnun.com</a>.
                         </p>
                         <h4 class="vs-press-h4">Links</h4>
