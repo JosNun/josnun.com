@@ -18,6 +18,8 @@ interface Props {
   imageAlt?: string;
   imageType?: 'screenshot' | 'icon';
   archived?: boolean;
+  /** A short send-off shown on an archived card: why it was retired, and how it did. */
+  archivedNote?: string;
 }
 
 const {
@@ -33,6 +35,7 @@ const {
   imageAlt,
   imageType = 'screenshot',
   archived,
+  archivedNote,
 } = Astro.props;
 
 const meta = [category, year].filter(Boolean).join(' — ');
@@ -91,6 +94,15 @@ const showSourceLink = (!archived && liveUrl && repoUrl) || (archived && repoUrl
       <p class="text-lg leading-relaxed mb-8 text-sage max-w-2xl">
         {description}
       </p>
+
+      {archived && archivedNote && (
+        <aside class="mb-8 max-w-2xl border-l-2 border-moss bg-leaf/20 px-6 py-4">
+          <p class="font-mono text-xs uppercase tracking-wider text-bark mb-2">
+            retired — served its purpose
+          </p>
+          <p class="text-base leading-relaxed text-sage">{archivedNote}</p>
+        </aside>
+      )}
 
       {(tags.length > 0 || showSourceLink) && (
         <div class="flex flex-wrap items-center justify-between gap-4">
